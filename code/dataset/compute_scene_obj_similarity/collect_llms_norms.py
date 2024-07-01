@@ -29,6 +29,14 @@ with open('{}/{}'.format(DATASET_PATH, index_file), 'rb') as f:
     index_ade20k = pkl.load(f)
 candidates = index_ade20k['objectnames']
 
+import pandas as pd
+# Load the size_mean_matrix file
+size_mean_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data/THINGS/THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv'
+size_mean_matrix = pd.read_csv(size_mean_path, sep='\t', engine='python', encoding='utf-8')
+things_words_id = list(size_mean_matrix['uniqueID'])
+things_words_context = list(size_mean_matrix['WordContext'])
+candidates = things_words_context
+
 # Load scene categories from ADE20K hf
 from datasets import load_dataset
 ade_hf_data = load_dataset("scene_parse_150", cache_dir='/mnt/cimec-storage6/shared/hf_datasets')
@@ -70,5 +78,5 @@ for scene_name in tqdm(scenes_categories):
             # Add answer and probabilities to the list
             answers[scene_name][candidate].append([single_candidate, yes_prob, no_prob])
 
-with open('llama3_8b_instruct_object_scene_norms.pkl', 'wb') as f:
+with open('llama3_8b_instruct_THINGSobject_scene_norms.pkl', 'wb') as f:
     pkl.dump(answers, f)

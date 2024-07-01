@@ -48,11 +48,7 @@
     ],
     "ankle": [],
     "anklet": [],
-    "ant": [
-        "trouser, pant",
-        "pants",
-        "pant"
-    ],
+    "ant": [],
     "anteater": [],
     "antelope": [],
     "antenna": [
@@ -93,7 +89,6 @@
         "armor, armour"
     ],
     "arrow": [
-        "wheelbarrow"
     ],
     "artichoke": [],
     "arugula": [],
@@ -128,8 +123,7 @@
     "badger": [],
     "bag": [
         "bag",
-        "bag, handbag, pocketbook, purse",
-        "bag, traveling bag, travelling bag, grip, suitcase"
+        "bag, handbag, pocketbook, purse"
     ],
     "bagel": [],
     "bagpipe": [
@@ -140,7 +134,6 @@
         "steel beam"
     ],
     "ball": [
-        "ball, globe, orb",
         "ball"
     ],
     "balloon": [
@@ -148,7 +141,6 @@
         "balloons"
     ],
     "ballot box": [
-        "telephone booth, phone booth, call box, telephone box, telephone kiosk"
     ],
     "bamboo": [
         "bamboo"
@@ -192,7 +184,7 @@
         "baseball"
     ],
     "baseball bat": [
-        "baseball"
+        "bat"
     ],
     "baseball ": [
         "baseball"
@@ -201,7 +193,6 @@
     "basket": [
         "baskets",
         "basket, handbasket",
-        "basket, basketball hoop, hoop",
         "basket"
     ],
     "basketball": [
@@ -215,7 +206,6 @@
     ],
     "bassoon": [],
     "bat (animal)": [
-        "bat"
     ],
     "bat (sports)": [
         "bat"
@@ -239,7 +229,8 @@
     "beaker": [],
     "bean": [],
     "beanbag": [],
-    "beanie (hat)": [],
+    "beanie (hat)": ["hats",
+    "hat, chapeau, lid"],
     "bear": [
         "bear"
     ],
@@ -348,16 +339,11 @@
     "blueberry": [
         "blueberry"
     ],
-    "boa (feather boa)": [
-        "boat",
-        "boar"
-    ],
+    "boa (feather boa)": [],
     "boar": [
         "boar"
     ],
     "board (wooden board)": [
-        "control panel, instrument panel, control board, board, panel",
-        "boards",
         "board, plank"
     ],
     "board game": [
@@ -371,8 +357,6 @@
         "notebokk"
     ],
     "bolo tie": [
-        "tie",
-        "ties"
     ],
     "bologna": [],
     "bolt (screw)": [
@@ -435,8 +419,6 @@
         "hat, chapeau, lid"
     ],
     "bowling ball": [
-        "bowling alleys",
-        "bowling alley"
     ],
     "bowtie": [],
     "box": [
@@ -451,13 +433,8 @@
     "boy": [
         "tallboy"
     ],
-    "bra": [
-        "trade name, brand name, brand, marque",
-        "zebra"
-    ],
+    "bra": [],
     "brace": [
-        "bracelet",
-        "bracelets"
     ],
     "bracelet": [
         "bracelet",
@@ -520,11 +497,9 @@
         "turnbuckle"
     ],
     "buffet": [
-        "buffet, counter, sideboard",
         "buffet"
     ],
     "bug": [
-        "buggy"
     ],
     "buggy": [
         "buggy"
@@ -541,9 +516,7 @@
     "bulletin board": [
         "bulletin board, notice board"
     ],
-    "bulletproof vest": [
-        "combine harvester"
-    ],
+    "bulletproof vest": [],
     "bumper (car)": [
         "bumper"
     ],
@@ -633,9 +606,7 @@
     ],
     "camper": [],
     "can (tin)": [
-        "can, tin, tin can",
-        "toilet, can, commode, crapper, pot, potty, stool, throne",
-        "can"
+        "can, tin, tin can"
     ],
     "can opener": [
         "can opener"
@@ -697,10 +668,7 @@
         "screen door, screen",
         "garage doors"
     ],
-    "car seat (car part)": [
-        "rug, carpet, carpeting",
-        "carpets"
-    ],
+    "car seat (car part)": [],
     "caramel": [],
     "card (playing card)": [
         "poster, posting, placard, notice, bill, card",
@@ -717,8 +685,7 @@
         "carousel"
     ],
     "carriage": [
-        "carriage",
-        "baby buggy, baby carriage, carriage, perambulator, pram, stroller, go-cart, pushchair, pusher"
+        "carriage"
     ],
     "carrot": [],
     "cart": [
@@ -795,9 +762,7 @@
     "chandelier": [
         "chandelier, pendant, pendent"
     ],
-    "chaps": [
-        "hat, chapeau, lid"
-    ],
+    "chaps": [],
     "charcoal": [],
     "charger (recharger)": [
         "phone charger"
@@ -822,11 +787,9 @@
     ],
     "chessboard": [],
     "chest (box)": [
-        "chest of drawers, chest, bureau, dresser",
-        "chest"
+        "chest of drawers, chest, bureau, dresser"
     ],
     "chest (body)": [
-        "chest of drawers, chest, bureau, dresser",
         "chest"
     ],
     "chick": [
@@ -839,9 +802,7 @@
     "chicken (animal)": [
         "chicken"
     ],
-    "chicken wire": [
-        "chicken"
-    ],
+    "chicken wire": [],
     "chickpea": [],
     "chihuahua": [],
     "chili": [],
@@ -852,11 +813,7 @@
         "chimney",
         "chimneys"
     ],
-    "chin": [
-        "machines",
-        "machine",
-        "car, auto, automobile, machine, motorcar"
-    ],
+    "chin": [],
     "chinaware": [],
     "chinchilla": [],
     "chip (microchip)": [
@@ -887,21 +844,15 @@
         "chute"
     ],
     "cigar": [
-        "cigarettes",
-        "cigar box",
-        "cigarette"
+        "cigar box"
     ],
     "cigarette": [
-        "cigarettes",
         "cigarette"
     ],
     "cigarette butt": [
-        "cigarettes",
         "cigarette"
     ],
     "cigarette holder": [
-        "cigarettes",
-        "cigarette"
     ],
     "cilantro": [],
     "cinnamon": [],
@@ -1044,9 +995,6 @@
         "cookies"
     ],
     "cookie cutter": [
-        "cookie",
-        "cookies",
-        "cutter"
     ],
     "cookie sheet": [
         "cookie",
@@ -1078,9 +1026,7 @@
     "corkscrew": [
         "corkscrew"
     ],
-    "corn": [
-        "corner"
-    ],
+    "corn": [],
     "cornbread": [],
     "cornhusk": [],
     "cornmeal": [],
@@ -1103,9 +1049,7 @@
     ],
     "cougar": [],
     "counter": [
-        "counters",
-        "buffet, counter, sideboard",
-        "counter"
+        "buffet, counter, sideboard"
     ],
     "coverall": [],
     "cow": [
@@ -1138,9 +1082,7 @@
         "cheese"
     ],
     "credit card": [
-        "id card",
-        "place card",
-        "visit cards"
+        "id card"
     ],
     "creme brulee": [
         "ice creme stand"
@@ -1173,7 +1115,6 @@
     "crystal (solid)": [],
     "crystal (stone)": [],
     "crystal ball": [
-        "stone ball"
     ],
     "cuckoo clock": [
         "clocks",
@@ -1251,9 +1192,7 @@
         "dirt track"
     ],
     "dish (food)": [
-        "dishes",
-        "dish, dish aerial, dish antenna, saucer"
-    ],
+        "dishes"],
     "dishrag": [
         "dishrag, dishcloth"
     ],
@@ -1331,9 +1270,7 @@
         "drums",
         "drum"
     ],
-    "drum stick (instrument)": [
-        "cue, cue stick, pool cue, pool stick"
-    ],
+    "drum stick (instrument)": [],
     "dryer": [
         "dryer"
     ],
@@ -1343,8 +1280,7 @@
     ],
     "duckling": [],
     "duct": [
-        "viaduct",
-        "merchandise, ware, product"
+        "viaduct"
     ],
     "duct tape": [
         "scotch tape"
@@ -1385,11 +1321,7 @@
         "egg"
     ],
     "eclair (food)": [],
-    "eel": [
-        "reels",
-        "reel",
-        "heel"
-    ],
+    "eel": [],
     "egg": [
         "eggs",
         "egg"
@@ -1473,9 +1405,7 @@
         "ferris wheel"
     ],
     "ferry": [],
-    "fig": [
-        "figure"
-    ],
+    "fig": [],
     "figurine": [
         "figurine, statuette"
     ],
@@ -1486,8 +1416,7 @@
     ],
     "file (card index)": [
         "file",
-        "files",
-        "file, file cabinet, filing cabinet"
+        "files"
     ],
     "filing cabinet": [
         "filing cabinets",
@@ -1511,9 +1440,7 @@
         "fireplug, fire hydrant, plug"
     ],
     "fire pit": [
-        "fire booth",
-        "fire",
-        "fire truck"
+        "fire"
     ],
     "firecracker": [],
     "fireplace": [
@@ -1528,9 +1455,7 @@
     "fireworks": [
         "fireworks"
     ],
-    "first-aid kit": [
-        "mezzanine, first balcony"
-    ],
+    "first-aid kit": [],
     "fish": [
         "fish"
     ],
@@ -1604,7 +1529,6 @@
         "football"
     ],
     "football helmet": [
-        "football boots"
     ],
     "footbath": [],
     "footprint": [],
@@ -1620,7 +1544,6 @@
     ],
     "fossil": [],
     "fountain pen": [
-        "fountain"
     ],
     "fox": [],
     "frame (painting)": [
@@ -1653,10 +1576,7 @@
     "furnace": [
         "furnace"
     ],
-    "fuse": [
-        "diffuser",
-        "fuselage"
-    ],
+    "fuse": [],
     "gallows": [],
     "game": [
         "games",
@@ -1696,10 +1616,7 @@
     "gearshift": [
         "gearshift"
     ],
-    "gel": [
-        "stagelight",
-        "ridge liles"
-    ],
+    "gel": [],
     "gem": [
         "change machine"
     ],
@@ -1729,10 +1646,7 @@
     "glue": [
         "glue"
     ],
-    "go-kart": [
-        "handcart, pushcart, cart, go-cart",
-        "baby buggy, baby carriage, carriage, perambulator, pram, stroller, go-cart, pushchair, pusher"
-    ],
+    "go-kart": [],
     "goalpost": [],
     "goat": [
         "goat"
@@ -1929,9 +1843,7 @@
     ],
     "headscarf": [],
     "headset": [],
-    "hearing aid": [
-        "raidator"
-    ],
+    "hearing aid": [],
     "hearse": [],
     "heater": [
         "heater, warmer"
@@ -1964,9 +1876,8 @@
     "hobbyhorse": [
         "hobby-horse"
     ],
-    "hockey stick": [
-        "hockey rink"
-    ],
+    "hockey stick": [],
+
     "hoe": [
         "hoe"
     ],
@@ -1974,16 +1885,13 @@
         "hole"
     ],
     "holster": [],
-    "home plate": [
-        "name plate"
-    ],
+    "home plate": [],
     "honey": [],
     "honeycomb": [],
     "honey pot": [
         "iron pot"
     ],
     "hood": [
-        "hood, exhaust hood",
         "hood"
     ],
     "hoodie": [],
@@ -2029,7 +1937,6 @@
     "hovercraft": [],
     "hubcap": [],
     "hula hoop": [
-        "basket, basketball hoop, hoop",
         "hoop"
     ],
     "hummingbird": [],
@@ -2048,9 +1955,7 @@
     "ice cube": [
         "ice cone"
     ],
-    "ice pack": [
-        "ice track"
-    ],
+    "ice pack": [],
     "ice-cream cone": [
         "ice cream machine"
     ],
@@ -2103,7 +2008,6 @@
     "jeans": [],
     "jeep": [],
     "jelly bean": [
-        "jellyfish"
     ],
     "jellyfish": [
         "jellyfish"
@@ -2131,9 +2035,7 @@
     "jug": [
         "jug"
     ],
-    "juice": [
-        "juice machine"
-    ],
+    "juice": [],
     "juicer (juice squeezer)": [],
     "juicer (machine)": [],
     "jukebox": [
@@ -2196,9 +2098,7 @@
     ],
     "ladybug": [],
     "lamb": [],
-    "lamb chop": [
-        "chopstick"
-    ],
+    "lamb chop": [],
     "lamp": [
         "lamp",
         "lamps"
@@ -2277,8 +2177,7 @@
     ],
     "licorice": [],
     "lid (cover)": [
-        "lid",
-        "hat, chapeau, lid"
+        "lid"
     ],
     "life jacket": [
         "jacket"
@@ -2303,15 +2202,8 @@
     "lion": [
         "lion"
     ],
-    "lip balm": [
-        "flip flop",
-        "clipboard",
-        "flip flops"
-    ],
-    "lip gloss": [
-        "flip flop",
-        "flip flops"
-    ],
+    "lip balm": [],
+    "lip gloss": [],
     "lipstick": [],
     "lizard": [],
     "llama": [],
@@ -2372,7 +2264,6 @@
         "mallet"
     ],
     "man": [
-        "woman"
     ],
     "manatee": [],
     "mandolin": [],
@@ -2384,7 +2275,6 @@
         "mannequin"
     ],
     "mantle (mantelpiece)": [
-        "curtain, drape, drapery, mantle, pall",
         "mantle"
     ],
     "map": [
@@ -2441,7 +2331,6 @@
         "megaphone"
     ],
     "melon": [
-        "watermelon"
     ],
     "memory stick": [
         "joystick"
@@ -2501,12 +2390,10 @@
         "moose"
     ],
     "mop": [
-        "mop",
-        "swab, swob, mop"
+        "mop"
     ],
     "mosquito": [],
     "mosquito net": [
-        "safety net"
     ],
     "moss": [
         "moss"
@@ -2535,7 +2422,6 @@
         "mudflat"
     ],
     "muff (hands)": [
-        "muffin"
     ],
     "muffin": [
         "muffin"
@@ -2569,9 +2455,7 @@
     "nail clippers": [
         "nail brush"
     ],
-    "nail file": [
-        "metal profiles"
-    ],
+    "nail file": [],
     "nail polish": [
         "nail brush"
     ],
@@ -2627,9 +2511,7 @@
         "oil"
     ],
     "oilcan": [],
-    "okra": [
-        "book rack"
-    ],
+    "okra": [],
     "olive": [
         "olives"
     ],
@@ -2654,14 +2536,12 @@
     "origami": [],
     "ostrich": [],
     "otter": [
-        "pottery, clayware"
     ],
     "ottoman": [
         "ottoman, pouf, pouffe, puff, hassock"
     ],
     "outfit": [],
     "outlet": [
-        "outlet",
         "wall socket, wall plug, electric outlet, electrical outlet, outlet, electric receptacle"
     ],
     "oven": [
@@ -2761,22 +2641,15 @@
         "patches"
     ],
     "patty": [
-        "patty, cake"
     ],
     "payphone": [],
-    "pea": [
-        "peak",
-        "peaks",
-        "pear"
-    ],
+    "pea": [],
     "peach": [
         "peach"
     ],
     "peacock": [],
     "peanut": [],
-    "peanut butter": [
-        "butter"
-    ],
+    "peanut butter": [],
     "pear": [
         "pear"
     ],
@@ -2812,16 +2685,12 @@
     "penlight": [],
     "pennant": [],
     "pepper (seasoning)": [
-        "pepper",
-        "peppers"
     ],
     "pepper (vegetable)": [
         "pepper",
         "peppers"
     ],
     "pepper mill": [
-        "pepper",
-        "peppers"
     ],
     "peppermint (candy)": [],
     "pepperoni": [],
@@ -2871,13 +2740,7 @@
         "fog bank"
     ],
     "piglet": [],
-    "pill": [
-        "pillow",
-        "pillars",
-        "column, pillar",
-        "pillows",
-        "pillar"
-    ],
+    "pill": [],
     "pillbox": [],
     "pillow": [
         "pillow",
@@ -2911,18 +2774,14 @@
     ],
     "pinwheel": [],
     "pipe (tube)": [
-        "pipe",
         "pipe, pipage, piping",
         "pipe, tube"
     ],
     "pipe (smoking)": [
-        "pipe",
-        "pipe, pipage, piping",
-        "pipe, tube"
+        "pipe"
     ],
     "pistachio": [],
     "pita": [
-        "capital"
     ],
     "pitcher": [
         "pitcher, ewer"
@@ -2941,7 +2800,6 @@
         "plant, flora, plant life"
     ],
     "plaster cast": [
-        "castle"
     ],
     "plastic film": [
         "plastic"
@@ -2950,9 +2808,7 @@
         "plate"
     ],
     "platypus": [],
-    "playing card": [
-        "playing field, athletic field, playing area, field"
-    ],
+    "playing card": [],
     "playpen": [
         "playpen"
     ],
@@ -2960,21 +2816,16 @@
         "pliers"
     ],
     "plug": [
-        "plug",
-        "fireplug, fire hydrant, plug"
+        "plug"
     ],
     "plum": [],
     "plunger": [],
-    "pocket (pants)": [
-        "bag, handbag, pocketbook, purse"
-    ],
+    "pocket (pants)": [],
     "pocket watch": [
         "watch"
     ],
     "pocketknife": [],
-    "pogo stick": [
-        "cue, cue stick, pool cue, pool stick"
-    ],
+    "pogo stick": [],
     "poinsettia": [],
     "poker (fire rake)": [
         "poker"
@@ -2987,9 +2838,7 @@
         "pole",
         "poles"
     ],
-    "police car": [
-        "place card"
-    ],
+    "police car": [],
     "polisher (buffing machine)": [],
     "polo shirt": [
         "jersey, T-shirt, tee shirt",
@@ -3017,8 +2866,6 @@
     ],
     "pot": [
         "pots",
-        "toilet, can, commode, crapper, pot, potty, stool, throne",
-        "pot, flowerpot",
         "pot"
     ],
     "potato": [
@@ -3064,20 +2911,13 @@
     "pulpit": [
         "pulpit"
     ],
-    "pump": [
-        "pumpkin",
-        "pumpkins"
-    ],
+    "pump": [],
     "pumpkin": [
         "pumpkin",
         "pumpkins"
     ],
-    "punch (beverage)": [
-        "punching bag",
-        "hole puncher"
-    ],
+    "punch (beverage)": [],
     "punch (pliers)": [
-        "punching bag",
         "hole puncher"
     ],
     "punching bag": [
@@ -3102,7 +2942,10 @@
         "rabbit"
     ],
     "raccoon": [],
-    "racehorse": [],
+    "racehorse": [
+        "horse, equus caballus",
+        "horse, Equus caballus"
+    ],
     "rack (stand)": [
         "racks",
         "rack"
@@ -3146,20 +2989,12 @@
         "rakes",
         "rake"
     ],
-    "ram": [
-        "streetcar, tram, tramcar, trolley, trolley car",
-        "ramp",
-        "baby buggy, baby carriage, carriage, perambulator, pram, stroller, go-cart, pushchair, pusher"
-    ],
+    "ram": [],
     "ramp (platform)": [
         "ramp"
     ],
     "raspberry": [],
-    "rat": [
-        "crates",
-        "crate",
-        "grate"
-    ],
+    "rat": [],
     "ratchet": [],
     "rattle": [],
     "rattlesnake": [],
@@ -3174,10 +3009,7 @@
         "razor"
     ],
     "ready meal": [],
-    "rearview mirror": [
-        "mirrors",
-        "mirror"
-    ],
+    "rearview mirror": [],
     "recliner": [],
     "record": [
         "records"
@@ -3188,10 +3020,7 @@
     "recorder": [
         "recorder"
     ],
-    "red carpet": [
-        "rug, carpet, carpeting",
-        "carpets"
-    ],
+    "red carpet": [],
     "reel (spool)": [
         "reel",
         "reels"
@@ -3217,11 +3046,7 @@
         "ribbon",
         "ribbons"
     ],
-    "rice": [
-        "ice, water ice",
-        "price tag",
-        "water ice"
-    ],
+    "rice": [],
     "rickshaw": [],
     "rifle": [
         "rifle",
@@ -3318,7 +3143,6 @@
         "saddle"
     ],
     "safety pin": [
-        "safety net"
     ],
     "saffron": [],
     "sail": [
@@ -3352,16 +3176,14 @@
     "sarcophagus": [],
     "sardine": [],
     "satellite": [
-        "satellite turner"
     ],
     "satellite dish": [
-        "satellite turner"
+        "dish, dish aerial, dish antenna, saucer"
     ],
     "sauce": [
         "sauce"
     ],
     "saucer": [
-        "dish, dish aerial, dish antenna, saucer",
         "saucers"
     ],
     "sauerkraut": [],
@@ -3400,9 +3222,7 @@
         "scarf",
         "scarfs"
     ],
-    "school bus": [
-        "school desk"
-    ],
+    "school bus": [],
     "scissors": [
         "scissors"
     ],
@@ -3451,9 +3271,7 @@
         "screwdrivers"
     ],
     "scuba": [],
-    "sea urchin": [
-        "seat cushion"
-    ],
+    "sea urchin": [],
     "seafood": [],
     "seagull": [
         "seagull"
@@ -3516,25 +3334,13 @@
         "shelves"
     ],
     "shell (animal housing)": [
-        "carapace, shell, cuticle, shield",
-        "shells",
-        "shell",
-        "shell, case, casing"
+        "carapace, shell, cuticle, shield"
     ],
-    "shell (fruit)": [
-        "carapace, shell, cuticle, shield",
-        "shells",
-        "shell",
-        "shell, case, casing"
-    ],
+    "shell (fruit)": [],
     "shell (projectile)": [
-        "carapace, shell, cuticle, shield",
-        "shells",
-        "shell",
         "shell, case, casing"
     ],
     "shield": [
-        "carapace, shell, cuticle, shield",
         "shield"
     ],
     "ship": [
@@ -3546,9 +3352,7 @@
     "shoe": [
         "shoe"
     ],
-    "shoe polish": [
-        "shoe"
-    ],
+    "shoe polish": [],
     "shoehorn": [],
     "shoelace": [
         "shoelace"
@@ -3706,7 +3510,6 @@
     ],
     "soda": [],
     "soda fountain": [
-        "fountain"
     ],
     "sofa bed": [
         "sofa bed"
@@ -3733,9 +3536,7 @@
     "spaghetti": [],
     "spam": [],
     "spareribs": [],
-    "spark plug": [
-        "wall socket, wall plug, electric outlet, electrical outlet, outlet, electric receptacle"
-    ],
+    "spark plug": [],
     "sparkler": [],
     "spatula": [
         "spatula",
@@ -3787,9 +3588,7 @@
     "squirrel": [
         "squirrel"
     ],
-    "squirt gun": [
-        "machine gun"
-    ],
+    "squirt gun": [],
     "stained glass": [
         "stained glass"
     ],
@@ -3806,9 +3605,7 @@
     ],
     "stamp (post stamp)": [],
     "stamp": [],
-    "staple pin": [
-        "ninepin, skittle, skittle pin"
-    ],
+    "staple pin": [],
     "staple gun": [
         "stapler"
     ],
@@ -3840,11 +3637,7 @@
     "stem": [
         "stem"
     ],
-    "step stool": [
-        "toilet, can, commode, crapper, pot, potty, stool, throne",
-        "stool",
-        "stools"
-    ],
+    "step stool": [],
     "stereo": [
         "stereo"
     ],
@@ -3874,7 +3667,6 @@
     ],
     "stomach": [],
     "stool (furniture)": [
-        "toilet, can, commode, crapper, pot, potty, stool, throne",
         "stool",
         "stools"
     ],
@@ -3912,7 +3704,6 @@
         "stretcher"
     ],
     "string cheese": [
-        "stringer"
     ],
     "stroller": [
         "baby buggy, baby carriage, carriage, perambulator, pram, stroller, go-cart, pushchair, pusher"
@@ -3986,9 +3777,7 @@
         "switches",
         "switch, electric switch, electrical switch"
     ],
-    "swizzle stick": [
-        "cue, cue stick, pool cue, pool stick"
-    ],
+    "swizzle stick": [],
     "sword": [
         "sword"
     ],
@@ -4001,10 +3790,7 @@
         "jersey, T-shirt, tee shirt",
         "jersey, t-shirt, tee shirt"
     ],
-    "tab (pull tab)": [
-        "table",
-        "tables"
-    ],
+    "tab (pull tab)": [],
     "table": [
         "table",
         "tables"
@@ -4019,9 +3805,7 @@
     "tack (pushpin)": [
         "cd stack"
     ],
-    "tackle": [
-        "anchor, ground tackle"
-    ],
+    "tackle": [],
     "taco": [
         "pelota court"
     ],
@@ -4066,9 +3850,6 @@
     "tattoo": [],
     "taxi": [],
     "tea": [
-        "teacup",
-        "teacups",
-        "teapot"
     ],
     "teabag": [],
     "teacup": [
@@ -4099,7 +3880,6 @@
         "television receiver, television, television set, tv, tv set, idiot box, boob tube, telly, goggle box"
     ],
     "tennis ball": [
-        "tennis table"
     ],
     "tent": [
         "tent, collapsible shelter",
@@ -4126,16 +3906,12 @@
         "threads"
     ],
     "throne": [
-        "toilet, can, commode, crapper, pot, potty, stool, throne",
         "throne"
     ],
     "thumb": [],
     "thumbtack": [],
     "tiara": [],
-    "tick": [
-        "stick",
-        "sticks"
-    ],
+    "tick": [],
     "ticktacktoe": [],
     "tie": [
         "tie",
@@ -4206,9 +3982,8 @@
     "toothpick": [
         "toothpick"
     ],
-    "top hat": [
-        "traffic light, traffic signal, stoplight"
-    ],
+    "top hat": ["hats",
+    "hat, chapeau, lid"],
     "torch": [
         "torch"
     ],
@@ -4219,9 +3994,7 @@
     "tortellini": [],
     "tortilla": [],
     "tostada": [],
-    "totem pole": [
-        "posters pole"
-    ],
+    "totem pole": [],
     "toucan": [],
     "touchpad": [],
     "towel": [
@@ -4250,16 +4023,11 @@
     "train car": [
         "streetcar, tram, tramcar, trolley, trolley car"
     ],
-    "train set": [
-        "radio receiver, receiving set, radio set, radio, tuner, wireless"
-    ],
+    "train set": [],
     "trampoline": [
         "trampoline"
     ],
-    "trap": [
-        "trap door",
-        "sand trap"
-    ],
+    "trap": [],
     "trapdoor": [
         "trap door"
     ],
@@ -4295,8 +4063,7 @@
         "tripod"
     ],
     "trolley (streetcar)": [
-        "streetcar, tram, tramcar, trolley, trolley car",
-        "trolleys"
+        "streetcar, tram, tramcar, trolley, trolley car"
     ],
     "trombone": [],
     "trophy": [
@@ -4329,9 +4096,7 @@
         "tulipa"
     ],
     "tumbleweed": [],
-    "tuning fork": [
-        "large fork"
-    ],
+    "tuning fork": [],
     "tupperware": [],
     "turban": [],
     "turbine": [
@@ -4419,7 +4184,6 @@
         "visor"
     ],
     "volleyball": [
-        "volleyball court"
     ],
     "vulture": [],
     "wafer": [
@@ -4461,8 +4225,7 @@
     "washboard": [],
     "washcloth": [],
     "washing machine": [
-        "washer, automatic washer, washing machine",
-        "washing machines"
+        "washer, automatic washer, washing machine"
     ],
     "wasp": [],
     "watch (wristwatch)": [
@@ -4499,10 +4262,8 @@
     ],
     "wax paper": [
         "papers",
-        "paper",
-        "newspaper, paper",
-        "document, written document, papers"
-    ],
+        "paper"],
+
     "weasel": [],
     "weather vane": [
         "weathervane"
@@ -4527,10 +4288,8 @@
         "wheat"
     ],
     "wheel": [
-        "bicycle, bike, wheel, cycle",
         "wheels",
-        "wheel",
-        "steering wheel, wheel"
+        "wheel"
     ],
     "wheelbarrow": [
         "wheelbarrow"
@@ -4556,9 +4315,7 @@
     "whoopee cushion": [
         "seat cushion"
     ],
-    "wick": [
-        "wicker basket"
-    ],
+    "wick": [],
     "wig": [
         "wig"
     ],
@@ -4575,10 +4332,7 @@
         "windshield, windscreen",
         "windshield"
     ],
-    "windshield wiper": [
-        "windshield, windscreen",
-        "windshield"
-    ],
+    "windshield wiper": [],
     "windsock": [],
     "wine": [
         "wine rack"
@@ -4635,9 +4389,7 @@
     "wrist": [],
     "xylophone": [],
     "yacht": [],
-    "yak": [
-        "kayak"
-    ],
+    "yak": [],
     "yarn": [],
     "yo-yo": [
         "yoke"

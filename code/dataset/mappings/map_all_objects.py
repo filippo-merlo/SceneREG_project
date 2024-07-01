@@ -4,6 +4,7 @@ import pandas as pd
 import json 
 from pprint import pprint
 import re
+from tqdm import tqdm
 
 # Load the size_mean_matrix file
 size_mean_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data/THINGS/THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv'
@@ -94,10 +95,11 @@ for k,v in map_things2ade.items():
     v = list(set(v))
     map_things2ade[k] = v
 
-with open('things2ade_1to1.json', 'w') as f:
-    json.dump(map_things2ade, f, indent=4)
+#with open('things2ade_1to1.json', 'w') as f:
+#    json.dump(map_things2ade, f, indent=4)
 #%% REVIEW AND MODIFY
-
+with open('things2ade_1to1.json', 'r') as f:
+    map_things2ade = json.load(f)
 # Check how many things are mapped to more than n ade objects
 i = 0
 n = 0
@@ -142,4 +144,11 @@ for thing, objects in tqdm(map_things2ade.items()):
 
 keys_to_review = list(set(keys_to_review))
 #%%
-pprint(keys_to_review)
+double_values_keys = []
+for k,v in map_things2ade.items():
+    for k_,v_ in map_things2ade.items():
+        if k != k_:
+            for obj in v:
+                if obj in v_:
+                    double_values_keys.append((k,k_, obj))
+pprint(list(set(double_values_keys)))
