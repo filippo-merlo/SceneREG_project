@@ -31,7 +31,7 @@ candidates = index_ade20k['objectnames']
 
 import pandas as pd
 # Load the size_mean_matrix file
-size_mean_path = '/things_tsv/size_meanRatings.tsv'
+size_mean_path = 'filippo.merlo/SceneREG_project/code/dataset/compute_scene_obj_similarity/things_tsv/size_meanRatings.tsv'
 size_mean_matrix = pd.read_csv(size_mean_path, sep='\t', engine='python', encoding='utf-8')
 things_words_id = list(size_mean_matrix['uniqueID'])
 things_words_context = list(size_mean_matrix['WordContext'])
