@@ -1,0 +1,5045 @@
+{
+    "/lava_flow": [
+        "lava_flow"
+    ],
+    "utliers/military_headquarters": [
+        "military_headquarters"
+    ],
+    "clean_room": [
+        "clean_room"
+    ],
+    "/clean_room": [
+        "clean_room"
+    ],
+    "/control_tower/outdoor": [
+        "control_tower_outdoor"
+    ],
+    "/utility_room/n_people_taking_clothes_out_of_the_laundry_machine": [
+        "utility_room"
+    ],
+    "utility_room": [
+        "utility_room"
+    ],
+    "/utility_room": [
+        "utility_room"
+    ],
+    "throne_room": [
+        "throne_room"
+    ],
+    "/throne_room": [
+        "throne_room"
+    ],
+    "/mission": [
+        "mission"
+    ],
+    "utliers/water_fountain": [
+        "water_fountain"
+    ],
+    "/cathedral/indoor": [
+        "cathedral_indoor"
+    ],
+    "coffee_shop": [
+        "coffee_shop"
+    ],
+    "/coffee_shop/n_people_reading_a_book_or_the_news": [
+        "coffee_shop"
+    ],
+    "/coffee_shop/n_people_talking_or_eating_or_drinking_in_the_bar_or_a_table": [
+        "coffee_shop"
+    ],
+    "/coffee_shop": [
+        "coffee_shop"
+    ],
+    "/factory/indoor": [
+        "factory_indoor"
+    ],
+    "bakery/shop": [
+        "shop"
+    ],
+    "/bakery/shop": [
+        "shop"
+    ],
+    "/hedge_maze": [
+        "hedge_maze"
+    ],
+    "/mudflat": [
+        "mudflat"
+    ],
+    "/observatory/indoor": [
+        "observatory_indoor"
+    ],
+    "ruin": [
+        "ruin"
+    ],
+    "/ruin": [
+        "ruin"
+    ],
+    "swimming_pool/indoor": [
+        "swimming_pool_indoor"
+    ],
+    "/swimming_pool/indoor": [
+        "swimming_pool_indoor"
+    ],
+    "utliers/pumping_station": [
+        "pumping_station"
+    ],
+    "/castle/n_people_walking_by_a_castle": [
+        "castle"
+    ],
+    "castle": [
+        "castle"
+    ],
+    "/castle/n_guides_giving_an_explanation": [
+        "castle"
+    ],
+    "/castle": [
+        "castle"
+    ],
+    "/lift_bridge": [
+        "lift_bridge"
+    ],
+    "utliers/bric-a-brac": [
+        "bric-a-brac"
+    ],
+    "/street/n_people_throwing_the_garbage": [
+        "street"
+    ],
+    "/street/n_people_walking": [
+        "street"
+    ],
+    "/street/n_people_crossing": [
+        "street"
+    ],
+    "/street/n_people_running": [
+        "street"
+    ],
+    "/street/n_people_eating_or_drinking": [
+        "street"
+    ],
+    "street": [
+        "street"
+    ],
+    "/street/n_cars_or_motorbikes_or_trucks_or_buses_driving": [
+        "street"
+    ],
+    "/street/n_people_talking": [
+        "street"
+    ],
+    "/street": [
+        "street"
+    ],
+    "/street/n_people_leaving_a_car": [
+        "street"
+    ],
+    "/street/n_cars_parking": [
+        "street"
+    ],
+    "utliers/corner": [
+        "corner"
+    ],
+    "/bedroom": [
+        "bedroom"
+    ],
+    "/bedroom/n_people_sleeping_in_the_bed": [
+        "bedroom"
+    ],
+    "bedroom": [
+        "bedroom"
+    ],
+    "/apse/indoor": [
+        "apse_indoor"
+    ],
+    "/music_studio/n_musicians_listening_and_waiting_to_start_singing_or_playing": [
+        "music_studio"
+    ],
+    "/music_studio": [
+        "music_studio"
+    ],
+    "music_studio": [
+        "music_studio"
+    ],
+    "/bamboo_forest": [
+        "bamboo_forest"
+    ],
+    "bamboo_forest": [
+        "bamboo_forest"
+    ],
+    "desert/sand": [
+        "sand"
+    ],
+    "/desert/sand": [
+        "sand"
+    ],
+    "utliers/bridle_path": [
+        "bridle_path"
+    ],
+    "dressing_room": [
+        "dressing_room"
+    ],
+    "/dressing_room": [
+        "dressing_room"
+    ],
+    "utliers/howdah": [
+        "howdah"
+    ],
+    "/menhir": [
+        "menhir"
+    ],
+    "/bar": [
+        "bar"
+    ],
+    "bar": [
+        "bar"
+    ],
+    "/bar/n_barmen_serving_food_or_drinks_to_m_clients": [
+        "bar"
+    ],
+    "/bar/n_musicians_playing_music": [
+        "bar"
+    ],
+    "/cargo_deck/boat": [
+        "boat"
+    ],
+    "/ferryboat/cargo_deck": [
+        "cargo_deck"
+    ],
+    "/cargo_deck/airplane": [
+        "airplane"
+    ],
+    "/volleyball_court/indoor": [
+        "volleyball_court_indoor"
+    ],
+    "/badlands": [
+        "badlands"
+    ],
+    "/badlands/n_people_hiking_on_badlands": [
+        "badlands"
+    ],
+    "badlands": [
+        "badlands"
+    ],
+    "/windmill/n_windmills_spinning_because_of_the_wind": [
+        "windmill"
+    ],
+    "windmill": [
+        "windmill"
+    ],
+    "/windmill": [
+        "windmill"
+    ],
+    "shower": [
+        "shower"
+    ],
+    "/shower": [
+        "shower"
+    ],
+    "/air_base": [
+        "air_base"
+    ],
+    "barndoor": [
+        "barndoor"
+    ],
+    "/barndoor": [
+        "barndoor"
+    ],
+    "/baseball_field/a_player_passing_a_ball": [
+        "baseball_field"
+    ],
+    "/baseball_field/a_player_preparing_to_bat_a_ball": [
+        "baseball_field"
+    ],
+    "/baseball_field/a_player_preparing_to_throw_a_ball": [
+        "baseball_field"
+    ],
+    "/baseball_field": [
+        "baseball_field"
+    ],
+    "/baseball_field/n_players_celebrating_a_point": [
+        "baseball_field"
+    ],
+    "baseball_field": [
+        "baseball_field"
+    ],
+    "/baseball_field/n_players_runnning": [
+        "baseball_field"
+    ],
+    "/baseball_field/a_player_catching_a_ball": [
+        "baseball_field"
+    ],
+    "/catacomb": [
+        "catacomb"
+    ],
+    "/catacomb/n_people_digging_in_a_burial_chamber": [
+        "catacomb"
+    ],
+    "catacomb": [
+        "catacomb"
+    ],
+    "/general_store/outdoor": [
+        "general_store_outdoor"
+    ],
+    "general_store/outdoor": [
+        "general_store_outdoor"
+    ],
+    "/clothing_store/n_customers_browsing_clothes": [
+        "clothing_store"
+    ],
+    "/clothing_store": [
+        "clothing_store"
+    ],
+    "clothing_store": [
+        "clothing_store"
+    ],
+    "igloo": [
+        "igloo"
+    ],
+    "/igloo": [
+        "igloo"
+    ],
+    "/auto_factory": [
+        "auto_factory"
+    ],
+    "auto_factory": [
+        "auto_factory"
+    ],
+    "/swamp": [
+        "swamp"
+    ],
+    "swamp": [
+        "swamp"
+    ],
+    "/mess_hall": [
+        "mess_hall"
+    ],
+    "/military_hut": [
+        "military_hut"
+    ],
+    "/beach_house": [
+        "beach_house"
+    ],
+    "beach_house": [
+        "beach_house"
+    ],
+    "/restroom/indoor": [
+        "restroom_indoor"
+    ],
+    "/skyscraper": [
+        "skyscraper"
+    ],
+    "skyscraper": [
+        "skyscraper"
+    ],
+    "hospital_room": [
+        "hospital_room"
+    ],
+    "/hospital_room/n_doctors_taking_notes_while_checking_m_patients": [
+        "hospital_room"
+    ],
+    "/hospital_room/n_doctors_talking_to_m_familiy_members": [
+        "hospital_room"
+    ],
+    "/hospital_room": [
+        "hospital_room"
+    ],
+    "/cottage_garden": [
+        "cottage_garden"
+    ],
+    "corral": [
+        "corral"
+    ],
+    "/corral": [
+        "corral"
+    ],
+    "/hacienda": [
+        "hacienda"
+    ],
+    "utliers/student_center": [
+        "student_center"
+    ],
+    "/hoodoo": [
+        "hoodoo"
+    ],
+    "hoodoo": [
+        "hoodoo"
+    ],
+    "/jetty": [
+        "jetty"
+    ],
+    "picnic_area": [
+        "picnic_area"
+    ],
+    "/picnic_area/n_people_talking_or_eating_or_drinking_on_a_table": [
+        "picnic_area"
+    ],
+    "/picnic_area": [
+        "picnic_area"
+    ],
+    "/shoe_shop/n_customers_browsing_for_shoes_on_the_shelf": [
+        "shoe_shop"
+    ],
+    "/shoe_shop": [
+        "shoe_shop"
+    ],
+    "/lock_chamber": [
+        "lock_chamber"
+    ],
+    "lock_chamber": [
+        "lock_chamber"
+    ],
+    "/oasis": [
+        "oasis"
+    ],
+    "/glade": [
+        "glade"
+    ],
+    "water_tower": [
+        "water_tower"
+    ],
+    "/water_tower": [
+        "water_tower"
+    ],
+    "bowling_alley": [
+        "bowling_alley"
+    ],
+    "/bowling_alley": [
+        "bowling_alley"
+    ],
+    "/beach/n_people_walking": [
+        "beach"
+    ],
+    "/beach/n_people_sunbathing": [
+        "beach"
+    ],
+    "/beach/n_people_talking_or_eating": [
+        "beach"
+    ],
+    "/beach/n_life_guards_watching_the_beach": [
+        "beach"
+    ],
+    "/beach": [
+        "beach"
+    ],
+    "beach": [
+        "beach"
+    ],
+    "/manhole": [
+        "manhole"
+    ],
+    "storage_room": [
+        "storage_room"
+    ],
+    "/storage_room": [
+        "storage_room"
+    ],
+    "/home_office/a_person_staring_at_the_computer": [
+        "home_office"
+    ],
+    "/home_office": [
+        "home_office"
+    ],
+    "home_office": [
+        "home_office"
+    ],
+    "/forest_path/n_cars_driving_through_the_path": [
+        "forest_path"
+    ],
+    "forest_path": [
+        "forest_path"
+    ],
+    "/forest_path/n_people_carrying_wood": [
+        "forest_path"
+    ],
+    "/forest_path/n_people_hiking_": [
+        "forest_path"
+    ],
+    "/forest_path": [
+        "forest_path"
+    ],
+    "/japanese_garden": [
+        "japanese_garden"
+    ],
+    "japanese_garden": [
+        "japanese_garden"
+    ],
+    "/carrousel": [
+        "carrousel"
+    ],
+    "inn/outdoor": [
+        "inn_outdoor"
+    ],
+    "/inn/outdoor": [
+        "inn_outdoor"
+    ],
+    "/escalator/indoor": [
+        "escalator_indoor"
+    ],
+    "escalator/indoor": [
+        "escalator_indoor"
+    ],
+    "/sandbar": [
+        "sandbar"
+    ],
+    "/diner/outdoor": [
+        "diner_outdoor"
+    ],
+    "diner/outdoor": [
+        "diner_outdoor"
+    ],
+    "/firing_range/outdoor": [
+        "firing_range_outdoor"
+    ],
+    "/volleyball_court/outdoor": [
+        "volleyball_court_outdoor"
+    ],
+    "volleyball_court/outdoor": [
+        "volleyball_court_outdoor"
+    ],
+    "/volleyball_court_outdoor/a_player_blocking_a_shot": [
+        "volleyball_court_outdoor"
+    ],
+    "/cliff/n_people_jumping_off_a_cliff_with_a_parachute_or_with_a_rope": [
+        "cliff"
+    ],
+    "/cliff/n_people_climbing_a_cliff": [
+        "cliff"
+    ],
+    "/cliff/n_people_eating_or_drinking_or_talking_on_a_cliff": [
+        "cliff"
+    ],
+    "cliff": [
+        "cliff"
+    ],
+    "/cliff": [
+        "cliff"
+    ],
+    "auto_showroom": [
+        "auto_showroom"
+    ],
+    "/auto_showroom": [
+        "auto_showroom"
+    ],
+    "/turkish_bath": [
+        "turkish_bath"
+    ],
+    "/guardhouse": [
+        "guardhouse"
+    ],
+    "utliers/archipelago": [
+        "archipelago"
+    ],
+    "creek": [
+        "creek"
+    ],
+    "/creek/n_people_swimming": [
+        "creek"
+    ],
+    "/creek": [
+        "creek"
+    ],
+    "/creek/n_people_eating_or_drinking_or_talking": [
+        "creek"
+    ],
+    "/creek/n_people_rafting": [
+        "creek"
+    ],
+    "/atrium/public": [
+        "atrium_public"
+    ],
+    "atrium/public": [
+        "atrium_public"
+    ],
+    "/jail/outdoor": [
+        "jail_outdoor"
+    ],
+    "pharmacy": [
+        "pharmacy"
+    ],
+    "/pharmacy": [
+        "pharmacy"
+    ],
+    "/plaza": [
+        "plaza"
+    ],
+    "plaza": [
+        "plaza"
+    ],
+    "/driveway": [
+        "driveway"
+    ],
+    "driveway": [
+        "driveway"
+    ],
+    "/taxiway": [
+        "taxiway"
+    ],
+    "/nightclub": [
+        "nightclub"
+    ],
+    "/mineshaft": [
+        "mineshaft"
+    ],
+    "auditorium": [
+        "auditorium"
+    ],
+    "/auditorium": [
+        "auditorium"
+    ],
+    "canal/natural": [
+        "natural"
+    ],
+    "/lake/natural": [
+        "natural"
+    ],
+    "/canal/natural": [
+        "natural"
+    ],
+    "lake/natural": [
+        "natural"
+    ],
+    "/flight_of_stairs/natural": [
+        "natural"
+    ],
+    "/movie_theater/indoor": [
+        "movie_theater_indoor"
+    ],
+    "movie_theater/indoor": [
+        "movie_theater_indoor"
+    ],
+    "/bicycle_racks": [
+        "bicycle_racks"
+    ],
+    "trench": [
+        "trench"
+    ],
+    "/trench": [
+        "trench"
+    ],
+    "/bridge/n_boats_crossing_under_a_bridge": [
+        "bridge"
+    ],
+    "/bridge": [
+        "bridge"
+    ],
+    "bridge": [
+        "bridge"
+    ],
+    "/bridge/n_people_doing_bridge-jumping": [
+        "bridge"
+    ],
+    "/cargo_container_interior": [
+        "cargo_container_interior"
+    ],
+    "/planetarium/indoor": [
+        "planetarium_indoor"
+    ],
+    "/elevator_lobby": [
+        "elevator_lobby"
+    ],
+    "elevator_lobby": [
+        "elevator_lobby"
+    ],
+    "/auto_racing_paddock": [
+        "auto_racing_paddock"
+    ],
+    "/garage/outdoor": [
+        "garage_outdoor"
+    ],
+    "garage/outdoor": [
+        "garage_outdoor"
+    ],
+    "/cockpit": [
+        "cockpit"
+    ],
+    "/cockpit/n_pilots_showing_the_cockpit_to_m_people": [
+        "cockpit"
+    ],
+    "moat/water": [
+        "water"
+    ],
+    "/moat/water": [
+        "water"
+    ],
+    "utliers/megalith": [
+        "megalith"
+    ],
+    "/formal_garden": [
+        "formal_garden"
+    ],
+    "formal_garden": [
+        "formal_garden"
+    ],
+    "/toyshop": [
+        "toyshop"
+    ],
+    "/toyshop/n_people_entering_a_toyshop": [
+        "toyshop"
+    ],
+    "toyshop": [
+        "toyshop"
+    ],
+    "/railway_yard": [
+        "railway_yard"
+    ],
+    "/sewing_room": [
+        "sewing_room"
+    ],
+    "/stadium/football": [
+        "football"
+    ],
+    "stadium/football": [
+        "football"
+    ],
+    "/arena/football": [
+        "football"
+    ],
+    "/watchtower": [
+        "watchtower"
+    ],
+    "/military_hospital": [
+        "military_hospital"
+    ],
+    "campsite": [
+        "campsite"
+    ],
+    "/campsite": [
+        "campsite"
+    ],
+    "/campsite/n_people_eating_or_drinking_or_talking": [
+        "campsite"
+    ],
+    "utliers/juke_joint": [
+        "juke_joint"
+    ],
+    "utliers/pueblo": [
+        "pueblo"
+    ],
+    "crevasse": [
+        "crevasse"
+    ],
+    "/crevasse/n_people_jumping_over": [
+        "crevasse"
+    ],
+    "/crevasse": [
+        "crevasse"
+    ],
+    "/wind_farm/n_windmills_being_still_because_of_the_lack_of_wind": [
+        "wind_farm"
+    ],
+    "/wind_farm": [
+        "wind_farm"
+    ],
+    "wind_farm": [
+        "wind_farm"
+    ],
+    "/wind_farm/n_windmills_spinning_because_of_the_wind": [
+        "wind_farm"
+    ],
+    "/wind_farm/n_architects_or_engineers_giving_instructions_to_m_people": [
+        "wind_farm"
+    ],
+    "/ghost_town": [
+        "ghost_town"
+    ],
+    "utliers/sanatorium": [
+        "sanatorium"
+    ],
+    "residential_neighborhood": [
+        "residential_neighborhood"
+    ],
+    "/residential_neighborhood": [
+        "residential_neighborhood"
+    ],
+    "/residential_neighborhood/n_people_leaving_a_house": [
+        "residential_neighborhood"
+    ],
+    "/lighthouse": [
+        "lighthouse"
+    ],
+    "lighthouse": [
+        "lighthouse"
+    ],
+    "utliers/backdrop": [
+        "backdrop"
+    ],
+    "/hospital": [
+        "hospital"
+    ],
+    "hospital": [
+        "hospital"
+    ],
+    "utliers/mental_institution/indoor": [
+        "mental_institution_indoor"
+    ],
+    "ice_skating_rink/outdoor": [
+        "ice_skating_rink_outdoor"
+    ],
+    "/ice_skating_rink_outdoor/n_people_playing_hockey": [
+        "ice_skating_rink_outdoor"
+    ],
+    "/ice_skating_rink/outdoor": [
+        "ice_skating_rink_outdoor"
+    ],
+    "/ice_skating_rink_outdoor/n_people_ice-skating": [
+        "ice_skating_rink_outdoor"
+    ],
+    "/medina": [
+        "medina"
+    ],
+    "medina": [
+        "medina"
+    ],
+    "topiary_garden": [
+        "topiary_garden"
+    ],
+    "/topiary_garden": [
+        "topiary_garden"
+    ],
+    "living_room": [
+        "living_room"
+    ],
+    "/living_room": [
+        "living_room"
+    ],
+    "/walk_in_freezer": [
+        "walk_in_freezer"
+    ],
+    "stable": [
+        "stable"
+    ],
+    "/stable/n_people_taking_a_horse_out_of_the_stable_by_pulling_or_mounting_it": [
+        "stable"
+    ],
+    "/stable/n_people_brushing_or_cleaning_or_preparing_a_horse": [
+        "stable"
+    ],
+    "/stable": [
+        "stable"
+    ],
+    "/dance_school": [
+        "dance_school"
+    ],
+    "/bank_vault": [
+        "bank_vault"
+    ],
+    "bank_vault": [
+        "bank_vault"
+    ],
+    "utliers/chair_lift": [
+        "chair_lift"
+    ],
+    "/art_school": [
+        "art_school"
+    ],
+    "art_school": [
+        "art_school"
+    ],
+    "/bus_depot/outdoor": [
+        "bus_depot_outdoor"
+    ],
+    "/lido_deck/outdoor": [
+        "lido_deck_outdoor"
+    ],
+    "lido_deck/outdoor": [
+        "lido_deck_outdoor"
+    ],
+    "/chicken_coop/outdoor": [
+        "chicken_coop_outdoor"
+    ],
+    "utliers/cargo_helicopter": [
+        "cargo_helicopter"
+    ],
+    "/shrine": [
+        "shrine"
+    ],
+    "office_building": [
+        "office_building"
+    ],
+    "/office_building": [
+        "office_building"
+    ],
+    "/donjon": [
+        "donjon"
+    ],
+    "ice_cream_parlor": [
+        "ice_cream_parlor"
+    ],
+    "/ice_cream_parlor": [
+        "ice_cream_parlor"
+    ],
+    "/ice_cream_parlor/n_customers_looking_or_pointing_at_ice-cream_flavors__in_the_showcase": [
+        "ice_cream_parlor"
+    ],
+    "/hut": [
+        "hut"
+    ],
+    "kiosk/indoor": [
+        "kiosk_indoor"
+    ],
+    "/kiosk/indoor": [
+        "kiosk_indoor"
+    ],
+    "utliers/vinery": [
+        "vinery"
+    ],
+    "/track/outdoor": [
+        "track_outdoor"
+    ],
+    "palace_hall": [
+        "palace_hall"
+    ],
+    "/palace_hall": [
+        "palace_hall"
+    ],
+    "/funeral_home": [
+        "funeral_home"
+    ],
+    "utliers/sunroom": [
+        "sunroom"
+    ],
+    "/organ_loft/exterior": [
+        "exterior"
+    ],
+    "/fitting_room/exterior": [
+        "exterior"
+    ],
+    "/balcony/exterior": [
+        "exterior"
+    ],
+    "/widows_walk/exterior": [
+        "exterior"
+    ],
+    "balcony/exterior": [
+        "exterior"
+    ],
+    "/gazebo/exterior": [
+        "exterior"
+    ],
+    "/choir_loft/exterior": [
+        "exterior"
+    ],
+    "/elevator/exterior": [
+        "exterior"
+    ],
+    "/covered_bridge/exterior": [
+        "exterior"
+    ],
+    "gazebo/exterior": [
+        "exterior"
+    ],
+    "/cloister/indoor": [
+        "cloister_indoor"
+    ],
+    "/parlor": [
+        "parlor"
+    ],
+    "utliers/rotisserie": [
+        "rotisserie"
+    ],
+    "/cloakroom/room": [
+        "room"
+    ],
+    "/confessional": [
+        "confessional"
+    ],
+    "/chaparral": [
+        "chaparral"
+    ],
+    "ski_resort": [
+        "ski_resort"
+    ],
+    "/ski_resort": [
+        "ski_resort"
+    ],
+    "/discotheque": [
+        "discotheque"
+    ],
+    "discotheque": [
+        "discotheque"
+    ],
+    "/fastfood_restaurant": [
+        "fastfood_restaurant"
+    ],
+    "/fastfood_restaurant/n_clients_walking_out_the_door_of_the_fastfood_restaurant": [
+        "fastfood_restaurant"
+    ],
+    "fastfood_restaurant": [
+        "fastfood_restaurant"
+    ],
+    "utliers/foreshore": [
+        "foreshore"
+    ],
+    "/subway_station/platform": [
+        "platform"
+    ],
+    "/train_station/platform": [
+        "platform"
+    ],
+    "subway_station/platform": [
+        "platform"
+    ],
+    "train_station/platform": [
+        "platform"
+    ],
+    "utliers/bunk_bed": [
+        "bunk_bed"
+    ],
+    "/ski_slope": [
+        "ski_slope"
+    ],
+    "ski_slope": [
+        "ski_slope"
+    ],
+    "/dining_car": [
+        "dining_car"
+    ],
+    "utliers/housing_estate": [
+        "housing_estate"
+    ],
+    "utliers/bulkhead": [
+        "bulkhead"
+    ],
+    "booth/indoor": [
+        "booth_indoor"
+    ],
+    "/booth/indoor": [
+        "booth_indoor"
+    ],
+    "/cloakroom/booth": [
+        "booth"
+    ],
+    "/arena/performance": [
+        "performance"
+    ],
+    "/bathroom/n_people_washing_their_face_or_hands": [
+        "bathroom"
+    ],
+    "bathroom": [
+        "bathroom"
+    ],
+    "/bathroom": [
+        "bathroom"
+    ],
+    "river": [
+        "river"
+    ],
+    "/river": [
+        "river"
+    ],
+    "/military_tent": [
+        "military_tent"
+    ],
+    "/hedgerow": [
+        "hedgerow"
+    ],
+    "/mountain_path": [
+        "mountain_path"
+    ],
+    "mountain_path": [
+        "mountain_path"
+    ],
+    "/mountain_path/n_vehicles_driving_through_a_mountain_path": [
+        "mountain_path"
+    ],
+    "arena/rodeo": [
+        "rodeo"
+    ],
+    "/arena/rodeo": [
+        "rodeo"
+    ],
+    "gymnasium/indoor": [
+        "gymnasium_indoor"
+    ],
+    "/gymnasium_indoor/n_people_stretching": [
+        "gymnasium_indoor"
+    ],
+    "/gymnasium/indoor": [
+        "gymnasium_indoor"
+    ],
+    "/gymnasium_indoor/n_instructors_giving_a_group_class": [
+        "gymnasium_indoor"
+    ],
+    "/doorway/outdoor": [
+        "doorway_outdoor"
+    ],
+    "doorway/outdoor": [
+        "doorway_outdoor"
+    ],
+    "nursing_home": [
+        "nursing_home"
+    ],
+    "/nursing_home": [
+        "nursing_home"
+    ],
+    "/betting_shop": [
+        "betting_shop"
+    ],
+    "childs_room": [
+        "childs_room"
+    ],
+    "/childs_room/n_kids_reading_a_book_to_m_children": [
+        "childs_room"
+    ],
+    "/childs_room": [
+        "childs_room"
+    ],
+    "/gas_station": [
+        "gas_station"
+    ],
+    "gas_station": [
+        "gas_station"
+    ],
+    "/quicksand": [
+        "quicksand"
+    ],
+    "utliers/natural_spring": [
+        "natural_spring"
+    ],
+    "/ocean/n_animals_flying_over": [
+        "ocean"
+    ],
+    "ocean": [
+        "ocean"
+    ],
+    "/ocean/n_boats_or_cruisers_sailing": [
+        "ocean"
+    ],
+    "/ocean/n_animals_swimming": [
+        "ocean"
+    ],
+    "/ocean/n_people_fishing": [
+        "ocean"
+    ],
+    "/ocean/n_people_surfing": [
+        "ocean"
+    ],
+    "/ocean": [
+        "ocean"
+    ],
+    "/cubicle/office": [
+        "office"
+    ],
+    "/office": [
+        "office"
+    ],
+    "/office/a_worker_making_a_pitch": [
+        "office"
+    ],
+    "office": [
+        "office"
+    ],
+    "/office/n_people_taking_notes_on_a_notebook_or_computer": [
+        "office"
+    ],
+    "/moon_bounce": [
+        "moon_bounce"
+    ],
+    "/great_hall": [
+        "great_hall"
+    ],
+    "/city": [
+        "city"
+    ],
+    "stadium/soccer": [
+        "soccer"
+    ],
+    "/stadium/soccer": [
+        "soccer"
+    ],
+    "/arena/soccer": [
+        "soccer"
+    ],
+    "utliers/luggage_van": [
+        "luggage_van"
+    ],
+    "/church/outdoor": [
+        "church_outdoor"
+    ],
+    "church/outdoor": [
+        "church_outdoor"
+    ],
+    "/church_outdoor/n_people_carrying_a_figure_or_coffin_out_of_the_church": [
+        "church_outdoor"
+    ],
+    "/church_outdoor/n_people_taking_pictures_of_the_church": [
+        "church_outdoor"
+    ],
+    "/football_field": [
+        "football_field"
+    ],
+    "football_field": [
+        "football_field"
+    ],
+    "hotel_room": [
+        "hotel_room"
+    ],
+    "/hotel_room": [
+        "hotel_room"
+    ],
+    "/hotel_room/n_cleaning-staff_cleaning_the_room": [
+        "hotel_room"
+    ],
+    "museum/indoor": [
+        "museum_indoor"
+    ],
+    "/museum/indoor": [
+        "museum_indoor"
+    ],
+    "/museum_indoor/n_visitors_talking": [
+        "museum_indoor"
+    ],
+    "jail_cell": [
+        "jail_cell"
+    ],
+    "/jail_cell": [
+        "jail_cell"
+    ],
+    "utliers/sidewalk": [
+        "sidewalk"
+    ],
+    "/jewelry_shop": [
+        "jewelry_shop"
+    ],
+    "jewelry_shop": [
+        "jewelry_shop"
+    ],
+    "/jewelry_shop/n_employees_crafting_or_fixing_a_jewel": [
+        "jewelry_shop"
+    ],
+    "water_park": [
+        "water_park"
+    ],
+    "/water_park": [
+        "water_park"
+    ],
+    "/water_park/n_lifeguards_talking_to_m_people": [
+        "water_park"
+    ],
+    "/bistro/outdoor": [
+        "bistro_outdoor"
+    ],
+    "/boat_deck/n_people_staring_at_the_horizon": [
+        "boat_deck"
+    ],
+    "boat_deck": [
+        "boat_deck"
+    ],
+    "/boat_deck": [
+        "boat_deck"
+    ],
+    "/boat_deck/n_people_looking_out_of_the_boat_using_binoculars": [
+        "boat_deck"
+    ],
+    "/boat_deck/n_people_jumping_to_the_sea": [
+        "boat_deck"
+    ],
+    "/morgue": [
+        "morgue"
+    ],
+    "train_interior": [
+        "train_interior"
+    ],
+    "/train_interior/n_passengers_sleeping": [
+        "train_interior"
+    ],
+    "/train_interior": [
+        "train_interior"
+    ],
+    "/car_interior/backseat": [
+        "backseat"
+    ],
+    "utliers/shelter_tent": [
+        "shelter_tent"
+    ],
+    "/observatory/outdoor": [
+        "observatory_outdoor"
+    ],
+    "/vegetable_garden": [
+        "vegetable_garden"
+    ],
+    "vegetable_garden": [
+        "vegetable_garden"
+    ],
+    "/vegetable_garden/n_people_planting_seeds_or_vegetables": [
+        "vegetable_garden"
+    ],
+    "/classroom/n_students_laughing_or_talking_between_them": [
+        "classroom"
+    ],
+    "/classroom": [
+        "classroom"
+    ],
+    "classroom": [
+        "classroom"
+    ],
+    "/classroom/n_students_taking_notes_on_a_notebook_or_a_computer": [
+        "classroom"
+    ],
+    "/steel_mill/indoor": [
+        "steel_mill_indoor"
+    ],
+    "/elevator_shaft": [
+        "elevator_shaft"
+    ],
+    "utliers/backroom": [
+        "backroom"
+    ],
+    "/ditch": [
+        "ditch"
+    ],
+    "airport_terminal": [
+        "airport_terminal"
+    ],
+    "/airport_terminal": [
+        "airport_terminal"
+    ],
+    "food_court": [
+        "food_court"
+    ],
+    "/food_court": [
+        "food_court"
+    ],
+    "/cabin/outdoor": [
+        "cabin_outdoor"
+    ],
+    "cabin/outdoor": [
+        "cabin_outdoor"
+    ],
+    "/harbor/n_people_leaving_a_boat": [
+        "harbor"
+    ],
+    "/harbor": [
+        "harbor"
+    ],
+    "harbor": [
+        "harbor"
+    ],
+    "/harbor/n_people_sailing_next_to_the_harbor": [
+        "harbor"
+    ],
+    "/wave/n_buoys_floating": [
+        "wave"
+    ],
+    "/wave/n_surfers_surfing": [
+        "wave"
+    ],
+    "wave": [
+        "wave"
+    ],
+    "/wave": [
+        "wave"
+    ],
+    "/dinette/home": [
+        "dinette_home"
+    ],
+    "/newsstand/outdoor": [
+        "newsstand_outdoor"
+    ],
+    "utliers/science_laboratory": [
+        "science_laboratory"
+    ],
+    "/liquor_store/outdoor": [
+        "liquor_store_outdoor"
+    ],
+    "utliers/pawnshop_outdoor": [
+        "pawnshop_outdoor"
+    ],
+    "/carport/freestanding": [
+        "freestanding"
+    ],
+    "sky": [
+        "sky"
+    ],
+    "/sky/the_sky_getting_cloudy": [
+        "sky"
+    ],
+    "/sky": [
+        "sky"
+    ],
+    "/hot_tub/indoor": [
+        "hot_tub_indoor"
+    ],
+    "/apartment_building/outdoor": [
+        "apartment_building_outdoor"
+    ],
+    "apartment_building/outdoor": [
+        "apartment_building_outdoor"
+    ],
+    "/canyon/n_people_riding_a_bike": [
+        "canyon"
+    ],
+    "/canyon/n_people_doing_rafting": [
+        "canyon"
+    ],
+    "/canyon": [
+        "canyon"
+    ],
+    "/canyon/n_people_building_a_tent_to_camp": [
+        "canyon"
+    ],
+    "/canyon/n_people_leaving_the_bags_to_stop": [
+        "canyon"
+    ],
+    "/canyon/n_people_eating_or_drinking_in_a_camp": [
+        "canyon"
+    ],
+    "canyon": [
+        "canyon"
+    ],
+    "/canyon/n_people_hiking": [
+        "canyon"
+    ],
+    "/bookstore": [
+        "bookstore"
+    ],
+    "bookstore": [
+        "bookstore"
+    ],
+    "/bookstore/n_customers_talking_with_m_booksellers_or_customers": [
+        "bookstore"
+    ],
+    "/bookstore/n_customers_looking_at_the_cover_of_a_book": [
+        "bookstore"
+    ],
+    "/bookstore/n_customers_reading_a_book": [
+        "bookstore"
+    ],
+    "/coast/n_life_guards_watching_the_beach": [
+        "coast"
+    ],
+    "coast": [
+        "coast"
+    ],
+    "/coast": [
+        "coast"
+    ],
+    "/coast/n_people_surfing": [
+        "coast"
+    ],
+    "/coast/waves_breaking_against_the_rocks_or_shore": [
+        "coast"
+    ],
+    "/coast/n_people_talking_or_eating": [
+        "coast"
+    ],
+    "/coast/n_people_playing_on_the_sand_or_in_the_water": [
+        "coast"
+    ],
+    "/organ_loft/interior": [
+        "organ_loft_interior"
+    ],
+    "utliers/windstorm": [
+        "windstorm"
+    ],
+    "/ice_floe": [
+        "ice_floe"
+    ],
+    "ice_floe": [
+        "ice_floe"
+    ],
+    "home_theater": [
+        "home_theater"
+    ],
+    "/home_theater": [
+        "home_theater"
+    ],
+    "snowfield": [
+        "snowfield"
+    ],
+    "/snowfield": [
+        "snowfield"
+    ],
+    "/museum/outdoor": [
+        "museum_outdoor"
+    ],
+    "museum/outdoor": [
+        "museum_outdoor"
+    ],
+    "/alley/n_people_walking_by_an_alley": [
+        "alley"
+    ],
+    "alley": [
+        "alley"
+    ],
+    "/alley": [
+        "alley"
+    ],
+    "dining_room": [
+        "dining_room"
+    ],
+    "/dining_room": [
+        "dining_room"
+    ],
+    "/freeway/n_cars_or_trucks_or_motorcycles__driving": [
+        "freeway"
+    ],
+    "/freeway/n_cars_or_trucks_or_motorcycles_stopping_to_let_people_get_in": [
+        "freeway"
+    ],
+    "/freeway": [
+        "freeway"
+    ],
+    "/freeway/n_bycicles_riding_along_the_freeway": [
+        "freeway"
+    ],
+    "utliers/palestra": [
+        "palestra"
+    ],
+    "/spa/massage_room": [
+        "massage_room"
+    ],
+    "utliers/loggia/outdoor": [
+        "loggia_outdoor"
+    ],
+    "/village": [
+        "village"
+    ],
+    "village": [
+        "village"
+    ],
+    "/auto_mechanics/outdoor": [
+        "auto_mechanics_outdoor"
+    ],
+    "utliers/saloon": [
+        "saloon"
+    ],
+    "farm": [
+        "farm"
+    ],
+    "/farm": [
+        "farm"
+    ],
+    "/security_check_point": [
+        "security_check_point"
+    ],
+    "/spa/mineral_bath": [
+        "mineral_bath"
+    ],
+    "/beer_garden": [
+        "beer_garden"
+    ],
+    "beer_garden": [
+        "beer_garden"
+    ],
+    "utliers/patio_indoor": [
+        "patio_indoor"
+    ],
+    "florist_shop/indoor": [
+        "florist_shop_indoor"
+    ],
+    "/florist_shop_indoor/n_customers_handling_a_set_of_flowers": [
+        "florist_shop_indoor"
+    ],
+    "/florist_shop/indoor": [
+        "florist_shop_indoor"
+    ],
+    "/viaduct": [
+        "viaduct"
+    ],
+    "viaduct": [
+        "viaduct"
+    ],
+    "wet_bar": [
+        "wet_bar"
+    ],
+    "/wet_bar": [
+        "wet_bar"
+    ],
+    "/estuary": [
+        "estuary"
+    ],
+    "ice_shelf": [
+        "ice_shelf"
+    ],
+    "/ice_shelf": [
+        "ice_shelf"
+    ],
+    "utliers/assembly_plant": [
+        "assembly_plant"
+    ],
+    "/art_studio/n_artists_explaining_their_piece_of_art": [
+        "art_studio"
+    ],
+    "/art_studio": [
+        "art_studio"
+    ],
+    "art_studio": [
+        "art_studio"
+    ],
+    "/art_studio/n_models_posing_to_be_painted_or_photographed_or_sculpted": [
+        "art_studio"
+    ],
+    "/rest_area": [
+        "rest_area"
+    ],
+    "/amusement_arcade": [
+        "amusement_arcade"
+    ],
+    "amusement_arcade": [
+        "amusement_arcade"
+    ],
+    "/aquarium": [
+        "aquarium"
+    ],
+    "/aquarium/n_people_looking_or_pointing__a_showcase": [
+        "aquarium"
+    ],
+    "aquarium": [
+        "aquarium"
+    ],
+    "/veterinarians_office": [
+        "veterinarians_office"
+    ],
+    "veterinarians_office": [
+        "veterinarians_office"
+    ],
+    "/mine": [
+        "mine"
+    ],
+    "utliers/farm_building": [
+        "farm_building"
+    ],
+    "/machine_shop": [
+        "machine_shop"
+    ],
+    "railroad_track": [
+        "railroad_track"
+    ],
+    "/railroad_track": [
+        "railroad_track"
+    ],
+    "/liquor_store/indoor": [
+        "liquor_store_indoor"
+    ],
+    "/shopfront": [
+        "shopfront"
+    ],
+    "shopfront": [
+        "shopfront"
+    ],
+    "/department_store": [
+        "department_store"
+    ],
+    "department_store": [
+        "department_store"
+    ],
+    "utliers/bathhouse_outdoor": [
+        "bathhouse_outdoor"
+    ],
+    "/ticket_window/indoor": [
+        "ticket_window_indoor"
+    ],
+    "utliers/ticket_window/indoor": [
+        "ticket_window_indoor"
+    ],
+    "/herb_garden": [
+        "herb_garden"
+    ],
+    "jacuzzi/indoor": [
+        "jacuzzi_indoor"
+    ],
+    "/jacuzzi/indoor": [
+        "jacuzzi_indoor"
+    ],
+    "pagoda": [
+        "pagoda"
+    ],
+    "/pagoda/n_people_praying_next_to": [
+        "pagoda"
+    ],
+    "/pagoda": [
+        "pagoda"
+    ],
+    "/pagoda/n_people_leaving": [
+        "pagoda"
+    ],
+    "/boxing_ring/n_fighters_fighting": [
+        "boxing_ring"
+    ],
+    "/boxing_ring/a_fighter_celebrating_a_win": [
+        "boxing_ring"
+    ],
+    "/boxing_ring": [
+        "boxing_ring"
+    ],
+    "utliers/barbeque": [
+        "barbeque"
+    ],
+    "/roof": [
+        "roof"
+    ],
+    "/bus_shelter": [
+        "bus_shelter"
+    ],
+    "/valley": [
+        "valley"
+    ],
+    "valley": [
+        "valley"
+    ],
+    "/bindery": [
+        "bindery"
+    ],
+    "mausoleum": [
+        "mausoleum"
+    ],
+    "/mausoleum": [
+        "mausoleum"
+    ],
+    "/park/n_people_sitting_on_a_bench": [
+        "park"
+    ],
+    "/park/n_people_lying_on_the_grass": [
+        "park"
+    ],
+    "/park/n_people_running": [
+        "park"
+    ],
+    "/park/n_people_looking_at_phone_or_laptop_or_book": [
+        "park"
+    ],
+    "park": [
+        "park"
+    ],
+    "/park": [
+        "park"
+    ],
+    "/park/n_people_eating_or_drinking": [
+        "park"
+    ],
+    "library/outdoor": [
+        "library_outdoor"
+    ],
+    "/library/outdoor": [
+        "library_outdoor"
+    ],
+    "/library/indoor": [
+        "library_indoor"
+    ],
+    "library/indoor": [
+        "library_indoor"
+    ],
+    "/cubicle/library": [
+        "library"
+    ],
+    "/car_interior/frontseat": [
+        "frontseat"
+    ],
+    "/airport/entrance": [
+        "airport"
+    ],
+    "/airport/airport": [
+        "airport"
+    ],
+    "utliers/bay": [
+        "bay"
+    ],
+    "/youth_hostel/n_people_setting_up_the_room": [
+        "youth_hostel"
+    ],
+    "/youth_hostel": [
+        "youth_hostel"
+    ],
+    "parking_garage/outdoor": [
+        "parking_garage_outdoor"
+    ],
+    "/parking_garage/outdoor": [
+        "parking_garage_outdoor"
+    ],
+    "pantry": [
+        "pantry"
+    ],
+    "/pantry": [
+        "pantry"
+    ],
+    "utliers/jungle": [
+        "jungle"
+    ],
+    "/reading_room": [
+        "reading_room"
+    ],
+    "/cafeteria": [
+        "cafeteria"
+    ],
+    "/cafeteria/n_cooks_putting_food_into_m_trays": [
+        "cafeteria"
+    ],
+    "cafeteria": [
+        "cafeteria"
+    ],
+    "/fabric_store": [
+        "fabric_store"
+    ],
+    "fabric_store": [
+        "fabric_store"
+    ],
+    "/aquatic_theater": [
+        "aquatic_theater"
+    ],
+    "/sauna": [
+        "sauna"
+    ],
+    "/staircase": [
+        "staircase"
+    ],
+    "staircase": [
+        "staircase"
+    ],
+    "/hallway": [
+        "hallway"
+    ],
+    "/hallway/n_people_talking": [
+        "hallway"
+    ],
+    "/bleachers/indoor": [
+        "bleachers_indoor"
+    ],
+    "/subway_interior": [
+        "subway_interior"
+    ],
+    "subway_interior": [
+        "subway_interior"
+    ],
+    "sandbox": [
+        "sandbox"
+    ],
+    "/sandbox": [
+        "sandbox"
+    ],
+    "/starting_gate": [
+        "starting_gate"
+    ],
+    "hardware_store": [
+        "hardware_store"
+    ],
+    "/hardware_store": [
+        "hardware_store"
+    ],
+    "utliers/flume_indoor": [
+        "flume_indoor"
+    ],
+    "utliers/widows_walk_indoor": [
+        "widows_walk_indoor"
+    ],
+    "utliers/guesthouse": [
+        "guesthouse"
+    ],
+    "natural_history_museum": [
+        "natural_history_museum"
+    ],
+    "/natural_history_museum": [
+        "natural_history_museum"
+    ],
+    "/sawmill": [
+        "sawmill"
+    ],
+    "utliers/waterway": [
+        "waterway"
+    ],
+    "/tunnel/waterway": [
+        "waterway"
+    ],
+    "/levee": [
+        "levee"
+    ],
+    "wine_cellar/bottle_storage": [
+        "bottle_storage"
+    ],
+    "/wine_cellar/bottle_storage": [
+        "bottle_storage"
+    ],
+    "/quonset_hut/indoor": [
+        "quonset_hut_indoor"
+    ],
+    "/bedchamber": [
+        "bedchamber"
+    ],
+    "bedchamber": [
+        "bedchamber"
+    ],
+    "kindergarden_classroom": [
+        "kindergarden_classroom"
+    ],
+    "/kindergarden_classroom/n_parents_or_instructors_playing_with_m_kids": [
+        "kindergarden_classroom"
+    ],
+    "/kindergarden_classroom": [
+        "kindergarden_classroom"
+    ],
+    "/kindergarden_classroom/n_kids_eating_or_drinking_or_talking": [
+        "kindergarden_classroom"
+    ],
+    "/laundromat": [
+        "laundromat"
+    ],
+    "laundromat": [
+        "laundromat"
+    ],
+    "/bell_foundry": [
+        "bell_foundry"
+    ],
+    "/police_station": [
+        "police_station"
+    ],
+    "/butte/n_people_biking_in_a_butte": [
+        "butte"
+    ],
+    "butte": [
+        "butte"
+    ],
+    "/butte": [
+        "butte"
+    ],
+    "utliers/kraal": [
+        "kraal"
+    ],
+    "hot_spring": [
+        "hot_spring"
+    ],
+    "/hot_spring/n_people_sitting_or_lying_on_the_border_of_the_hot_spring": [
+        "hot_spring"
+    ],
+    "/hot_spring": [
+        "hot_spring"
+    ],
+    "/dining_hall": [
+        "dining_hall"
+    ],
+    "/dining_hall/n_people_eating_or_drinking_or_talking_": [
+        "dining_hall"
+    ],
+    "dining_hall": [
+        "dining_hall"
+    ],
+    "/server_room": [
+        "server_room"
+    ],
+    "server_room": [
+        "server_room"
+    ],
+    "/downtown": [
+        "downtown"
+    ],
+    "downtown": [
+        "downtown"
+    ],
+    "utliers/deck-house_boat_deck_house": [
+        "deck-house_boat_deck_house"
+    ],
+    "/kiosk/outdoor": [
+        "kiosk_outdoor"
+    ],
+    "/industrial_park": [
+        "industrial_park"
+    ],
+    "casino/outdoor": [
+        "casino_outdoor"
+    ],
+    "/casino/outdoor": [
+        "casino_outdoor"
+    ],
+    "/flight_of_stairs/urban": [
+        "urban"
+    ],
+    "canal/urban": [
+        "urban"
+    ],
+    "/canal/urban": [
+        "urban"
+    ],
+    "/road_cut": [
+        "road_cut"
+    ],
+    "art_gallery": [
+        "art_gallery"
+    ],
+    "/art_gallery": [
+        "art_gallery"
+    ],
+    "/hotel_breakfast_area": [
+        "hotel_breakfast_area"
+    ],
+    "/mesa": [
+        "mesa"
+    ],
+    "airfield": [
+        "airfield"
+    ],
+    "/airfield": [
+        "airfield"
+    ],
+    "/airfield/n_planes_or_jets_or_helicopters_taking_off": [
+        "airfield"
+    ],
+    "/airfield/n_planes_or_jets_or_helicopters_landing": [
+        "airfield"
+    ],
+    "/industrial_area": [
+        "industrial_area"
+    ],
+    "industrial_area": [
+        "industrial_area"
+    ],
+    "/parade_ground": [
+        "parade_ground"
+    ],
+    "/scriptorium": [
+        "scriptorium"
+    ],
+    "corridor": [
+        "corridor"
+    ],
+    "/corridor": [
+        "corridor"
+    ],
+    "/subway_station/corridor": [
+        "corridor"
+    ],
+    "raceway": [
+        "raceway"
+    ],
+    "/raceway": [
+        "raceway"
+    ],
+    "/palace": [
+        "palace"
+    ],
+    "palace": [
+        "palace"
+    ],
+    "/golf_course": [
+        "golf_course"
+    ],
+    "/golf_course/n_players_walking_across_the_field": [
+        "golf_course"
+    ],
+    "/golf_course/n_players_celebrating_a_stroke": [
+        "golf_course"
+    ],
+    "golf_course": [
+        "golf_course"
+    ],
+    "utliers/wetland": [
+        "wetland"
+    ],
+    "/hangar/outdoor": [
+        "hangar_outdoor"
+    ],
+    "hangar/outdoor": [
+        "hangar_outdoor"
+    ],
+    "/barrack": [
+        "barrack"
+    ],
+    "/field_road": [
+        "field_road"
+    ],
+    "field_road": [
+        "field_road"
+    ],
+    "/coast_road": [
+        "coast_road"
+    ],
+    "fountain": [
+        "fountain"
+    ],
+    "/fountain/n_kids_playing_with_water_on_the_fountain": [
+        "fountain"
+    ],
+    "/fountain/n_people_sitting_or_reading_or_eating_next_to_a_fountain": [
+        "fountain"
+    ],
+    "/fountain/n_people_throwing_coins_into_a_fountain": [
+        "fountain"
+    ],
+    "/fountain": [
+        "fountain"
+    ],
+    "fire_escape": [
+        "fire_escape"
+    ],
+    "/fire_escape/n_people_sitting_on_the_fire_escape_steps_or_railing": [
+        "fire_escape"
+    ],
+    "/fire_escape": [
+        "fire_escape"
+    ],
+    "/packaging_plant": [
+        "packaging_plant"
+    ],
+    "/gate": [
+        "gate"
+    ],
+    "/doorway/indoor": [
+        "doorway_indoor"
+    ],
+    "/darkroom": [
+        "darkroom"
+    ],
+    "office_cubicles": [
+        "office_cubicles"
+    ],
+    "/office_cubicles": [
+        "office_cubicles"
+    ],
+    "/rope_bridge": [
+        "rope_bridge"
+    ],
+    "/rope_bridge/n_people_crossing": [
+        "rope_bridge"
+    ],
+    "heath": [
+        "heath"
+    ],
+    "/heath": [
+        "heath"
+    ],
+    "/checkout_counter": [
+        "checkout_counter"
+    ],
+    "/ice_skating_rink/indoor": [
+        "ice_skating_rink_indoor"
+    ],
+    "ice_skating_rink/indoor": [
+        "ice_skating_rink_indoor"
+    ],
+    "/observatory_post": [
+        "observatory_post"
+    ],
+    "/martial_arts_gym/n_people_stretching": [
+        "martial_arts_gym"
+    ],
+    "martial_arts_gym": [
+        "martial_arts_gym"
+    ],
+    "/martial_arts_gym": [
+        "martial_arts_gym"
+    ],
+    "/schoolhouse": [
+        "schoolhouse"
+    ],
+    "schoolhouse": [
+        "schoolhouse"
+    ],
+    "chemistry_lab": [
+        "chemistry_lab"
+    ],
+    "/chemistry_lab": [
+        "chemistry_lab"
+    ],
+    "/fire_station/n_firemen_talking_or_having_leisure_": [
+        "fire_station"
+    ],
+    "fire_station": [
+        "fire_station"
+    ],
+    "/fire_station": [
+        "fire_station"
+    ],
+    "/synagogue/indoor": [
+        "synagogue_indoor"
+    ],
+    "/promenade": [
+        "promenade"
+    ],
+    "promenade": [
+        "promenade"
+    ],
+    "utliers/fireplace": [
+        "fireplace"
+    ],
+    "/party_tent/indoor": [
+        "party_tent_indoor"
+    ],
+    "/catwalk": [
+        "catwalk"
+    ],
+    "utliers/farmhouse": [
+        "farmhouse"
+    ],
+    "utliers/one-way_street": [
+        "one-way_street"
+    ],
+    "fishpond": [
+        "fishpond"
+    ],
+    "/fishpond": [
+        "fishpond"
+    ],
+    "/cardroom": [
+        "cardroom"
+    ],
+    "/mobile_home": [
+        "mobile_home"
+    ],
+    "utliers/waterscape": [
+        "waterscape"
+    ],
+    "/car_dealership": [
+        "car_dealership"
+    ],
+    "garage/indoor": [
+        "garage_indoor"
+    ],
+    "/garage/indoor": [
+        "garage_indoor"
+    ],
+    "mountain": [
+        "mountain"
+    ],
+    "/mountain": [
+        "mountain"
+    ],
+    "/mountain/n_people_petting_or_feeding_a_wild_animal": [
+        "mountain"
+    ],
+    "/mountain/n_people_doing_mountain_bike": [
+        "mountain"
+    ],
+    "/shopping_mall_indoor/n_people_taking_the_escalator": [
+        "shopping_mall_indoor"
+    ],
+    "/shopping_mall/indoor": [
+        "shopping_mall_indoor"
+    ],
+    "/landfill": [
+        "landfill"
+    ],
+    "landfill": [
+        "landfill"
+    ],
+    "/airlock": [
+        "airlock"
+    ],
+    "/kitchen/n_people_cooking_food": [
+        "kitchen"
+    ],
+    "/kitchen": [
+        "kitchen"
+    ],
+    "/bakery/kitchen": [
+        "kitchen"
+    ],
+    "kitchen": [
+        "kitchen"
+    ],
+    "/rock_arch": [
+        "rock_arch"
+    ],
+    "rock_arch": [
+        "rock_arch"
+    ],
+    "/ticket_booth": [
+        "ticket_booth"
+    ],
+    "/ticket_booth/n_people_waiting_in_queue_to_buy_tickets": [
+        "ticket_booth"
+    ],
+    "ticket_booth": [
+        "ticket_booth"
+    ],
+    "/ticket_booth/n_people_buying_tickets": [
+        "ticket_booth"
+    ],
+    "/bow_window/indoor": [
+        "bow_window_indoor"
+    ],
+    "bow_window/indoor": [
+        "bow_window_indoor"
+    ],
+    "/engine_room": [
+        "engine_room"
+    ],
+    "/dentists_office": [
+        "dentists_office"
+    ],
+    "/warehouse/indoor": [
+        "warehouse_indoor"
+    ],
+    "/departure_lounge": [
+        "departure_lounge"
+    ],
+    "patio": [
+        "patio"
+    ],
+    "/patio": [
+        "patio"
+    ],
+    "/courthouse": [
+        "courthouse"
+    ],
+    "courthouse": [
+        "courthouse"
+    ],
+    "/rice_paddy": [
+        "rice_paddy"
+    ],
+    "rice_paddy": [
+        "rice_paddy"
+    ],
+    "/rice_paddy/n_workers_harvesting_rice": [
+        "rice_paddy"
+    ],
+    "/tower": [
+        "tower"
+    ],
+    "tower": [
+        "tower"
+    ],
+    "aqueduct": [
+        "aqueduct"
+    ],
+    "/aqueduct": [
+        "aqueduct"
+    ],
+    "/tobacco_shop/indoor": [
+        "tobacco_shop_indoor"
+    ],
+    "/pub/indoor": [
+        "pub_indoor"
+    ],
+    "/pub_indoor/n_people_making_a_toast": [
+        "pub_indoor"
+    ],
+    "pub/indoor": [
+        "pub_indoor"
+    ],
+    "/putting_green/n_players_giving_an_interview": [
+        "putting_green"
+    ],
+    "/putting_green/n_players_preparing_to_make_a_stroke": [
+        "putting_green"
+    ],
+    "/putting_green": [
+        "putting_green"
+    ],
+    "repair_shop": [
+        "repair_shop"
+    ],
+    "/repair_shop": [
+        "repair_shop"
+    ],
+    "utliers/scrubland": [
+        "scrubland"
+    ],
+    "/quadrangle": [
+        "quadrangle"
+    ],
+    "/steam_plant/outdoor": [
+        "steam_plant_outdoor"
+    ],
+    "/ferryboat/indoor": [
+        "ferryboat_indoor"
+    ],
+    "/bazaar/indoor": [
+        "bazaar_indoor"
+    ],
+    "/heliport": [
+        "heliport"
+    ],
+    "heliport": [
+        "heliport"
+    ],
+    "/heliport/n_helicopters_landing_on_the_heliport": [
+        "heliport"
+    ],
+    "/velodrome/outdoor": [
+        "velodrome_outdoor"
+    ],
+    "utliers/diving_board": [
+        "diving_board"
+    ],
+    "/portrait_studio": [
+        "portrait_studio"
+    ],
+    "/waterfall/plunge": [
+        "plunge"
+    ],
+    "utliers/tidal_river": [
+        "tidal_river"
+    ],
+    "/ramp": [
+        "ramp"
+    ],
+    "/terrace_farm": [
+        "terrace_farm"
+    ],
+    "/escalator/outdoor": [
+        "escalator_outdoor"
+    ],
+    "utliers/mental_institution/outdoor": [
+        "mental_institution_outdoor"
+    ],
+    "/paper_mill": [
+        "paper_mill"
+    ],
+    "/badminton_court/outdoor": [
+        "badminton_court_outdoor"
+    ],
+    "/cottage": [
+        "cottage"
+    ],
+    "cottage": [
+        "cottage"
+    ],
+    "/loading_dock": [
+        "loading_dock"
+    ],
+    "loading_dock": [
+        "loading_dock"
+    ],
+    "/batting_cage/indoor": [
+        "batting_cage_indoor"
+    ],
+    "/pilothouse/indoor": [
+        "pilothouse_indoor"
+    ],
+    "utliers/t-bar_lift": [
+        "t-bar_lift"
+    ],
+    "botanical_garden": [
+        "botanical_garden"
+    ],
+    "/botanical_garden": [
+        "botanical_garden"
+    ],
+    "utliers/millpond": [
+        "millpond"
+    ],
+    "/train_railway": [
+        "train_railway"
+    ],
+    "train_railway": [
+        "train_railway"
+    ],
+    "/batters_box": [
+        "batters_box"
+    ],
+    "/underwater/coral_reef": [
+        "coral_reef"
+    ],
+    "underwater/coral_reef": [
+        "coral_reef"
+    ],
+    "theater/indoor_procenium": [
+        "indoor_procenium"
+    ],
+    "/theater/indoor_procenium": [
+        "indoor_procenium"
+    ],
+    "building_facade": [
+        "building_facade"
+    ],
+    "/building_facade": [
+        "building_facade"
+    ],
+    "/church/indoor": [
+        "church_indoor"
+    ],
+    "church/indoor": [
+        "church_indoor"
+    ],
+    "/waiting_room": [
+        "waiting_room"
+    ],
+    "waiting_room": [
+        "waiting_room"
+    ],
+    "/waiting_room/n_people_talking_to_other_people": [
+        "waiting_room"
+    ],
+    "/lean-to": [
+        "lean-to"
+    ],
+    "utliers/lean-to_tent": [
+        "lean-to_tent"
+    ],
+    "utliers/head_shop": [
+        "head_shop"
+    ],
+    "utliers/lower_deck": [
+        "lower_deck"
+    ],
+    "/promenade_deck": [
+        "promenade_deck"
+    ],
+    "/boardwalk": [
+        "boardwalk"
+    ],
+    "boardwalk": [
+        "boardwalk"
+    ],
+    "/boardwalk/n_people_walking_by_the_boardwalk": [
+        "boardwalk"
+    ],
+    "/restaurant/ordering_food": [
+        "restaurant"
+    ],
+    "/restaurant": [
+        "restaurant"
+    ],
+    "restaurant": [
+        "restaurant"
+    ],
+    "/restaurant/serving_food": [
+        "restaurant"
+    ],
+    "/restaurant/eating_and_drinking_and_talking": [
+        "restaurant"
+    ],
+    "/baptistry/outdoor": [
+        "baptistry_outdoor"
+    ],
+    "utliers/tiltyard": [
+        "tiltyard"
+    ],
+    "landing_deck": [
+        "landing_deck"
+    ],
+    "/landing_deck": [
+        "landing_deck"
+    ],
+    "/landing_deck/n_planes_or_jets_or_helicopters_taking_off": [
+        "landing_deck"
+    ],
+    "/landing_deck/n_planes_or_jets_or_helicopters_landing": [
+        "landing_deck"
+    ],
+    "/fort": [
+        "fort"
+    ],
+    "/limousine_interior": [
+        "limousine_interior"
+    ],
+    "/music_store": [
+        "music_store"
+    ],
+    "/nursery/n_parents_or_nursery_people_playing_with_m_kids": [
+        "nursery"
+    ],
+    "/nursery": [
+        "nursery"
+    ],
+    "nursery": [
+        "nursery"
+    ],
+    "/nursery/n_kids_eating_or_drinking_or_talking": [
+        "nursery"
+    ],
+    "/elevator/door": [
+        "door"
+    ],
+    "/embassy": [
+        "embassy"
+    ],
+    "embassy": [
+        "embassy"
+    ],
+    "/volcano": [
+        "volcano"
+    ],
+    "volcano": [
+        "volcano"
+    ],
+    "/water_treatment_plant/indoor": [
+        "water_treatment_plant_indoor"
+    ],
+    "/bus_interior": [
+        "bus_interior"
+    ],
+    "/bus_interior/n_people_validating_their_ticket": [
+        "bus_interior"
+    ],
+    "bus_interior": [
+        "bus_interior"
+    ],
+    "mansion": [
+        "mansion"
+    ],
+    "/mansion": [
+        "mansion"
+    ],
+    "utliers/stage_set": [
+        "stage_set"
+    ],
+    "/dairy/outdoor": [
+        "dairy_outdoor"
+    ],
+    "utliers/feed_bunk": [
+        "feed_bunk"
+    ],
+    "/bistro/indoor": [
+        "bistro_indoor"
+    ],
+    "candy_store": [
+        "candy_store"
+    ],
+    "/candy_store": [
+        "candy_store"
+    ],
+    "/circus_tent/indoor": [
+        "circus_tent_indoor"
+    ],
+    "/dock": [
+        "dock"
+    ],
+    "/dock/n_people_sitting": [
+        "dock"
+    ],
+    "/dock/n_boats_are_docked": [
+        "dock"
+    ],
+    "utliers/layby": [
+        "layby"
+    ],
+    "/refectory": [
+        "refectory"
+    ],
+    "/army_base/n_soldiers_practicing_shooting": [
+        "army_base"
+    ],
+    "/army_base": [
+        "army_base"
+    ],
+    "/army_base/n_soldiers_eating_or_drinking_in_the_base": [
+        "army_base"
+    ],
+    "/army_base/n_solderis_greeting_m_people": [
+        "army_base"
+    ],
+    "army_base": [
+        "army_base"
+    ],
+    "/iceberg": [
+        "iceberg"
+    ],
+    "iceberg": [
+        "iceberg"
+    ],
+    "utliers/pizzeria_outdoor": [
+        "pizzeria_outdoor"
+    ],
+    "marsh": [
+        "marsh"
+    ],
+    "/marsh": [
+        "marsh"
+    ],
+    "/anechoic_chamber": [
+        "anechoic_chamber"
+    ],
+    "amusement_park/n_people_eating_or_drinking_or_talking": [
+        "amusement_park"
+    ],
+    "/amusement_park": [
+        "amusement_park"
+    ],
+    "amusement_park": [
+        "amusement_park"
+    ],
+    "/mountain_road": [
+        "mountain_road"
+    ],
+    "utliers/threshing_floor": [
+        "threshing_floor"
+    ],
+    "utliers/reception_room": [
+        "reception_room"
+    ],
+    "/hatchery": [
+        "hatchery"
+    ],
+    "/highway/n_cars_or_trucks_or_motorcycles_changing_lanes": [
+        "highway"
+    ],
+    "/highway": [
+        "highway"
+    ],
+    "/highway/n_cars_or_trucks_or_motorcycles__driving": [
+        "highway"
+    ],
+    "highway": [
+        "highway"
+    ],
+    "/highway/n_cars_or_trucks_or_motorcycles_having_an_accident": [
+        "highway"
+    ],
+    "/restaurant_patio": [
+        "restaurant_patio"
+    ],
+    "restaurant_patio": [
+        "restaurant_patio"
+    ],
+    "/restaurant_patio/n_clients_are_looking_for_a_table": [
+        "restaurant_patio"
+    ],
+    "/ballroom": [
+        "ballroom"
+    ],
+    "/ballroom/n_dancers_entering_the_dance_floor": [
+        "ballroom"
+    ],
+    "ballroom": [
+        "ballroom"
+    ],
+    "/ballroom/n_dancers_dancing_on_the_dance_floor": [
+        "ballroom"
+    ],
+    "/biology_laboratory": [
+        "biology_laboratory"
+    ],
+    "biology_laboratory": [
+        "biology_laboratory"
+    ],
+    "/yard": [
+        "yard"
+    ],
+    "yard": [
+        "yard"
+    ],
+    "/islet": [
+        "islet"
+    ],
+    "islet": [
+        "islet"
+    ],
+    "parking_lot": [
+        "parking_lot"
+    ],
+    "/parking_lot": [
+        "parking_lot"
+    ],
+    "/workroom": [
+        "workroom"
+    ],
+    "/bleachers/outdoor": [
+        "bleachers_outdoor"
+    ],
+    "utliers/scullery": [
+        "scullery"
+    ],
+    "tundra": [
+        "tundra"
+    ],
+    "/tundra": [
+        "tundra"
+    ],
+    "gift_shop": [
+        "gift_shop"
+    ],
+    "/gift_shop": [
+        "gift_shop"
+    ],
+    "utliers/landing_strip": [
+        "landing_strip"
+    ],
+    "utliers/assembly_hall": [
+        "assembly_hall"
+    ],
+    "utliers/acropolis": [
+        "acropolis"
+    ],
+    "/brickyard/outdoor": [
+        "brickyard_outdoor"
+    ],
+    "utliers/semidesert": [
+        "semidesert"
+    ],
+    "/bank/indoor": [
+        "bank_indoor"
+    ],
+    "arena/hockey": [
+        "hockey"
+    ],
+    "/arena/hockey": [
+        "hockey"
+    ],
+    "/theater/indoor_seats": [
+        "indoor_seats"
+    ],
+    "/piano_store": [
+        "piano_store"
+    ],
+    "manufactured_home": [
+        "manufactured_home"
+    ],
+    "/manufactured_home": [
+        "manufactured_home"
+    ],
+    "/backstage": [
+        "backstage"
+    ],
+    "orchard": [
+        "orchard"
+    ],
+    "/orchard": [
+        "orchard"
+    ],
+    "dorm_room": [
+        "dorm_room"
+    ],
+    "/dorm_room/n_people_studying_in_the_bed_or_desk_by_reading_a_book_or_being_on_the_computer": [
+        "dorm_room"
+    ],
+    "/dorm_room": [
+        "dorm_room"
+    ],
+    "/wharf": [
+        "wharf"
+    ],
+    "utliers/vestibule": [
+        "vestibule"
+    ],
+    "greenhouse/outdoor": [
+        "greenhouse_outdoor"
+    ],
+    "/greenhouse/outdoor": [
+        "greenhouse_outdoor"
+    ],
+    "racecourse": [
+        "racecourse"
+    ],
+    "/racecourse": [
+        "racecourse"
+    ],
+    "/kennel/outdoor": [
+        "kennel_outdoor"
+    ],
+    "utliers/powder_room": [
+        "powder_room"
+    ],
+    "/barn": [
+        "barn"
+    ],
+    "barn": [
+        "barn"
+    ],
+    "/convenience_store/indoor": [
+        "convenience_store_indoor"
+    ],
+    "day_care_center": [
+        "day_care_center"
+    ],
+    "/day_care_center": [
+        "day_care_center"
+    ],
+    "/mosque/outdoor": [
+        "mosque_outdoor"
+    ],
+    "mosque/outdoor": [
+        "mosque_outdoor"
+    ],
+    "utliers/stall": [
+        "stall"
+    ],
+    "/tea_garden": [
+        "tea_garden"
+    ],
+    "/mezzanine": [
+        "mezzanine"
+    ],
+    "mezzanine": [
+        "mezzanine"
+    ],
+    "parking_garage/indoor": [
+        "parking_garage_indoor"
+    ],
+    "/parking_garage_indoor/n_cars_or_motorcycles_parking": [
+        "parking_garage_indoor"
+    ],
+    "/parking_garage/indoor": [
+        "parking_garage_indoor"
+    ],
+    "/conference_center/n_speakers_making_a_presentation": [
+        "conference_center"
+    ],
+    "/conference_center": [
+        "conference_center"
+    ],
+    "conference_center": [
+        "conference_center"
+    ],
+    "/oast_house": [
+        "oast_house"
+    ],
+    "oast_house": [
+        "oast_house"
+    ],
+    "/cathedral/outdoor": [
+        "cathedral_outdoor"
+    ],
+    "/cathedral_outdoor/n_people_carrying_a_figure_or_coffin_out_of_the_cathedral": [
+        "cathedral_outdoor"
+    ],
+    "/cathedral_outdoor/n_people_making_drawings_of_the_cathedral": [
+        "cathedral_outdoor"
+    ],
+    "hayfield": [
+        "hayfield"
+    ],
+    "/hayfield": [
+        "hayfield"
+    ],
+    "utliers/rest_stop": [
+        "rest_stop"
+    ],
+    "/thriftshop": [
+        "thriftshop"
+    ],
+    "/butchers_shop": [
+        "butchers_shop"
+    ],
+    "butchers_shop": [
+        "butchers_shop"
+    ],
+    "/butchers_shop/n_clients_ordering_meat": [
+        "butchers_shop"
+    ],
+    "/excavation": [
+        "excavation"
+    ],
+    "excavation": [
+        "excavation"
+    ],
+    "utliers/floating_dock": [
+        "floating_dock"
+    ],
+    "arch": [
+        "arch"
+    ],
+    "/arch": [
+        "arch"
+    ],
+    "field/wild": [
+        "wild"
+    ],
+    "/field/wild": [
+        "wild"
+    ],
+    "/earth_fissure": [
+        "earth_fissure"
+    ],
+    "utliers/tract_housing": [
+        "tract_housing"
+    ],
+    "/seawall": [
+        "seawall"
+    ],
+    "/naval_base": [
+        "naval_base"
+    ],
+    "/skywalk/outdoor": [
+        "skywalk_outdoor"
+    ],
+    "utliers/store": [
+        "store"
+    ],
+    "utliers/trellis": [
+        "trellis"
+    ],
+    "utliers/booth_outdoor": [
+        "booth_outdoor"
+    ],
+    "/legislative_chamber": [
+        "legislative_chamber"
+    ],
+    "/legislative_chamber/a_representative_giving_a_speech": [
+        "legislative_chamber"
+    ],
+    "legislative_chamber": [
+        "legislative_chamber"
+    ],
+    "/lawn": [
+        "lawn"
+    ],
+    "lawn": [
+        "lawn"
+    ],
+    "/lawn/n_people_removing_weeds": [
+        "lawn"
+    ],
+    "/lawn/n_people_flying_kites": [
+        "lawn"
+    ],
+    "/waterfall/cascade": [
+        "cascade"
+    ],
+    "/crawl_space": [
+        "crawl_space"
+    ],
+    "banquet_hall": [
+        "banquet_hall"
+    ],
+    "/banquet_hall": [
+        "banquet_hall"
+    ],
+    "/gazebo/interior": [
+        "gazebo_interior"
+    ],
+    "/water_treatment_plant/outdoor": [
+        "water_treatment_plant_outdoor"
+    ],
+    "/jacuzzi/outdoor": [
+        "jacuzzi_outdoor"
+    ],
+    "utliers/outbuilding": [
+        "outbuilding"
+    ],
+    "/bullring": [
+        "bullring"
+    ],
+    "bullring": [
+        "bullring"
+    ],
+    "/bullring/n_bulls_damaging_a_bullfighter": [
+        "bullring"
+    ],
+    "/bullring/n_bullfighters_handling_and_showing_their_hat": [
+        "bullring"
+    ],
+    "/bullring/n_bullfighters_showing_the_cape_to_m_bulls": [
+        "bullring"
+    ],
+    "/bullring/n_bullfighters_handling_and_showing_the_bulls_ears_or_tie": [
+        "bullring"
+    ],
+    "/overpass": [
+        "overpass"
+    ],
+    "/market/indoor": [
+        "market_indoor"
+    ],
+    "utliers/foothill": [
+        "foothill"
+    ],
+    "market/outdoor": [
+        "market_outdoor"
+    ],
+    "/market/outdoor": [
+        "market_outdoor"
+    ],
+    "utliers/awning_deck": [
+        "awning_deck"
+    ],
+    "kasbah": [
+        "kasbah"
+    ],
+    "/kasbah": [
+        "kasbah"
+    ],
+    "utliers/chuck_wagon": [
+        "chuck_wagon"
+    ],
+    "/forest_road/n_people_running_through_the_road": [
+        "forest_road"
+    ],
+    "/forest_road/n_bikers_riding_through_the_road": [
+        "forest_road"
+    ],
+    "/forest_road": [
+        "forest_road"
+    ],
+    "forest_road": [
+        "forest_road"
+    ],
+    "flea_market/indoor": [
+        "flea_market_indoor"
+    ],
+    "/flea_market/indoor": [
+        "flea_market_indoor"
+    ],
+    "/wrestling_ring/indoor": [
+        "wrestling_ring_indoor"
+    ],
+    "television_studio": [
+        "television_studio"
+    ],
+    "/television_studio": [
+        "television_studio"
+    ],
+    "/athletic_field/outdoor": [
+        "athletic_field_outdoor"
+    ],
+    "/athletic_field_outdoor/n_athletes_crossing_the_finishing_line": [
+        "athletic_field_outdoor"
+    ],
+    "/athletic_field_outdoor/n_athletes_running_a_race": [
+        "athletic_field_outdoor"
+    ],
+    "athletic_field/outdoor": [
+        "athletic_field_outdoor"
+    ],
+    "/pasture": [
+        "pasture"
+    ],
+    "pasture": [
+        "pasture"
+    ],
+    "/handball_court": [
+        "handball_court"
+    ],
+    "utliers/rock_garden": [
+        "rock_garden"
+    ],
+    "/greenhouse/indoor": [
+        "greenhouse_indoor"
+    ],
+    "greenhouse/indoor": [
+        "greenhouse_indoor"
+    ],
+    "/mountain_snowy/n_people_hiking": [
+        "mountain_snowy"
+    ],
+    "mountain_snowy": [
+        "mountain_snowy"
+    ],
+    "/mountain_snowy/n_people_skying_down_the_mountain": [
+        "mountain_snowy"
+    ],
+    "/mountain_snowy": [
+        "mountain_snowy"
+    ],
+    "/raft": [
+        "raft"
+    ],
+    "raft": [
+        "raft"
+    ],
+    "/lake/artificial": [
+        "artificial"
+    ],
+    "/abbey": [
+        "abbey"
+    ],
+    "/pulpit": [
+        "pulpit"
+    ],
+    "/hunting_lodge/indoor": [
+        "hunting_lodge_indoor"
+    ],
+    "/theater/indoor_round": [
+        "indoor_round"
+    ],
+    "utliers/buffet": [
+        "buffet"
+    ],
+    "/dolmen": [
+        "dolmen"
+    ],
+    "utliers/field_tent_outdoor": [
+        "field_tent_outdoor"
+    ],
+    "/hunting_lodge/outdoor": [
+        "hunting_lodge_outdoor"
+    ],
+    "hunting_lodge/outdoor": [
+        "hunting_lodge_outdoor"
+    ],
+    "utliers/flatlet": [
+        "flatlet"
+    ],
+    "/crosswalk/n_bycicles_waiting_to_cross": [
+        "crosswalk"
+    ],
+    "/crosswalk/n_cars_or_trucks_or_buses_or_motorbikes_crossing": [
+        "crosswalk"
+    ],
+    "/crosswalk": [
+        "crosswalk"
+    ],
+    "/crosswalk/n_people_crossing": [
+        "crosswalk"
+    ],
+    "crosswalk": [
+        "crosswalk"
+    ],
+    "arcade": [
+        "arcade"
+    ],
+    "/arcade": [
+        "arcade"
+    ],
+    "/airport_ticket_counter": [
+        "airport_ticket_counter"
+    ],
+    "recreation_room": [
+        "recreation_room"
+    ],
+    "/recreation_room": [
+        "recreation_room"
+    ],
+    "/assembly_line": [
+        "assembly_line"
+    ],
+    "utliers/loge": [
+        "loge"
+    ],
+    "/stone_circle": [
+        "stone_circle"
+    ],
+    "stone_circle": [
+        "stone_circle"
+    ],
+    "/motel": [
+        "motel"
+    ],
+    "motel": [
+        "motel"
+    ],
+    "/van_interior": [
+        "van_interior"
+    ],
+    "/archive": [
+        "archive"
+    ],
+    "archive": [
+        "archive"
+    ],
+    "/theater/outdoor": [
+        "theater_outdoor"
+    ],
+    "/construction_site": [
+        "construction_site"
+    ],
+    "construction_site": [
+        "construction_site"
+    ],
+    "/cavern/indoor": [
+        "cavern_indoor"
+    ],
+    "/covered_bridge/interior": [
+        "covered_bridge_interior"
+    ],
+    "/science_museum/n_guides_explaining_an_exhibit": [
+        "science_museum"
+    ],
+    "science_museum": [
+        "science_museum"
+    ],
+    "/science_museum": [
+        "science_museum"
+    ],
+    "/gorge": [
+        "gorge"
+    ],
+    "/imaret": [
+        "imaret"
+    ],
+    "/underwater/ocean_shallow": [
+        "ocean_shallow"
+    ],
+    "/tearoom": [
+        "tearoom"
+    ],
+    "/outcropping": [
+        "outcropping"
+    ],
+    "/monastery/outdoor": [
+        "monastery_outdoor"
+    ],
+    "utliers/salon": [
+        "salon"
+    ],
+    "/schoolyard": [
+        "schoolyard"
+    ],
+    "/videostore": [
+        "videostore"
+    ],
+    "stage/indoor": [
+        "stage_indoor"
+    ],
+    "/stage/indoor": [
+        "stage_indoor"
+    ],
+    "/gun_deck/outdoor": [
+        "gun_deck_outdoor"
+    ],
+    "/moor": [
+        "moor"
+    ],
+    "/athletic_field/indoor": [
+        "athletic_field_indoor"
+    ],
+    "/archaelogical_excavation": [
+        "archaelogical_excavation"
+    ],
+    "/archaelogical_excavation/n_people_digging_in_the_ground": [
+        "archaelogical_excavation"
+    ],
+    "archaelogical_excavation": [
+        "archaelogical_excavation"
+    ],
+    "/brickyard/indoor": [
+        "brickyard_indoor"
+    ],
+    "wheat_field": [
+        "wheat_field"
+    ],
+    "/wheat_field/n_machines_cutting_or_harvesting_the_wheat_field": [
+        "wheat_field"
+    ],
+    "/wheat_field": [
+        "wheat_field"
+    ],
+    "/wheat_field/n_people_walking_across_the_wheat_field": [
+        "wheat_field"
+    ],
+    "/wheat_field/n_people_touching_the_wheat": [
+        "wheat_field"
+    ],
+    "/podium/indoor": [
+        "podium_indoor"
+    ],
+    "/porch": [
+        "porch"
+    ],
+    "porch": [
+        "porch"
+    ],
+    "pond": [
+        "pond"
+    ],
+    "/pond": [
+        "pond"
+    ],
+    "/irrigation_ditch": [
+        "irrigation_ditch"
+    ],
+    "utliers/shelter": [
+        "shelter"
+    ],
+    "utliers/upper_balcony": [
+        "upper_balcony"
+    ],
+    "/ski_jump": [
+        "ski_jump"
+    ],
+    "utliers/country_house": [
+        "country_house"
+    ],
+    "/funeral_chapel": [
+        "funeral_chapel"
+    ],
+    "/fishmarket": [
+        "fishmarket"
+    ],
+    "utliers/guardroom": [
+        "guardroom"
+    ],
+    "ball_pit": [
+        "ball_pit"
+    ],
+    "/ball_pit/n_people_or_kids_jumping_into_the_ball_pit": [
+        "ball_pit"
+    ],
+    "/ball_pit": [
+        "ball_pit"
+    ],
+    "/ball_pit/n_people_or_kids_leaving_the_ball_pit": [
+        "ball_pit"
+    ],
+    "/ball_pit/n_people_or_kids_hiding_themselves_under_the_balls": [
+        "ball_pit"
+    ],
+    "/tollbooth": [
+        "tollbooth"
+    ],
+    "/party_tent/outdoor": [
+        "party_tent_outdoor"
+    ],
+    "utliers/field_house": [
+        "field_house"
+    ],
+    "/entrance_hall": [
+        "entrance_hall"
+    ],
+    "entrance_hall": [
+        "entrance_hall"
+    ],
+    "utliers/laboratorywet": [
+        "laboratorywet"
+    ],
+    "/cemetery": [
+        "cemetery"
+    ],
+    "cemetery": [
+        "cemetery"
+    ],
+    "/cemetery/n_people_crying": [
+        "cemetery"
+    ],
+    "/cemetery/n_gravediggers_digging_m_graves": [
+        "cemetery"
+    ],
+    "/cemetery/n_people_looking_at_a_coffin": [
+        "cemetery"
+    ],
+    "/trestle_bridge": [
+        "trestle_bridge"
+    ],
+    "/physics_laboratory": [
+        "physics_laboratory"
+    ],
+    "/furnace_room": [
+        "furnace_room"
+    ],
+    "/dress_shop": [
+        "dress_shop"
+    ],
+    "/tennis_court/outdoor": [
+        "tennis_court_outdoor"
+    ],
+    "/bus_station/indoor": [
+        "bus_station_indoor"
+    ],
+    "bus_station/indoor": [
+        "bus_station_indoor"
+    ],
+    "/barnyard": [
+        "barnyard"
+    ],
+    "/lab_classroom": [
+        "lab_classroom"
+    ],
+    "lecture_room": [
+        "lecture_room"
+    ],
+    "/lecture_room": [
+        "lecture_room"
+    ],
+    "/power_plant/outdoor": [
+        "power_plant_outdoor"
+    ],
+    "/arena/basketball": [
+        "basketball"
+    ],
+    "swimming_pool/outdoor": [
+        "swimming_pool_outdoor"
+    ],
+    "/swimming_pool/outdoor": [
+        "swimming_pool_outdoor"
+    ],
+    "/apse/outdoor": [
+        "apse_outdoor"
+    ],
+    "/gatehouse": [
+        "gatehouse"
+    ],
+    "/television_room/n_people_lying_on_the_couch": [
+        "television_room"
+    ],
+    "/television_room": [
+        "television_room"
+    ],
+    "television_room": [
+        "television_room"
+    ],
+    "/restroom/outdoor": [
+        "restroom_outdoor"
+    ],
+    "/watering_hole": [
+        "watering_hole"
+    ],
+    "watering_hole": [
+        "watering_hole"
+    ],
+    "/watering_hole/n_animals_drinking_water": [
+        "watering_hole"
+    ],
+    "tree_farm": [
+        "tree_farm"
+    ],
+    "/tree_farm": [
+        "tree_farm"
+    ],
+    "/conference_room": [
+        "conference_room"
+    ],
+    "conference_room": [
+        "conference_room"
+    ],
+    "/toll_plaza": [
+        "toll_plaza"
+    ],
+    "utliers/vat": [
+        "vat"
+    ],
+    "/temple/western": [
+        "western"
+    ],
+    "/steel_mill/outdoor": [
+        "steel_mill_outdoor"
+    ],
+    "/desert_road": [
+        "desert_road"
+    ],
+    "/desert_road/n_bycicles_riding_along_the_road": [
+        "desert_road"
+    ],
+    "/desert_road/n_cars_or_trucks_or_motorcycles_having_an_accident": [
+        "desert_road"
+    ],
+    "desert_road": [
+        "desert_road"
+    ],
+    "utliers/arbor": [
+        "arbor"
+    ],
+    "/runway": [
+        "runway"
+    ],
+    "runway": [
+        "runway"
+    ],
+    "utliers/balustrade": [
+        "balustrade"
+    ],
+    "/submarine_interior": [
+        "submarine_interior"
+    ],
+    "/forest/broadleaf": [
+        "broadleaf"
+    ],
+    "forest/broadleaf": [
+        "broadleaf"
+    ],
+    "/breakroom": [
+        "breakroom"
+    ],
+    "/moat/dry": [
+        "dry"
+    ],
+    "/corn_field/n_people_taking_or_handling_or_eating_corn": [
+        "corn_field"
+    ],
+    "/corn_field": [
+        "corn_field"
+    ],
+    "corn_field": [
+        "corn_field"
+    ],
+    "/synagogue/outdoor": [
+        "synagogue_outdoor"
+    ],
+    "synagogue/outdoor": [
+        "synagogue_outdoor"
+    ],
+    "/fairway/n_players_walking_across_the_field": [
+        "fairway"
+    ],
+    "/fairway": [
+        "fairway"
+    ],
+    "/fairway/n_players_training_the_stroke": [
+        "fairway"
+    ],
+    "utliers/cellar": [
+        "cellar"
+    ],
+    "/glacier": [
+        "glacier"
+    ],
+    "glacier": [
+        "glacier"
+    ],
+    "utliers/byroad": [
+        "byroad"
+    ],
+    "utliers/sugar_refinery": [
+        "sugar_refinery"
+    ],
+    "/dugout": [
+        "dugout"
+    ],
+    "utliers/brooklet": [
+        "brooklet"
+    ],
+    "/supermarket": [
+        "supermarket"
+    ],
+    "supermarket": [
+        "supermarket"
+    ],
+    "/supermarket/n_people_handling_and_looking_at_a_product": [
+        "supermarket"
+    ],
+    "/woodland": [
+        "woodland"
+    ],
+    "/ranch": [
+        "ranch"
+    ],
+    "/lobby": [
+        "lobby"
+    ],
+    "lobby": [
+        "lobby"
+    ],
+    "/weighbridge": [
+        "weighbridge"
+    ],
+    "/oil_refinery/outdoor": [
+        "oil_refinery_outdoor"
+    ],
+    "/gun_deck/indoor": [
+        "gun_deck_indoor"
+    ],
+    "/inn/indoor": [
+        "inn_indoor"
+    ],
+    "/cloister/outdoor": [
+        "cloister_outdoor"
+    ],
+    "locker_room": [
+        "locker_room"
+    ],
+    "/locker_room/n_people_listiening_sit_or_standing_m_people_sit_or_standing_giving__a_speech_or_instructions": [
+        "locker_room"
+    ],
+    "/locker_room/n_people_celebrating_a_victory": [
+        "locker_room"
+    ],
+    "/locker_room": [
+        "locker_room"
+    ],
+    "roof_garden": [
+        "roof_garden"
+    ],
+    "/roof_garden": [
+        "roof_garden"
+    ],
+    "utliers/artists_loft/questionable": [
+        "artists_loft"
+    ],
+    "/artists_loft": [
+        "artists_loft"
+    ],
+    "artists_loft": [
+        "artists_loft"
+    ],
+    "/auto_mechanics/indoor": [
+        "auto_mechanics_indoor"
+    ],
+    "/veranda": [
+        "veranda"
+    ],
+    "/elevator/interior": [
+        "elevator_interior"
+    ],
+    "elevator/interior": [
+        "elevator_interior"
+    ],
+    "/zen_garden": [
+        "zen_garden"
+    ],
+    "zen_garden": [
+        "zen_garden"
+    ],
+    "/podium/outdoor": [
+        "podium_outdoor"
+    ],
+    "operating_room": [
+        "operating_room"
+    ],
+    "/operating_room": [
+        "operating_room"
+    ],
+    "/chemical_plant": [
+        "chemical_plant"
+    ],
+    "/basilica/n_people_entering_the_basilica": [
+        "basilica"
+    ],
+    "/basilica/n_people_leaving_the_basilica": [
+        "basilica"
+    ],
+    "/basilica": [
+        "basilica"
+    ],
+    "/vestry": [
+        "vestry"
+    ],
+    "/tunnel/rail_indoor": [
+        "rail_indoor"
+    ],
+    "field/cultivated": [
+        "cultivated"
+    ],
+    "/field/cultivated": [
+        "cultivated"
+    ],
+    "/poolroom/home": [
+        "poolroom_home"
+    ],
+    "poolroom/home": [
+        "poolroom_home"
+    ],
+    "/nunnery": [
+        "nunnery"
+    ],
+    "/florist_shop/outdoor": [
+        "florist_shop_outdoor"
+    ],
+    "/washhouse/indoor": [
+        "washhouse_indoor"
+    ],
+    "/boathouse": [
+        "boathouse"
+    ],
+    "boathouse": [
+        "boathouse"
+    ],
+    "utliers/estaminet": [
+        "estaminet"
+    ],
+    "/taxistand": [
+        "taxistand"
+    ],
+    "utliers/shore": [
+        "shore"
+    ],
+    "/resort": [
+        "resort"
+    ],
+    "/gangplank": [
+        "gangplank"
+    ],
+    "gangplank": [
+        "gangplank"
+    ],
+    "/balcony/interior": [
+        "balcony_interior"
+    ],
+    "balcony/interior": [
+        "balcony_interior"
+    ],
+    "/balcony_interior/n_people_bringing_food_or_drinks_to_the_balcony": [
+        "balcony_interior"
+    ],
+    "/warehouse/outdoor": [
+        "warehouse_outdoor"
+    ],
+    "/bus_station/outdoor": [
+        "bus_station_outdoor"
+    ],
+    "/pizzeria/n_clients_ordering_pizza_from_the_table_or_counter": [
+        "pizzeria"
+    ],
+    "/pizzeria": [
+        "pizzeria"
+    ],
+    "pizzeria": [
+        "pizzeria"
+    ],
+    "utliers/customhouse": [
+        "customhouse"
+    ],
+    "/basement": [
+        "basement"
+    ],
+    "basement": [
+        "basement"
+    ],
+    "/ziggurat": [
+        "ziggurat"
+    ],
+    "/control_room": [
+        "control_room"
+    ],
+    "/hotel/outdoor": [
+        "hotel_outdoor"
+    ],
+    "hotel/outdoor": [
+        "hotel_outdoor"
+    ],
+    "/hotel_outdoor/n_people_taking_the_sun_in_the_garden_of_the_hotel": [
+        "hotel_outdoor"
+    ],
+    "/salt_plain": [
+        "salt_plain"
+    ],
+    "/oil_refinery/indoor": [
+        "oil_refinery_indoor"
+    ],
+    "utliers/bypass": [
+        "bypass"
+    ],
+    "restaurant_kitchen": [
+        "restaurant_kitchen"
+    ],
+    "/restaurant_kitchen": [
+        "restaurant_kitchen"
+    ],
+    "utliers/hen_yard": [
+        "hen_yard"
+    ],
+    "/basketball_court_indoor/a_manager_giving_instructions_to_the_team": [
+        "basketball_court_indoor"
+    ],
+    "basketball_court/indoor": [
+        "basketball_court_indoor"
+    ],
+    "/basketball_court/indoor": [
+        "basketball_court_indoor"
+    ],
+    "/revolving_door": [
+        "revolving_door"
+    ],
+    "/courtroom": [
+        "courtroom"
+    ],
+    "/chicken_coop/indoor": [
+        "chicken_coop_indoor"
+    ],
+    "/distillery": [
+        "distillery"
+    ],
+    "amphitheater": [
+        "amphitheater"
+    ],
+    "/amphitheater": [
+        "amphitheater"
+    ],
+    "stage/outdoor": [
+        "stage_outdoor"
+    ],
+    "/stage/outdoor": [
+        "stage_outdoor"
+    ],
+    "/brewery/outdoor": [
+        "brewery_outdoor"
+    ],
+    "/optician": [
+        "optician"
+    ],
+    "utliers/entryway_outdoor": [
+        "entryway_outdoor"
+    ],
+    "closet": [
+        "closet"
+    ],
+    "/closet": [
+        "closet"
+    ],
+    "/beer_hall": [
+        "beer_hall"
+    ],
+    "stadium/baseball": [
+        "baseball"
+    ],
+    "/stadium/baseball": [
+        "baseball"
+    ],
+    "/library_indoor/n_people_taking_books_out_of_the_library": [
+        "library_indoor"
+    ],
+    "/firing_range/indoor": [
+        "firing_range_indoor"
+    ],
+    "/barbershop": [
+        "barbershop"
+    ],
+    "/circus_tent/outdoor": [
+        "circus_tent_outdoor"
+    ],
+    "/foundry/indoor": [
+        "foundry_indoor"
+    ],
+    "/oyster_farm": [
+        "oyster_farm"
+    ],
+    "/geodesic_dome/outdoor": [
+        "geodesic_dome_outdoor"
+    ],
+    "/temple/south_asia": [
+        "south_asia"
+    ],
+    "/fly_bridge": [
+        "fly_bridge"
+    ],
+    "/waterfall/cataract": [
+        "cataract"
+    ],
+    "/desert/vegetation": [
+        "vegetation"
+    ],
+    "desert/vegetation": [
+        "vegetation"
+    ],
+    "utliers/flashflood": [
+        "flashflood"
+    ],
+    "/backstairs": [
+        "backstairs"
+    ],
+    "/print_shop": [
+        "print_shop"
+    ],
+    "/berth_deck": [
+        "berth_deck"
+    ],
+    "utliers/backstage_outdoor": [
+        "backstage_outdoor"
+    ],
+    "/conference_hall": [
+        "conference_hall"
+    ],
+    "utliers/dining_area": [
+        "dining_area"
+    ],
+    "/train_station/station": [
+        "station"
+    ],
+    "/portico": [
+        "portico"
+    ],
+    "utliers/stateroom": [
+        "stateroom"
+    ],
+    "/grotto": [
+        "grotto"
+    ],
+    "grotto": [
+        "grotto"
+    ],
+    "drugstore": [
+        "drugstore"
+    ],
+    "/drugstore": [
+        "drugstore"
+    ],
+    "/newsroom": [
+        "newsroom"
+    ],
+    "/squash_court": [
+        "squash_court"
+    ],
+    "/oilrig": [
+        "oilrig"
+    ],
+    "oilrig": [
+        "oilrig"
+    ],
+    "utliers/backstairs_indoor": [
+        "backstairs_indoor"
+    ],
+    "/voting_booth": [
+        "voting_booth"
+    ],
+    "/whispering_gallery": [
+        "whispering_gallery"
+    ],
+    "/waterfall/fan": [
+        "fan"
+    ],
+    "/game_room": [
+        "game_room"
+    ],
+    "utliers/breakfast_table": [
+        "breakfast_table"
+    ],
+    "/ossuary": [
+        "ossuary"
+    ],
+    "delicatessen": [
+        "delicatessen"
+    ],
+    "/delicatessen": [
+        "delicatessen"
+    ],
+    "/labyrinth/outdoor": [
+        "labyrinth_outdoor"
+    ],
+    "/flea_market/outdoor": [
+        "flea_market_outdoor"
+    ],
+    "utliers/tidal_basin": [
+        "tidal_basin"
+    ],
+    "/garbage_dump": [
+        "garbage_dump"
+    ],
+    "utliers/pavement": [
+        "pavement"
+    ],
+    "/stadium/outdoor": [
+        "stadium_outdoor"
+    ],
+    "/roller_skating_rink/indoor": [
+        "roller_skating_rink_indoor"
+    ],
+    "pier": [
+        "pier"
+    ],
+    "/pier": [
+        "pier"
+    ],
+    "/pet_shop": [
+        "pet_shop"
+    ],
+    "pet_shop": [
+        "pet_shop"
+    ],
+    "/battlement": [
+        "battlement"
+    ],
+    "/floating_dry_dock": [
+        "floating_dry_dock"
+    ],
+    "junkyard": [
+        "junkyard"
+    ],
+    "/junkyard": [
+        "junkyard"
+    ],
+    "/campus/n_people_heading_to_a_sports_match": [
+        "campus"
+    ],
+    "/campus/n_people_sitting_on_a_bench": [
+        "campus"
+    ],
+    "/campus/n_people_eating_or_drinking_or_talking": [
+        "campus"
+    ],
+    "campus": [
+        "campus"
+    ],
+    "/campus": [
+        "campus"
+    ],
+    "/wine_cellar/barrel_storage": [
+        "barrel_storage"
+    ],
+    "vineyard": [
+        "vineyard"
+    ],
+    "/vineyard": [
+        "vineyard"
+    ],
+    "/basketball_court/outdoor": [
+        "basketball_court_outdoor"
+    ],
+    "/orchestra_pit": [
+        "orchestra_pit"
+    ],
+    "utliers/tannery": [
+        "tannery"
+    ],
+    "/galley": [
+        "galley"
+    ],
+    "/galley/n_people_washing_dishes_or_glasses_or_cutlery": [
+        "galley"
+    ],
+    "/galley/n_people_cooking_food": [
+        "galley"
+    ],
+    "/mastaba": [
+        "mastaba"
+    ],
+    "/roundhouse": [
+        "roundhouse"
+    ],
+    "/dinette/vehicle": [
+        "vehicle"
+    ],
+    "berth": [
+        "berth"
+    ],
+    "/berth": [
+        "berth"
+    ],
+    "/diner/indoor": [
+        "diner_indoor"
+    ],
+    "/drill_rig": [
+        "drill_rig"
+    ],
+    "/hayloft": [
+        "hayloft"
+    ],
+    "utliers/observation_station": [
+        "observation_station"
+    ],
+    "utliers/bath_indoor": [
+        "bath_indoor"
+    ],
+    "/call_center": [
+        "call_center"
+    ],
+    "/bazaar/outdoor": [
+        "bazaar_outdoor"
+    ],
+    "bazaar/outdoor": [
+        "bazaar_outdoor"
+    ],
+    "/fence": [
+        "fence"
+    ],
+    "/velodrome/indoor": [
+        "velodrome_indoor"
+    ],
+    "/pub/outdoor": [
+        "pub_outdoor"
+    ],
+    "/canteen": [
+        "canteen"
+    ],
+    "/hearth": [
+        "hearth"
+    ],
+    "/airplane_cabin": [
+        "airplane_cabin"
+    ],
+    "/airplane_cabin/n_passengers_eating_or_drinking": [
+        "airplane_cabin"
+    ],
+    "/chapel": [
+        "chapel"
+    ],
+    "/bank/outdoor": [
+        "bank_outdoor"
+    ],
+    "/ventilation_shaft": [
+        "ventilation_shaft"
+    ],
+    "/rainforest": [
+        "rainforest"
+    ],
+    "rainforest": [
+        "rainforest"
+    ],
+    "utliers/ballet": [
+        "ballet"
+    ],
+    "alcove": [
+        "alcove"
+    ],
+    "/alcove": [
+        "alcove"
+    ],
+    "/penalty_box": [
+        "penalty_box"
+    ],
+    "/chalet": [
+        "chalet"
+    ],
+    "chalet": [
+        "chalet"
+    ],
+    "/flood": [
+        "flood"
+    ],
+    "/pig_farm": [
+        "pig_farm"
+    ],
+    "/priory": [
+        "priory"
+    ],
+    "/rolling_mill": [
+        "rolling_mill"
+    ],
+    "/sun_deck": [
+        "sun_deck"
+    ],
+    "/burial_chamber/n_people_talking_or_asking_questions_to_m_guides": [
+        "burial_chamber"
+    ],
+    "/burial_chamber": [
+        "burial_chamber"
+    ],
+    "burial_chamber": [
+        "burial_chamber"
+    ],
+    "/carport/outdoor": [
+        "carport_outdoor"
+    ],
+    "/embankment": [
+        "embankment"
+    ],
+    "/dairy/indoor": [
+        "dairy_indoor"
+    ],
+    "swimming_hole": [
+        "swimming_hole"
+    ],
+    "/swimming_hole": [
+        "swimming_hole"
+    ],
+    "utliers/bath_outdoor": [
+        "bath_outdoor"
+    ],
+    "/jury_box": [
+        "jury_box"
+    ],
+    "utliers/operating_table": [
+        "operating_table"
+    ],
+    "utliers/deck-house_deck_house": [
+        "deck-house_deck_house"
+    ],
+    "/witness_stand": [
+        "witness_stand"
+    ],
+    "/nuclear_power_plant/indoor": [
+        "nuclear_power_plant_indoor"
+    ],
+    "utliers/hollow": [
+        "hollow"
+    ],
+    "/batting_cage/outdoor": [
+        "batting_cage_outdoor"
+    ],
+    "/bayou": [
+        "bayou"
+    ],
+    "/pawnshop": [
+        "pawnshop"
+    ],
+    "/box_seat": [
+        "box_seat"
+    ],
+    "utliers/road": [
+        "road"
+    ],
+    "computer_room": [
+        "computer_room"
+    ],
+    "/computer_room": [
+        "computer_room"
+    ],
+    "utliers/shelter_deck": [
+        "shelter_deck"
+    ],
+    "utliers/war_room": [
+        "war_room"
+    ],
+    "/student_residence": [
+        "student_residence"
+    ],
+    "utliers/forecourt": [
+        "forecourt"
+    ],
+    "/pavilion": [
+        "pavilion"
+    ],
+    "pavilion": [
+        "pavilion"
+    ],
+    "/casino/indoor": [
+        "casino_indoor"
+    ],
+    "/pitchers_mound": [
+        "pitchers_mound"
+    ],
+    "utliers/bookshelf": [
+        "bookshelf"
+    ],
+    "/strip_mall": [
+        "strip_mall"
+    ],
+    "utliers/shrubbery": [
+        "shrubbery"
+    ],
+    "poolroom/establishment": [
+        "establishment"
+    ],
+    "/poolroom/establishment": [
+        "establishment"
+    ],
+    "/ferryboat/passenger_deck": [
+        "passenger_deck"
+    ],
+    "playroom": [
+        "playroom"
+    ],
+    "/playroom": [
+        "playroom"
+    ],
+    "utliers/hutment": [
+        "hutment"
+    ],
+    "utliers/bubble_chamber": [
+        "bubble_chamber"
+    ],
+    "/temple/east_asia": [
+        "east_asia"
+    ],
+    "/gulch": [
+        "gulch"
+    ],
+    "/baggage_claim": [
+        "baggage_claim"
+    ],
+    "/beauty_salon": [
+        "beauty_salon"
+    ],
+    "beauty_salon": [
+        "beauty_salon"
+    ],
+    "utliers/snowbank": [
+        "snowbank"
+    ],
+    "/winery": [
+        "winery"
+    ],
+    "/general_store/indoor": [
+        "general_store_indoor"
+    ],
+    "utliers/pinetum": [
+        "pinetum"
+    ],
+    "/bog": [
+        "bog"
+    ],
+    "/bomb_shelter/indoor": [
+        "bomb_shelter_indoor"
+    ],
+    "/incinerator/indoor": [
+        "incinerator_indoor"
+    ],
+    "/lido_deck/indoor": [
+        "lido_deck_indoor"
+    ],
+    "/fjord": [
+        "fjord"
+    ],
+    "utliers/inlet": [
+        "inlet"
+    ],
+    "tree_house": [
+        "tree_house"
+    ],
+    "/tree_house": [
+        "tree_house"
+    ],
+    "/roundabout": [
+        "roundabout"
+    ],
+    "/recycling_plant/indoor": [
+        "recycling_plant_indoor"
+    ],
+    "utliers/backwoods": [
+        "backwoods"
+    ],
+    "/zoo": [
+        "zoo"
+    ],
+    "/outhouse/indoor": [
+        "outhouse_indoor"
+    ],
+    "utliers/aircraft_carrier_object": [
+        "aircraft_carrier_object"
+    ],
+    "/pedestrian_overpass/indoor": [
+        "pedestrian_overpass_indoor"
+    ],
+    "/fish_farm": [
+        "fish_farm"
+    ],
+    "/shipping_room": [
+        "shipping_room"
+    ],
+    "utliers/cocktail_lounge": [
+        "cocktail_lounge"
+    ],
+    "/skywalk/indoor": [
+        "skywalk_indoor"
+    ],
+    "/lumberyard/outdoor": [
+        "lumberyard_outdoor"
+    ],
+    "utliers/meadow": [
+        "meadow"
+    ],
+    "/junk_pile": [
+        "junk_pile"
+    ],
+    "/pilothouse/outdoor": [
+        "pilothouse_outdoor"
+    ],
+    "utliers/washroom": [
+        "washroom"
+    ],
+    "slum": [
+        "slum"
+    ],
+    "/slum": [
+        "slum"
+    ],
+    "/hot_tub/outdoor": [
+        "hot_tub_outdoor"
+    ],
+    "/teashop": [
+        "teashop"
+    ],
+    "utliers/mansard": [
+        "mansard"
+    ],
+    "/wrestling_ring/outdoor": [
+        "wrestling_ring_outdoor"
+    ],
+    "/sinkhole": [
+        "sinkhole"
+    ],
+    "/washhouse/outdoor": [
+        "washhouse_outdoor"
+    ],
+    "/lumberyard/indoor": [
+        "lumberyard_indoor"
+    ],
+    "/kitchenette": [
+        "kitchenette"
+    ],
+    "/rectory": [
+        "rectory"
+    ],
+    "/sand_trap": [
+        "sand_trap"
+    ],
+    "/monastery/indoor": [
+        "monastery_indoor"
+    ],
+    "/forest_fire": [
+        "forest_fire"
+    ],
+    "/poop_deck": [
+        "poop_deck"
+    ],
+    "/rubble": [
+        "rubble"
+    ],
+    "/driving_range/outdoor": [
+        "driving_range_outdoor"
+    ],
+    "utliers/back_porch": [
+        "back_porch"
+    ],
+    "/lookout_station/outdoor": [
+        "lookout_station_outdoor"
+    ],
+    "/chicken_farm/indoor": [
+        "chicken_farm_indoor"
+    ],
+    "/riding_arena": [
+        "riding_arena"
+    ],
+    "/elevator/freight_elevator": [
+        "freight_elevator"
+    ],
+    "/movie_theater/outdoor": [
+        "movie_theater_outdoor"
+    ],
+    "/convenience_store/outdoor": [
+        "convenience_store_outdoor"
+    ],
+    "utliers/lyceum": [
+        "lyceum"
+    ],
+    "/particle_accelerator": [
+        "particle_accelerator"
+    ],
+    "utliers/entranceway_outdoor": [
+        "entranceway_outdoor"
+    ],
+    "/pump_room": [
+        "pump_room"
+    ],
+    "/town_house": [
+        "town_house"
+    ],
+    "/fitting_room/interior": [
+        "fitting_room_interior"
+    ],
+    "/house": [
+        "house"
+    ],
+    "house": [
+        "house"
+    ],
+    "/foundry/outdoor": [
+        "foundry_outdoor"
+    ],
+    "/reception/n_receptionists_attending_m_people": [
+        "reception"
+    ],
+    "/reception": [
+        "reception"
+    ],
+    "reception": [
+        "reception"
+    ],
+    "/tunnel/road_outdoor": [
+        "road_outdoor"
+    ],
+    "/access_road": [
+        "access_road"
+    ],
+    "/plantation_house": [
+        "plantation_house"
+    ],
+    "utliers/walkway": [
+        "walkway"
+    ],
+    "quonset_hut/outdoor": [
+        "quonset_hut_outdoor"
+    ],
+    "/quonset_hut/outdoor": [
+        "quonset_hut_outdoor"
+    ],
+    "/dam": [
+        "dam"
+    ],
+    "dam": [
+        "dam"
+    ],
+    "utliers/bottomland": [
+        "bottomland"
+    ],
+    "/cheese_factory": [
+        "cheese_factory"
+    ],
+    "underwater/ocean_deep": [
+        "ocean_deep"
+    ],
+    "/underwater/ocean_deep": [
+        "ocean_deep"
+    ],
+    "/geodesic_dome/indoor": [
+        "geodesic_dome_indoor"
+    ],
+    "/hat_shop": [
+        "hat_shop"
+    ],
+    "utliers/millrace": [
+        "millrace"
+    ],
+    "/workshop": [
+        "workshop"
+    ],
+    "/trailer_park": [
+        "trailer_park"
+    ],
+    "/orlop_deck": [
+        "orlop_deck"
+    ],
+    "/root_cellar": [
+        "root_cellar"
+    ],
+    "utliers/battlefield": [
+        "battlefield"
+    ],
+    "utliers/safari_park": [
+        "safari_park"
+    ],
+    "/mosque/indoor": [
+        "mosque_indoor"
+    ],
+    "utliers/insane_asylum": [
+        "insane_asylum"
+    ],
+    "utliers/embrasure": [
+        "embrasure"
+    ],
+    "/tent/outdoor": [
+        "tent_outdoor"
+    ],
+    "utliers/grape_arbor": [
+        "grape_arbor"
+    ],
+    "/labyrinth/indoor": [
+        "labyrinth_indoor"
+    ],
+    "/loft": [
+        "loft"
+    ],
+    "/ranch_house": [
+        "ranch_house"
+    ],
+    "utliers/open-hearth_furnace": [
+        "open-hearth_furnace"
+    ],
+    "/arrival_gate/indoor": [
+        "arrival_gate_indoor"
+    ],
+    "courtyard": [
+        "courtyard"
+    ],
+    "/courtyard": [
+        "courtyard"
+    ],
+    "playground": [
+        "playground"
+    ],
+    "/playground": [
+        "playground"
+    ],
+    "utliers/flying_buttress": [
+        "flying_buttress"
+    ],
+    "/sacristy": [
+        "sacristy"
+    ],
+    "/escarpment": [
+        "escarpment"
+    ],
+    "/sea_cliff": [
+        "sea_cliff"
+    ],
+    "/sea_cliff/n_people_jumping_off_a_cliff_": [
+        "sea_cliff"
+    ],
+    "/shopping_mall/outdoor": [
+        "shopping_mall_outdoor"
+    ],
+    "utliers/gymnasium_outdoor": [
+        "gymnasium_outdoor"
+    ],
+    "/bullpen": [
+        "bullpen"
+    ],
+    "/lookout_station/indoor": [
+        "lookout_station_indoor"
+    ],
+    "/granary": [
+        "granary"
+    ],
+    "/widows_walk/interior": [
+        "widows_walk_interior"
+    ],
+    "/pontoon_bridge": [
+        "pontoon_bridge"
+    ],
+    "/brewery/indoor": [
+        "brewery_indoor"
+    ],
+    "/bus_depot/indoor": [
+        "bus_depot_indoor"
+    ],
+    "utliers/tollgate": [
+        "tollgate"
+    ],
+    "/bathhouse": [
+        "bathhouse"
+    ],
+    "/belfry": [
+        "belfry"
+    ],
+    "/savanna": [
+        "savanna"
+    ],
+    "/exhibition_hall": [
+        "exhibition_hall"
+    ],
+    "/gasworks": [
+        "gasworks"
+    ],
+    "/greengrocery": [
+        "greengrocery"
+    ],
+    "/clock_tower/indoor": [
+        "clock_tower_indoor"
+    ],
+    "utliers/cabin_cruiser": [
+        "cabin_cruiser"
+    ],
+    "utliers/truck_stop": [
+        "truck_stop"
+    ],
+    "/chicken_farm/outdoor": [
+        "chicken_farm_outdoor"
+    ],
+    "/phone_booth": [
+        "phone_booth"
+    ],
+    "phone_booth": [
+        "phone_booth"
+    ],
+    "/bookbindery": [
+        "bookbindery"
+    ],
+    "utliers/teahouse": [
+        "teahouse"
+    ],
+    "/gun_store": [
+        "gun_store"
+    ],
+    "/cybercafe": [
+        "cybercafe"
+    ],
+    "/nuclear_power_plant/outdoor": [
+        "nuclear_power_plant_outdoor"
+    ],
+    "utliers/piste_road": [
+        "piste_road"
+    ],
+    "utliers/front_porch": [
+        "front_porch"
+    ],
+    "attic": [
+        "attic"
+    ],
+    "/attic": [
+        "attic"
+    ],
+    "/newsstand/indoor": [
+        "newsstand_indoor"
+    ],
+    "utliers/amphitheater_indoor": [
+        "amphitheater_indoor"
+    ],
+    "/sporting_goods_store": [
+        "sporting_goods_store"
+    ],
+    "/arrival_gate/outdoor": [
+        "arrival_gate_outdoor"
+    ],
+    "/recycling_plant/outdoor": [
+        "recycling_plant_outdoor"
+    ],
+    "/sewer": [
+        "sewer"
+    ],
+    "utliers/basin_outdoor": [
+        "basin_outdoor"
+    ],
+    "/hangar/indoor": [
+        "hangar_indoor"
+    ],
+    "/dacha": [
+        "dacha"
+    ],
+    "/baptistry/indoor": [
+        "baptistry_indoor"
+    ],
+    "utliers/housing_project": [
+        "housing_project"
+    ],
+    "/shower_room": [
+        "shower_room"
+    ],
+    "/fortress": [
+        "fortress"
+    ],
+    "/roller_skating_rink/outdoor": [
+        "roller_skating_rink_outdoor"
+    ],
+    "/ski_lodge": [
+        "ski_lodge"
+    ],
+    "utliers/streetcar_track": [
+        "streetcar_track"
+    ],
+    "utliers/gas_well": [
+        "gas_well"
+    ],
+    "/cavern/outdoor": [
+        "cavern_outdoor"
+    ],
+    "/temple/mesoamerican": [
+        "mesoamerican"
+    ],
+    "utliers/mens_store_outdoor": [
+        "mens_store_outdoor"
+    ],
+    "/armory": [
+        "armory"
+    ],
+    "utliers/grove": [
+        "grove"
+    ],
+    "/control_tower/indoor": [
+        "control_tower_indoor"
+    ],
+    "/outhouse/outdoor": [
+        "outhouse_outdoor"
+    ],
+    "utliers/jetliner/outside": [
+        "outside"
+    ],
+    "/trading_floor": [
+        "trading_floor"
+    ],
+    "utliers/flowerbed": [
+        "flowerbed"
+    ],
+    "/train_station/outdoor": [
+        "train_station_outdoor"
+    ],
+    "utliers/water_gate": [
+        "water_gate"
+    ],
+    "/tennis_court/indoor": [
+        "tennis_court_indoor"
+    ],
+    "/cabin/indoor": [
+        "cabin_indoor"
+    ],
+    "/factory/outdoor": [
+        "factory_outdoor"
+    ],
+    "/maternity_ward": [
+        "maternity_ward"
+    ],
+    "/caravansary": [
+        "caravansary"
+    ],
+    "/planetarium/outdoor": [
+        "planetarium_outdoor"
+    ],
+    "utliers/flood_plain": [
+        "flood_plain"
+    ],
+    "/water_mill": [
+        "water_mill"
+    ],
+    "/lagoon": [
+        "lagoon"
+    ],
+    "lagoon": [
+        "lagoon"
+    ],
+    "/oyster_bar": [
+        "oyster_bar"
+    ],
+    "/signal_box": [
+        "signal_box"
+    ],
+    "/window_seat": [
+        "window_seat"
+    ],
+    "utliers/meat_house": [
+        "meat_house"
+    ],
+    "/elevated_catwalk": [
+        "elevated_catwalk"
+    ],
+    "utliers/fire_trench": [
+        "fire_trench"
+    ],
+    "utliers/forklift": [
+        "forklift"
+    ],
+    "utliers/hillock": [
+        "hillock"
+    ],
+    "/shed": [
+        "shed"
+    ],
+    "shed": [
+        "shed"
+    ],
+    "/cabana": [
+        "cabana"
+    ],
+    "utliers/supply_chamber": [
+        "supply_chamber"
+    ],
+    "utliers/retaining_wall": [
+        "retaining_wall"
+    ],
+    "/joss_house": [
+        "joss_house"
+    ],
+    "joss_house": [
+        "joss_house"
+    ],
+    "/perfume_shop": [
+        "perfume_shop"
+    ],
+    "utliers/tomb": [
+        "tomb"
+    ],
+    "/carport/indoor": [
+        "carport_indoor"
+    ],
+    "/electrical_substation": [
+        "electrical_substation"
+    ],
+    "/mini_golf_course/outdoor": [
+        "mini_golf_course_outdoor"
+    ],
+    "/editing_room": [
+        "editing_room"
+    ],
+    "utliers/garden": [
+        "garden"
+    ],
+    "/driving_range/indoor": [
+        "driving_range_indoor"
+    ],
+    "utliers/snack_bar": [
+        "snack_bar"
+    ],
+    "/forest/needleleaf": [
+        "needleleaf"
+    ],
+    "utliers/seaside": [
+        "seaside"
+    ],
+    "utliers/study_hall": [
+        "study_hall"
+    ],
+    "/hill": [
+        "hill"
+    ],
+    "/postern": [
+        "postern"
+    ],
+    "/kennel/indoor": [
+        "kennel_indoor"
+    ],
+    "/building_complex": [
+        "building_complex"
+    ],
+    "/choir_loft/interior": [
+        "choir_loft_interior"
+    ],
+    "/incinerator/outdoor": [
+        "incinerator_outdoor"
+    ],
+    "utliers/field_tent_indoor": [
+        "field_tent_indoor"
+    ],
+    "utliers/parkway": [
+        "parkway"
+    ],
+    "/strip_mine": [
+        "strip_mine"
+    ],
+    "utliers/entranceway_indoor": [
+        "entranceway_indoor"
+    ],
+    "/dry_dock": [
+        "dry_dock"
+    ],
+    "/bow_window/outdoor": [
+        "bow_window_outdoor"
+    ],
+    "utliers/nursing_home_outdoor": [
+        "nursing_home_outdoor"
+    ],
+    "utliers/dance_floor": [
+        "dance_floor"
+    ],
+    "/badminton_court/indoor": [
+        "badminton_court_indoor"
+    ],
+    "/tunnel/rail_outdoor": [
+        "rail_outdoor"
+    ],
+    "/dirt_track": [
+        "dirt_track"
+    ],
+    "/landing": [
+        "landing"
+    ],
+    "/mini_golf_course/indoor": [
+        "mini_golf_course_indoor"
+    ],
+    "/tunnel/road_indoor": [
+        "road_indoor"
+    ],
+    "/drainage_ditch": [
+        "drainage_ditch"
+    ],
+    "/atrium/home": [
+        "atrium_home"
+    ],
+    "/lavatory": [
+        "lavatory"
+    ],
+    "/spillway": [
+        "spillway"
+    ],
+    "/storm_cellar": [
+        "storm_cellar"
+    ],
+    "utliers/rift_valley": [
+        "rift_valley"
+    ],
+    "utliers/country_road": [
+        "country_road"
+    ],
+    "/shipyard/outdoor": [
+        "shipyard_outdoor"
+    ],
+    "utliers/glen": [
+        "glen"
+    ],
+    "/sushi_bar": [
+        "sushi_bar"
+    ],
+    "/waterfall/block": [
+        "block"
+    ],
+    "/jail/indoor": [
+        "jail_indoor"
+    ],
+    "/canal_natural/n_people_talking_or_reading_or_looking_around_or_taking_pictures_while_being_on_a_boat_": [
+        "natural"
+    ],
+    "/lake_natural/n_boats_sailing_in_the_lake": [
+        "natural"
+    ],
+    "/lake_natural/n_people_swimming_or_taking_a_bath_in_the_lake": [
+        "natural"
+    ],
+    "/train_station_platform/n_passengers_leaving_a_train": [
+        "station"
+    ],
+    "/train_station_platform/n_people_waiting_in_a_queue_to_enter_the_train": [
+        "station"
+    ],
+    "/waterfall_fan/n_people_jumping_from_a_waterfall": [
+        "fan"
+    ],
+    "/balcony_exterior/n_people_shouting_from_the_balcony": [
+        "exterior"
+    ],
+    "/canal_urban/n_people_talking_or_reading_or_looking_around_or_taking_pictures_while_being_on_a_boat_": [
+        "urban"
+    ],
+    "/canal_urban/n_people_doing_canoeing_": [
+        "urban"
+    ],
+    "/soccer_field/n_players_doing_a_training_exercise": [
+        "soccer"
+    ],
+    "/soccer_field/n_players_shaking_their_hands": [
+        "soccer"
+    ],
+    "/soccer_field/a_goal-keeper_preparing_to_stop_a_ball": [
+        "soccer"
+    ],
+    "/soccer_field/a_player_passing_the_ball": [
+        "soccer"
+    ],
+    "/soccer_field/a_player_robbing_the_ball_or_making_a_tackle": [
+        "soccer"
+    ],
+    "soccer_field": [
+        "soccer"
+    ],
+    "/stadium_soccer/n_people_leaving_the_court": [
+        "soccer"
+    ],
+    "/soccer_field/n_players_celebrating_a_goal": [
+        "soccer"
+    ],
+    "/desert_sand/n_vehicles_driving_by": [
+        "sand"
+    ],
+    "/pedestrian_overpass/outdoor": [
+        "overpass"
+    ],
+    "/stadium_football/n_people_complaining_about_a_play": [
+        "football"
+    ],
+    "/underwater_coral_reef/n_divers_touching_or_feeding_fish": [
+        "coral_reef"
+    ],
+    "/car_interior_backseat/n_passengers_putting_on_their_seat_belts": [
+        "backseat"
+    ]
+}

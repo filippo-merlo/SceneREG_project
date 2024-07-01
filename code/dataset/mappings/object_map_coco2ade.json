@@ -1,0 +1,258 @@
+{
+    "toilet": [
+        2792,
+        "toilet, can, commode, crapper, pot, potty, stool, throne"
+    ],
+    "sink": [
+        2387,
+        "sink"
+    ],
+    "bed": [
+        164,
+        "bed"
+    ],
+    "cup": [
+        676,
+        "cup"
+    ],
+    "mouse": [
+        1610,
+        "mouse"
+    ],
+    "remote": [
+        2098,
+        "remote control, remote"
+    ],
+    "keyboard": [
+        1369,
+        "keyboard"
+    ],
+    "sandwich": [
+        2221,
+        "sandwich"
+    ],
+    "tv": [
+        2732,
+        "television receiver, television, television set, tv, tv set, idiot box, boob tube, telly, goggle box"
+    ],
+    "couch": [
+        2472,
+        "sofa, couch, lounge"
+    ],
+    "chair": [
+        470,
+        "chair"
+    ],
+    "spoon": [
+        2504,
+        "spoon"
+    ],
+    "bowl": [
+        258,
+        "bowl"
+    ],
+    "refrigerator": [
+        2095,
+        "refrigerator, icebox"
+    ],
+    "clock": [
+        529,
+        "clock"
+    ],
+    "toaster": [
+        2781,
+        "toaster"
+    ],
+    "bottle": [
+        248,
+        "bottle"
+    ],
+    "traffic light": [
+        2835,
+        "traffic light, traffic signal, stoplight"
+    ],
+    "fire hydrant": [
+        943,
+        "fireplug, fire hydrant, plug"
+    ],
+    "bench": [
+        180,
+        "bench"
+    ],
+    "cell phone": [
+        456,
+        "cellular telephone, cellular phone, cellphone, cell, mobile phone"
+    ],
+    "fork": [
+        1018,
+        "fork"
+    ],
+    "knife": [
+        1377,
+        "knife"
+    ],
+    "bicycle": [
+        186,
+        "bicycle, bike, wheel, cycle"
+    ],
+    "orange": [
+        1691,
+        "orange"
+    ],
+    "suitcase": [
+        96,
+        "bag, traveling bag, travelling bag, grip, suitcase"
+    ],
+    "laptop": [
+        1406,
+        "laptop, laptop computer"
+    ],
+    "book": [
+        235,
+        "book"
+    ],
+    "backpack": [
+        89,
+        "backpack, back pack, knapsack, packsack, rucksack, haversack"
+    ],
+    "parking meter": [
+        1778,
+        "parking meter"
+    ],
+    "car": [
+        400,
+        "car, auto, automobile, machine, motorcar"
+    ],
+    "microwave": [
+        1550,
+        "microwave, microwave oven"
+    ],
+    "oven": [
+        1707,
+        "oven"
+    ],
+    "cake": [
+        1790,
+        "patty, cake"
+    ],
+    "train": [
+        2839,
+        "train, railroad train"
+    ],
+    "boat": [
+        222,
+        "boat"
+    ],
+    "apple": [
+        38,
+        "apple"
+    ],
+    "airplane": [
+        13,
+        "airplane, aeroplane, plane"
+    ],
+    "truck": [
+        2879,
+        "truck, motortruck"
+    ],
+    "vase": [
+        2931,
+        "vase"
+    ],
+    "bus": [
+        326,
+        "bus, autobus, coach, charabanc, double-decker, jitney, motorbus, motorcoach, omnibus, passenger vehicle"
+    ],
+    "handbag": [
+        95,
+        "bag, handbag, pocketbook, purse"
+    ],
+    "toothbrush": [
+        2810,
+        "toothbrush"
+    ],
+    "teddy bear": [
+        3430,
+        "teddy bear"
+    ],
+    "scissors": [
+        2241,
+        "scissors"
+    ],
+    "umbrella": [
+        2900,
+        "umbrella"
+    ],
+    "surfboard": [
+        2653,
+        "surfboard"
+    ],
+    "tennis racket": [
+        2736,
+        "tennis racket"
+    ],
+    "tie": [
+        2765,
+        "tie"
+    ],
+    "skis": [
+        2413,
+        "skis"
+    ],
+    "snowboard": [
+        2454,
+        "snowboard"
+    ],
+    "sports ball": [
+        106,
+        "ball, globe, orb"
+    ],
+    "banana": [
+        114,
+        "bananas"
+    ],
+    "pizza": [
+        285,
+        "bread, breadstuff, staff of life"
+    ],
+    "dining table": [
+        570,
+        "coffee table, cocktail table"
+    ],
+    "wine glass": [
+        1097,
+        "glass, drinking glass"
+    ],
+    "hair drier": [
+        1160,
+        "hair dryer"
+    ],
+    "motorcycle": [
+        1562,
+        "minibike, motorbike"
+    ],
+    "potted plant": [
+        1983,
+        "potted fern"
+    ],
+    "hot dog": [
+        2221,
+        "sandwich"
+    ],
+    "broccoli": [
+        2497,
+        "spinach"
+    ],
+    "stop sign": [
+        2612,
+        "street sign"
+    ],
+    "carrot": [
+        2935,
+        "vegetables"
+    ],
+    "donut": [
+        3560,
+        "muffin"
+    ]
+}
