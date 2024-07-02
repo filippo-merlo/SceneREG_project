@@ -1,16 +1,8 @@
 #%%
 from config import *
 from utils import *
-from pprint import pprint
 import json
 from tqdm import tqdm
-import random as rn
-import cv2
-import matplotlib.pyplot as plt
-from PIL import Image, ImageDraw
-import numpy as np
-from collections import Counter
-from diffusers import AutoPipelineForInpainting
 
 class Dataset:
 
@@ -18,6 +10,33 @@ class Dataset:
         if dataset_path:
             with open(dataset_path) as f:
                 self.data = json.load(f)
+                self.img_names = list(self.data.keys())
+                '''
+                for each img name there are three keys:
+                Key: [fixations]
+                    Key: [name], Type of Value: [str]
+                    Key: [subject], Type of Value: [int]
+                    Key: [condition], Type of Value: [str]
+                    Key: [X], Type of Value: [list]
+                    Key: [Y], Type of Value: [list]
+                    Key: [T], Type of Value: [list]
+                    Key: [length], Type of Value: [int]
+                    Key: [split], Type of Value: [str]
+                    Key: [fixOnTarget], Type of Value: [bool]
+                    Key: [correct], Type of Value: [int]
+                Key: [captions_val2017_annotations] or [captions_train2017_annotations]
+                    Key: [image_id], Type of Value: [int]
+                    Key: [id], Type of Value: [int]
+                    Key: [caption], Type of Value: [str]
+                Key: [instances_val2017_annotations] or [instances_train2017_annotations]
+                    Key: [segmentation], Type of Value: [list]
+                    Key: [area], Type of Value: [float]
+                    Key: [iscrowd], Type of Value: [int]
+                    Key: [image_id], Type of Value: [int]
+                    Key: [bbox], Type of Value: [list]
+                    Key: [category_id], Type of Value: [int]
+                    Key: [id], Type of Value: [int]
+                '''
         else:
             self.data = dict()
 
@@ -75,6 +94,4 @@ class Dataset:
         with open(path, 'w') as f:
             json.dump(self.data, f, indent=4)
     
-   
 dataset = Dataset(dataset_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data/coco_search18/coco_search18_annotated.json')
-print_dict_structure(dataset)
