@@ -110,11 +110,11 @@ import pandas as pd
 from pprint import pprint
 
 # Load the object_scene_rel_matrix file
-with open("/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity /tf_scores.pkl", "rb") as file:
+with open("/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity/tf_scores.pkl", "rb") as file:
     object_scene_rel_matrix = pkl.load(file)
 
 # Load the bert object-scene relatedness scores
-with open('/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity /ade_scenes_bert_similarities.pkl', "rb") as file:
+with open('/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity/ade_scenes_bert_similarities.pkl', "rb") as file:
     bert_scene_object_rel_matrix = pkl.load(file)
 
 # Load the size_mean_matrix file
@@ -123,7 +123,7 @@ size_mean_matrix = pd.read_csv(tp_size_mean_path, sep='\t', engine='python', enc
 things_words = list(size_mean_matrix['Word'])
 
 # Load the llms norms
-with open('/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity /llama3_8b_instruct_object_scene_norms.pkl', 'rb') as f:
+with open('/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity/llama3_8b_instruct_object_scene_norms.pkl', 'rb') as f:
     llama_norms = pkl.load(f)
 
 #%%
@@ -146,7 +146,7 @@ with open(path, 'rb') as f:
 ade20k_object_names = ade20k_index['objectnames']
 
 # Filter objects by remooving the ones that appears in one scene only
-with open('/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity /tf_scores.pkl', 'rb') as f:
+with open('/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity/tf_scores.pkl', 'rb') as f:
     tf_scores = pkl.load(f)
 
 # Define a function to set each cell to 1 if it has a non-zero value
