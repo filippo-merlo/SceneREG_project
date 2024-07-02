@@ -202,13 +202,7 @@ def highest_k(alist, k):
     
     return highest_k_indices, highest_k_values
 
-#%%
-id, val = lowest_k(list(bert_scene_object_rel_matrix['airport_terminal']),10)
-for i in id:
-    print(ade20k_object_names[i])
-#%%
 # get object scene relatedness score
-
 def object_scene_rel(object_name, scene_name):
     object_idx = map_coco2ade[object_name][0]
     relatedness_score = object_scene_rel_matrix.at[object_idx, scene_name].item()
