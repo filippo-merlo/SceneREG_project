@@ -1,8 +1,13 @@
-#%%
+### UTILS FILE WITH ALL THE BASIC FUNCTIONS USED
+
+### IMPORTS
 import os 
 from config import *
 import torch
 import math
+import numpy as np
+
+### GENERAL FUNCTIONS
 
 def get_files(directory):
     """
@@ -22,6 +27,9 @@ def get_files(directory):
     return files
 
 def print_dict_structure(dictionary, ind = ''):
+    """
+    Visualize nested structire of a dictionary.
+    """
     for key, value in dictionary.items():
         print(f"{ind}Key: [{key}], Type of Value: [{type(value).__name__}]")
         if isinstance(value, dict):
@@ -32,7 +40,91 @@ def print_dict_structure(dictionary, ind = ''):
                 ind2 = ind + '  '
                 print_dict_structure(value[0], ind2)
 
+def reverse_dict(data):
+    """
+    This function reverses a dictionary by swapping keys and values.
+
+    Args:
+        data: A dictionary to be reversed.
+
+    Returns:
+        A new dictionary where keys become values and vice versa, handling duplicates appropriately.
+    """
+    reversed_dict = {}
+    for key, value in data.items():
+        for l in value:
+            reversed_dict[str(l)] = key
+    return reversed_dict
+
+def subtract_in_bounds(x, y):
+    """
+    Subtract two numbers and ensure the result is non-negative.
+    """
+    if x - y > 0:
+        return int(x - y) 
+    else:
+        return 0
+    
+def add_in_bounds(x, y, max):
+    """
+    Add two numbers and ensure the result is within a specified range.
+    """
+    if x + y < max:
+        return int(x + y)
+    else:
+        return int(max)
+
+def sum_lists(list1, list2):
+    """
+    Sum two lists element-wise.
+    """
+    if len(list1) != len(list2):
+        raise ValueError("Lists must have the same length")
+    
+    return [x + y for x, y in zip(list1, list2)]
+
+def cosine_similarity(vec1, vec2):
+    """
+    Compute the cosine similarity between two vectors.
+    """
+    # Compute the dot product of the vectors
+    dot_product = np.dot(vec1, vec2)
+    
+    # Compute the magnitudes of the vectors
+    norm_vec1 = np.linalg.norm(vec1)
+    norm_vec2 = np.linalg.norm(vec2)
+    
+    # Compute the cosine similarity
+    cosine_sim = dot_product / (norm_vec1 * norm_vec2)
+    
+    return cosine_sim
+
+def select_k(alist, k, lower = True):
+    """
+    Find the indices and values of the k lowest/higest elements in a list.
+    """
+    # Step 1: Enumerate the list to pair each element with its index
+    enumerated_list = list(enumerate(alist))
+    
+    # Step 2: Sort the enumerated list by the element values
+    if lower:
+        reverse = False
+    else:
+        reverse = True
+    sorted_list = sorted(enumerated_list, key=lambda x: x[1], reverse=reverse)
+    
+    # Step 3: Extract the indices of the first k elements
+    k_indices = [index for index, value in sorted_list[:k]]
+    k_values = [value for index, value in sorted_list[:k]]
+    
+    return k_indices, k_values
+
+
+### SCENE CLASSIFICATION
 def classify_scene_vit(image_picture, device, processor, model):
+    """
+    Classify an image with the classes of SUN397 using a Vision Transformer model.
+    """
     inputs = vit_processor(image_picture, return_tensors="pt").to(device)
     with torch.no_grad():
         logits = vit_model(**inputs).logits
@@ -53,27 +145,14 @@ def classify_scene_vit(image_picture, device, processor, model):
 
     return top5_labels[0]
 
-def subtract_in_bounds(x, y):
-    if x - y > 0:
-        return int(x - y) 
-    else:
-        return 0
-    
-def add_in_bounds(x, y, max):
-    if x + y < max:
-        return int(x + y)
-    else:
-        return int(max)
-
 # FIND OBJECT TO REPLACE 
 
 def find_object_to_replace(target_object_name, scene_name):
-    scene_name = map_sun2ade[scene_name.replace('/', '_')]
     # get the more similar in size with the less semantic relatedness to the scene
     final_scores = []
     z_size_scores = []
     relatedness_scores = []
-    for ade_name in map_ade2things.keys():
+    for thing in things_words_context:
         # exclude objects that are labelled as typical for the scene by llama-3
         related = False
         for object in llama_norms[scene_name][ade_name]:
@@ -149,80 +228,19 @@ def find_object_to_replace(target_object_name, scene_name):
     #        final_scores[i] = 100
     #
     #final_scores = sum_lists(relatedness_scores, relatedness_scores) 
-    kidxs, vals = lowest_k(final_scores, 20)
+    kidxs, vals = select_k(final_scores, 20, lower = True)
     print(vals)
     adeknames = [list(map_ade2things.keys())[i] for i in kidxs]
     print(adeknames)
     things_names = [map_ade2things[ade_name] for ade_name in adeknames]
     return things_names
 
-import numpy as np
-def sum_lists(list1, list2):
-    if len(list1) != len(list2):
-        raise ValueError("Lists must have the same length")
-    
-    return [x + y for x, y in zip(list1, list2)]
-
-def cosine_similarity(vec1, vec2):
-    # Compute the dot product of the vectors
-    dot_product = np.dot(vec1, vec2)
-    
-    # Compute the magnitudes of the vectors
-    norm_vec1 = np.linalg.norm(vec1)
-    norm_vec2 = np.linalg.norm(vec2)
-    
-    # Compute the cosine similarity
-    cosine_sim = dot_product / (norm_vec1 * norm_vec2)
-    
-    return cosine_sim
-
-def lowest_k(alist, k):
-    # Step 1: Enumerate the list to pair each element with its index
-    enumerated_list = list(enumerate(alist))
-    
-    # Step 2: Sort the enumerated list by the element values
-    sorted_list = sorted(enumerated_list, key=lambda x: x[1])
-    
-    # Step 3: Extract the indices of the first k elements
-    lowest_k_indices = [index for index, value in sorted_list[:k]]
-    lowest_k_values = [value for index, value in sorted_list[:k]]
-    
-    return lowest_k_indices, lowest_k_values
-
-def highest_k(alist, k):
-    # Step 1: Enumerate the list to pair each element with its index
-    enumerated_list = list(enumerate(alist))
-    
-    # Step 2: Sort the enumerated list by the element values in descending order
-    sorted_list = sorted(enumerated_list, key=lambda x: x[1], reverse=True)
-    
-    # Step 3: Extract the indices and values of the first k elements
-    highest_k_indices = [index for index, value in sorted_list[:k]]
-    highest_k_values = [value for index, value in sorted_list[:k]]
-    
-    return highest_k_indices, highest_k_values
 
 # get object scene relatedness score
 def object_scene_rel(object_name, scene_name):
     object_idx = map_coco2ade[object_name][0]
     relatedness_score = object_scene_rel_matrix.at[object_idx, scene_name].item()
     return relatedness_score
-
-def reverse_dict(data):
-    """
-    This function reverses a dictionary by swapping keys and values.
-
-    Args:
-        data: A dictionary to be reversed.
-
-    Returns:
-        A new dictionary where keys become values and vice versa, handling duplicates appropriately.
-    """
-    reversed_dict = {}
-    for key, value in data.items():
-        for l in value:
-            reversed_dict[str(l)] = key
-    return reversed_dict
 
 
 from transformers import AutoImageProcessor, ViTModel, ViTConfig 
