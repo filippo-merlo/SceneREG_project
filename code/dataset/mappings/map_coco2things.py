@@ -110,7 +110,9 @@ map_things2coco = {
  'zebra': ['zebra']}
 
 #%% Save
-import json
-path = "map_things2coco.json"
-with open(path, 'w') as f:
-    json.dump(map_things2coco, f)
+#for k,v in map_things2coco.items():
+#    map_things2coco[k] = v[0]
+#import json
+#path = "map_things2coco.json"
+#with open(path, 'w') as f:
+#    json.dump(map_things2coco, f, indent = 4)
