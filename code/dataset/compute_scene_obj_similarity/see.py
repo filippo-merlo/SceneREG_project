@@ -1,8 +1,9 @@
 #%%
 import pickle as pkl
 
-with open('/Users/filippomerlo/Documents/GitHub/SceneREG_project/code/dataset/compute_scene_obj_similarity /llama3_8b_instruct_object_scene_norms.pkl', 'rb') as f:
-    llama_norms = pkl.load(f)
+with open('/Users/filippomerlo/Desktop/llama3_8b_instruct_THINGSobject_scene_norms.pkl', 'rb') as f:
+    content = f.read()
+    print(len(content))
 
 #%%
 from pprint import pprint
@@ -32,3 +33,6 @@ with open(path, 'rb') as f:
     ade20k_index = pkl.load(f)
 ade20k_object_names = ade20k_index['objectnames']
 pprint(ade20k_object_names)
+
+
+
