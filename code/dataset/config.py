@@ -16,7 +16,7 @@ coco_images_path = '/coco_search18/images'
 dataset_path = '/coco_search18/coco_search18_annotated.json'
 
 # Path for mappings
-
+map_coco2things_path = 'mappings/map_coco2things.json'
 
 # Path for object scene similarity metrics matices and norms
 llama_ade_object_scene_similarities_path = '/scene_object_sim/llama3_8b_instruct_object_scene_norms.pkl'
@@ -31,8 +31,6 @@ with open(os.path.join(data_folder_path, llama_ade_object_scene_similarities_pat
 # Mappings
 
 # Load the object_map_ade2things file
-
-
 
 
 # NAMES AND CATEGORIES
