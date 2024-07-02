@@ -6,6 +6,15 @@ from config import *
 import torch
 import math
 import numpy as np
+from tqdm import tqdm
+import random as rn
+import cv2
+import matplotlib.pyplot as plt
+from PIL import Image, ImageDraw
+import numpy as np
+from collections import Counter
+import re
+from PIL import Image
 
 ### GENERAL FUNCTIONS
 
@@ -119,6 +128,91 @@ def select_k(alist, k, lower = True):
     
     return k_indices, k_values
 
+### GET COCO IMAGE DATA
+def get_coco_image_data(data, img_name = None):
+        
+        # Get a random image from data
+        if img_name != None:
+            image = data[img_name]
+        else:
+            while img_name == None:
+                img_name = rn.choice(list(data.keys()))
+                image = data[img_name]
+                for fix in image['fixations']:
+                    if fix['condition'] == 'absent':
+                        target = None
+                        break
+                    if 'task' in fix.keys():
+                        target = fix['task']
+                        break
+                    else:
+                        target = None
+                if target == None:
+                    img_name = None
+                
+        print('*',target)
+
+        # Get the image picture
+        images_paths = get_files(coco_images_path)
+        image_picture = None
+        for image_path in images_paths:
+            if img_name in image_path:
+                image_picture = Image.open(image_path)
+                break
+            
+        # Get the target info 
+        # get the right annotation key
+        try:
+            ann_key = 'instances_train2017_annotations'
+            image[ann_key]
+        except:
+            ann_key = 'instances_val2017_annotations'
+
+        # go through annotations (objects) for the image
+        # every ann is an object
+        for ann in image[ann_key]:
+            id = ann['category_id'] # get the category id
+            object_name = coco_object_cat[id]['name'] # get the object name
+            
+            # get the target object info
+            object_name = ''
+            for cat in coco_object_cat:
+                if cat['id'] == id:
+                    object_name = cat['name']
+            # get target object info
+            if object_name == target:
+                target_bbox = ann['bbox']
+                target_segmentation = ann['segmentation']
+                target_area = ann['area']
+
+        # Crop
+        # Segmentation
+        image_mask_cv2 = cv2.cvtColor(np.array(image_picture), cv2.COLOR_RGB2BGR)
+        target_segmentation = np.array(target_segmentation, dtype=np.int32).reshape((-1, 2))
+        # Create a mask
+        target_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
+        cv2.fillPoly(target_mask, [target_segmentation], 255)
+        # Apply the mask to the image
+        masked_image = cv2.bitwise_and(image_mask_cv2, image_mask_cv2, mask=target_mask)
+        # Crop image 
+        # Box
+        x,y,w,h = target_bbox
+        max_w, max_h = image_picture.size
+        x_c = subtract_in_bounds(x,20)
+        y_c = subtract_in_bounds(y,20)
+        w_c = add_in_bounds(x,w+20,max_w)
+        h_c = add_in_bounds(y,h+20,max_h)
+        cropped_masked_image = masked_image[y_c:h_c, x_c:w_c]
+        # Convert the cropped image from BGR to RGB
+        cropped_masked_image_rgb = cv2.cvtColor(cropped_masked_image, cv2.COLOR_BGR2RGB)
+        # Convert the cropped image to a PIL image
+        cropped_masked_image_pil = Image.fromarray(cropped_masked_image_rgb)
+
+        cropped_image = image_picture.crop((x_c,y_c,w_c,h_c))
+       
+        # Classify scene
+        scene_category = classify_scene_vit(image_picture)
+        return target, scene_category, image_picture, target_bbox, cropped_masked_image_pil
 
 ### SCENE CLASSIFICATION
 def classify_scene_vit(image_picture, device, processor, model):
@@ -147,106 +241,45 @@ def classify_scene_vit(image_picture, device, processor, model):
 
 # FIND OBJECT TO REPLACE 
 
-def find_object_to_replace(target_object_name, scene_name):
+def find_object_for_replacement(target_object_name, scene_name):
     # get the more similar in size with the less semantic relatedness to the scene
     final_scores = []
-    z_size_scores = []
-    relatedness_scores = []
+
     for thing in things_words_context:
         # exclude objects that are labelled as typical for the scene by llama-3
         related = False
-        for object in llama_norms[scene_name][ade_name]:
+        for object in llama_norms[scene_name][thing]:
             if object[1]>object[2]:
                 related = True
         if related:
             scene_relatedness_score = 100
-        # ade object --> scene relatedness
-        scene_relatedness_score = object_scene_rel_matrix.at[ade20k_object_names.index(ade_name), scene_name]
-        #if scene_relatedness_score != 0:
-        #    scene_relatedness_score = 100
-        
-        # not count objects appearing in only one scene 
-        if ade_name in object_to_remove:
-            scene_relatedness_score = 100
-        
-
-        #bert_score = bert_scene_object_rel_matrix.at[ade20k_object_names.index(ade_name), scene_name]
-        ## target, coco object --> ade object --> emb
-        #target_distr = object_scene_rel_matrix.iloc[ade20k_object_names.index(map_coco2ade[target_object_name][1])]
-        ## non target, ade object --> emb
-        #sde_name_distr = object_scene_rel_matrix.iloc[ade20k_object_names.index(ade_name)]
-        ## target - non target cos sim
-        #cos_sim = cosine_similarity(target_distr,sde_name_distr)
+        else:
+            scene_relatedness_score = 0
 
         # target size
-        # coco obj --> ade obj --> things obj
-        things_name_target = map_ade2things[map_coco2ade[target_object_name][1]]
-        if target_object_name in things_name_target:
-            target_idx = things_words.index(target_object_name)
-            target_size_score = size_mean_matrix.at[target_idx, 'Size_mean']
-            target_sd_size_score = size_mean_matrix.at[target_idx, 'Size_SD']
-        else:
-            target_idx = [things_words.index(n) for n in things_name_target]
-            target_size_score = 0
-            target_sd_size_score = 0
-            for id in target_idx:
-                target_size_score += size_mean_matrix.at[id, 'Size_mean']
-                target_sd_size_score += size_mean_matrix.at[id, 'Size_SD']
-            target_size_score = target_size_score/len(target_idx)
-            target_sd_size_score = target_sd_size_score/len(target_idx)
-
-        # ade obj size
-        # ade obj --> things obj
-        things_name_ade_name = map_ade2things[ade_name]
-        if len(things_name_ade_name) == 1:
-            ade_idx = things_words.index(things_name_ade_name[0])
-            ade_size_score = size_mean_matrix.at[ade_idx, 'Size_mean']
-            ade_sd_size_score = size_mean_matrix.at[ade_idx, 'Size_SD']
-        else:
-            ade_idx = [things_words.index(n) for n in things_name_ade_name]
-            ade_size_score = 0
-            ade_sd_size_score = 0
-            for id in ade_idx:
-                ade_size_score += size_mean_matrix.at[id, 'Size_mean']
-                ade_sd_size_score += size_mean_matrix.at[id, 'Size_SD']
-            ade_size_score = ade_size_score/len(ade_idx)
-            ade_sd_size_score = ade_sd_size_score/len(ade_idx)
-
-        z_size_score = abs((target_size_score - ade_size_score)/math.sqrt(target_sd_size_score**2 + ade_sd_size_score**2))
+        things_name_target = map_coco2things[target_object_name]
+        if target_object_name == things_name_target:
+            target_idx = things_words_context.index(target_object_name)
+            target_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_mean']
+            target_sd_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_SD']
+        
+        # object size
+        object_idx = things_words_context.index(thing)
+        object_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_mean']
+        object_sd_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_SD']
+       
+        z_size_score = abs((target_size_score - object_size_score)/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2))
 
         total_score = z_size_score + scene_relatedness_score
-        z_size_scores.append(z_size_score)
-        relatedness_scores.append(scene_relatedness_score)
-        if ade_name == map_coco2ade[target_object_name][1]:
+
+        if thing == things_name_target or related:
             total_score = 100
+
         final_scores.append(total_score)
 
-    # get top k lower scores idxs
-    #kidxs_0, _ = lowest_k(final_scores, 100)
-    #for i, _ in enumerate(final_scores):
-    #    if i not in kidxs_0:
-    #        final_scores[i] = 100
-    #
-    #final_scores = sum_lists(relatedness_scores, relatedness_scores) 
     kidxs, vals = select_k(final_scores, 20, lower = True)
-    print(vals)
-    adeknames = [list(map_ade2things.keys())[i] for i in kidxs]
-    print(adeknames)
-    things_names = [map_ade2things[ade_name] for ade_name in adeknames]
+    things_names = [things_words_context[i] for i in kidxs]
     return things_names
-
-
-# get object scene relatedness score
-def object_scene_rel(object_name, scene_name):
-    object_idx = map_coco2ade[object_name][0]
-    relatedness_score = object_scene_rel_matrix.at[object_idx, scene_name].item()
-    return relatedness_score
-
-
-from transformers import AutoImageProcessor, ViTModel, ViTConfig 
-import torch
-vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k")
-vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k").to(device)
 
 
 things_images_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data/THINGS/THINGS/Images'
@@ -264,8 +297,6 @@ for division, char_range in divisions.items():
   letters[division] = [chr(c) for c in char_range]
 letter_to_division = reverse_dict(letters)
 
-import re
-from PIL import Image
 def get_images_names(substitutes_list):
     # get things images paths [(name, path)...]
     things_names = list(set([n[0] for n in substitutes_list]))
@@ -304,13 +335,12 @@ def compare_imgs(target_patch, substitutes_list):
     similarities = []
     for i_embed in images_embeddings:
         similarities.append(cosine_similarity(target_embeds.detach().numpy(), i_embed.detach().numpy()))
-    # get top 5
+    # get top k
     k = 5
     v, indices = torch.topk(torch.tensor(similarities), k)
-    print([images_names_list[i] for i in indices])
-    return [images_path_list[i] for i in indices]
+   
+    return [images_names_list[i] for i in indices], [images_path_list[i] for i in indices]
 
-from PIL import Image
 
 def visualize_images(image_paths):
   """
@@ -349,3 +379,198 @@ def get_all_names(path):
             names.append(os.path.join(root, name))
     return names
 
+
+def visualize_coco_image(self, img_name = None):
+        
+        if img_name != None:
+            image = self.data[img_name]
+        else:
+            while img_name == None:
+                img_name = rn.choice(list(self.data.keys()))
+                image = self.data[img_name]
+                for fix in image['fixations']:
+                    if fix['condition'] == 'absent':
+                        target = None
+                        break
+                    if 'task' in fix.keys():
+                        target = fix['task']
+                        break
+                    else:
+                        target = None
+                if target == None:
+                    img_name = None
+                
+        print('*',target)
+        images_paths = get_files(coco_images_path)
+        image_picture = None
+        for image_path in images_paths:
+            if img_name in image_path:
+                image_picture = Image.open(image_path)
+                break
+        # Convert PIL image to OpenCV format
+        image_cv2 = cv2.cvtColor(np.array(image_picture), cv2.COLOR_RGB2BGR)
+
+        # Draw the box of the image
+        ann_key = 'instances_train2017_annotations'
+        try:
+            image[ann_key]
+        except:
+            ann_key = 'instances_val2017_annotations'
+
+        target_bbox = None
+        for ann in image[ann_key]:
+            id = ann['category_id']
+            color = (255, 0, 0)  # Red color
+            object_names = list()
+            for cat in coco_object_cat:
+                if cat['id'] == id:
+                    cat_name = cat['name']
+                    object_names.append(cat_name)
+            if target in object_names:
+                color = (0, 0, 255)
+                target_bbox = ann['bbox']
+                target_segmentation = ann['segmentation']
+                target_area = ann['area']
+            x, y, width, height = ann['bbox']
+            thickness = 2
+            cv2.rectangle(image_cv2, (int(x), int(y)), (int(x + width), int(y + height)), color, thickness)
+
+        # retrieve captions
+        image_captions = []
+        cap_key = 'captions_train2017_annotations'
+        try:
+            image[cap_key]
+        except:
+            cap_key = 'captions_val2017_annotations'
+        for ann in image[cap_key]:
+            caption = ann['caption']
+            print(caption)
+            image_captions.append(caption)
+
+        # observe results
+        # Convert back to PIL format for displaying
+        image_with_box = Image.fromarray(cv2.cvtColor(image_cv2, cv2.COLOR_BGR2RGB))
+    
+        # Display the image with the box
+        plt.imshow(image_with_box)
+        plt.axis('off')  # Turn off axis
+        plt.show()
+
+        # Crop
+        # Segmentation
+        image_mask_cv2 = cv2.cvtColor(np.array(image_picture), cv2.COLOR_RGB2BGR)
+        target_segmentation = np.array(target_segmentation, dtype=np.int32).reshape((-1, 2))
+        # Create a mask
+        target_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
+        cv2.fillPoly(target_mask, [target_segmentation], 255)
+        # Apply the mask to the image
+        masked_image = cv2.bitwise_and(image_mask_cv2, image_mask_cv2, mask=target_mask)
+        # Crop image 
+        # Box
+        x,y,w,h = target_bbox
+        max_w, max_h = image_picture.size
+        x_c = subtract_in_bounds(x,20)
+        y_c = subtract_in_bounds(y,20)
+        w_c = add_in_bounds(x,w+20,max_w)
+        h_c = add_in_bounds(y,h+20,max_h)
+        cropped_masked_image = masked_image[y_c:h_c, x_c:w_c]
+        # Step 3: Convert the cropped image from BGR to RGB
+        cropped_masked_image_rgb = cv2.cvtColor(cropped_masked_image, cv2.COLOR_BGR2RGB)
+        # Step 4: Convert the cropped image to a PIL image
+        cropped_masked_image_pil = Image.fromarray(cropped_masked_image_rgb)
+        # Show
+        plt.imshow(cropped_masked_image_pil)
+        plt.axis('off')  # Turn off axis
+        plt.show()
+
+        cropped_image = image_picture.crop((x_c,y_c,w_c,h_c))
+       
+        # Classify scene
+        #classify_scene_clip_llava(image_picture, scene_labels_context)
+        scene_category = classify_scene_vit(image_picture)
+        print(scene_category)
+        # retrieve info from obscene
+        objects_to_replace = find_object_to_replace(target, scene_category)
+        print(objects_to_replace)
+        images_paths = compare_imgs(cropped_masked_image_pil, objects_to_replace)
+        #generate(image_picture, target_bbox, objects_to_replace[0])
+        visualize_images(images_paths)
+
+def get_scene_predictions(self):
+    all_predictions = []
+    all_img_paths = []
+    c = 0
+    
+    for img_name in tqdm(list(self.data.keys())):
+        try:
+            image = self.data[img_name]
+            for fix in image['fixations']:
+                if fix['condition'] == 'absent':
+                    target = None
+                    break
+                if 'task' in fix.keys():
+                    target = fix['task']
+                    break
+                else:
+                    target = None
+                
+            images_paths = get_files(images_path)
+            image_picture = None
+
+            for image_path in images_paths:
+                if img_name in image_path:
+                    image_picture = Image.open(image_path)
+                    all_img_paths.append(image_path)
+                    break
+            label = classify_scene_vit(image_picture)
+            all_predictions.append(label)
+        except:
+            c += 1
+            continue
+    count = Counter(all_predictions)
+    print(c)
+    label_with_paths = dict()
+    for i, lab in enumerate(all_predictions):
+        if lab not in label_with_paths.keys():
+            label_with_paths[lab] = list()
+        label_with_paths[lab].append(all_img_paths[i])
+    return count, label_with_paths
+
+### GEenerate image function
+
+# check predictions
+def generate(init_image, target_box, new_object):
+    # Given data
+    x, y, w, h = target_box  # Coordinates and dimensions of the white box
+    max_w, max_h = init_image.size  # Size of the image
+    # Create a black background image
+    mask = Image.new("RGB", (max_w, max_h), "black")
+    # Create a drawing object
+    draw = ImageDraw.Draw(mask)
+    # Define the coordinates of the white box
+    left = x
+    top = y
+    right = x + w
+    bottom = y + h
+    # Draw the white box on the black background
+    draw.rectangle([left, top, right, bottom], outline="white", fill="white")
+    # Save or display the image
+    blurred_mask = pipeline.mask_processor.blur(mask, blur_factor=33)
+    prompt = f"a {new_object}, realistic, highly detailed, 8k"
+    negative_prompt = "bad anatomy, deformed, ugly, disfigured"
+    generated_image = pipeline(prompt=prompt, negative_prompt=negative_prompt, image=init_image, mask_image=blurred_mask, generator=generator).images[0]
+    return generated_image
+
+# GET SUBSTITUTE
+def generate_new_image(data):
+    # Get the masked image with target and scene category
+    target, scene_category, image_picture, target_bbox, cropped_masked_image = get_coco_image_data(data)
+    # get the list of objects for replace
+    objects_for_replacement_list = find_object_for_replacement(target, scene_category)
+    images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
+    print(images_names)
+    generated_image = generate(image_picture, target_bbox, images_names[0])
+    # save the image
+    save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category}_{target}_{images_names[0]}.jpg')
+    generated_image.save(save_path)
+    #visualize_images(images_paths)

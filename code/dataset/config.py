@@ -3,35 +3,39 @@
 from pandas import pd
 import pickle as pkl
 import os
+import json
+
 # DECLARE PATHS
+CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared'
+CACHE_DIR_PRIVATE = '/mnt/cimec-storage6/users/filippo.merlo'
+
 # Path for the data folder
 data_folder_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data'
 
 # Paths for making the dataset 
-coco_ann_path = '/coco_search18/coco_annotations'
-coco_search_ann_path = '/coco_search18/coco_search18_TP'
-coco_images_path = '/coco_search18/images'
+coco_ann_path = os.path.join(data_folder_path,'/coco_search18/coco_annotations')
+coco_search_ann_path = os.path.join(data_folder_path,'/coco_search18/coco_search18_TP')
+coco_images_path = os.path.join(data_folder_path,'/coco_search18/images')
 
 # Paths for the already made dataset 
-dataset_path = '/coco_search18/coco_search18_annotated.json'
+dataset_path = os.path.join(data_folder_path,'/coco_search18/coco_search18_annotated.json')
 
 # Path for mappings
-map_coco2things_path = 'mappings/map_coco2things.json'
+map_coco2things_path = os.path.join(data_folder_path,'mappings/map_coco2things.json')
 
 # Path for object scene similarity metrics matices and norms
-llama_ade_object_scene_similarities_path = '/scene_object_sim/llama3_8b_instruct_object_scene_norms.pkl'
-things_plus_size_mean_path = '/THINGS/THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv'
+llama_ade_object_scene_similarities_path = os.path.join(data_folder_path,'/scene_object_sim/llama3_8b_instruct_object_scene_norms.pkl')
+things_plus_size_mean_path = os.path.join(data_folder_path,'/THINGS/THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv')
 
 # IMPORT DATA
 # Object scene similarity metrics matices and norms 
-things_plus_size_mean_matrix = pd.read_csv(os.path.join(data_folder_path, things_plus_size_mean_path), sep='\t', engine='python', encoding='utf-8')
-with open(os.path.join(data_folder_path, llama_ade_object_scene_similarities_path), 'rb') as f:
+things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
+with open(llama_ade_object_scene_similarities_path, 'rb') as f:
     llama_norms = pkl.load(f)
 
 # Mappings
-
-# Load the object_map_ade2things file
-
+with open(map_coco2things_path, 'r') as f:
+    map_coco2things = json.load(f)
 
 # NAMES AND CATEGORIES
 # Scene Names
@@ -40,7 +44,7 @@ sun_scene_cat = ['abbey', 'airplane_cabin', 'airport_terminal', 'alley', 'amphit
 
 # Object Names
 # things dataset
-things_plus_size_mean_matrix = pd.read_csv(os.path.join(data_folder_path+things_plus_size_mean_path), sep='\t', engine='python', encoding='utf-8')
+things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
 things_words_id = list(things_plus_size_mean_matrix['uniqueID'])
 things_words_context = list(things_plus_size_mean_matrix['WordContext'])
 things_object_cat = list(things_plus_size_mean_matrix['Word'])
@@ -48,14 +52,13 @@ things_object_cat = list(things_plus_size_mean_matrix['Word'])
 # coco dataset
 coco_object_cat =  [{"supercategory": "person","id": 1,"name": "person"},{"supercategory": "vehicle","id": 2,"name": "bicycle"},{"supercategory": "vehicle","id": 3,"name": "car"},{"supercategory": "vehicle","id": 4,"name": "motorcycle"},{"supercategory": "vehicle","id": 5,"name": "airplane"},{"supercategory": "vehicle","id": 6,"name": "bus"},{"supercategory": "vehicle","id": 7,"name": "train"},{"supercategory": "vehicle","id": 8,"name": "truck"},{"supercategory": "vehicle","id": 9,"name": "boat"},{"supercategory": "outdoor","id": 10,"name": "traffic light"},{"supercategory": "outdoor","id": 11,"name": "fire hydrant"},{"supercategory": "outdoor","id": 13,"name": "stop sign"},{"supercategory": "outdoor","id": 14,"name": "parking meter"},{"supercategory": "outdoor","id": 15,"name": "bench"},{"supercategory": "animal","id": 16,"name": "bird"},{"supercategory": "animal","id": 17,"name": "cat"},{"supercategory": "animal","id": 18,"name": "dog"},{"supercategory": "animal","id": 19,"name": "horse"},{"supercategory": "animal","id": 20,"name": "sheep"},{"supercategory": "animal","id": 21,"name": "cow"},{"supercategory": "animal","id": 22,"name": "elephant"},{"supercategory": "animal","id": 23,"name": "bear"},{"supercategory": "animal","id": 24,"name": "zebra"},{"supercategory": "animal","id": 25,"name": "giraffe"},{"supercategory": "accessory","id": 27,"name": "backpack"},{"supercategory": "accessory","id": 28,"name": "umbrella"},{"supercategory": "accessory","id": 31,"name": "handbag"},{"supercategory": "accessory","id": 32,"name": "tie"},{"supercategory": "accessory","id": 33,"name": "suitcase"},{"supercategory": "sports","id": 34,"name": "frisbee"},{"supercategory": "sports","id": 35,"name": "skis"},{"supercategory": "sports","id": 36,"name": "snowboard"},{"supercategory": "sports","id": 37,"name": "sports ball"},{"supercategory": "sports","id": 38,"name": "kite"},{"supercategory": "sports","id": 39,"name": "baseball bat"},{"supercategory": "sports","id": 40,"name": "baseball glove"},{"supercategory": "sports","id": 41,"name": "skateboard"},{"supercategory": "sports","id": 42,"name": "surfboard"},{"supercategory": "sports","id": 43,"name": "tennis racket"},{"supercategory": "kitchen","id": 44,"name": "bottle"},{"supercategory": "kitchen","id": 46,"name": "wine glass"},{"supercategory": "kitchen","id": 47,"name": "cup"},{"supercategory": "kitchen","id": 48,"name": "fork"},{"supercategory": "kitchen","id": 49,"name": "knife"},{"supercategory": "kitchen","id": 50,"name": "spoon"},{"supercategory": "kitchen","id": 51,"name": "bowl"},{"supercategory": "food","id": 52,"name": "banana"},{"supercategory": "food","id": 53,"name": "apple"},{"supercategory": "food","id": 54,"name": "sandwich"},{"supercategory": "food","id": 55,"name": "orange"},{"supercategory": "food","id": 56,"name": "broccoli"},{"supercategory": "food","id": 57,"name": "carrot"},{"supercategory": "food","id": 58,"name": "hot dog"},{"supercategory": "food","id": 59,"name": "pizza"},{"supercategory": "food","id": 60,"name": "donut"},{"supercategory": "food","id": 61,"name": "cake"},{"supercategory": "furniture","id": 62,"name": "chair"},{"supercategory": "furniture","id": 63,"name": "couch"},{"supercategory": "furniture","id": 64,"name": "potted plant"},{"supercategory": "furniture","id": 65,"name": "bed"},{"supercategory": "furniture","id": 67,"name": "dining table"},{"supercategory": "furniture","id": 70,"name": "toilet"},{"supercategory": "electronic","id": 72,"name": "tv"},{"supercategory": "electronic","id": 73,"name": "laptop"},{"supercategory": "electronic","id": 74,"name": "mouse"},{"supercategory": "electronic","id": 75,"name": "remote"},{"supercategory": "electronic","id": 76,"name": "keyboard"},{"supercategory": "electronic","id": 77,"name": "cell phone"},{"supercategory": "appliance","id": 78,"name": "microwave"},{"supercategory": "appliance","id": 79,"name": "oven"},{"supercategory": "appliance","id": 80,"name": "toaster"},{"supercategory": "appliance","id": 81,"name": "sink"},{"supercategory": "appliance","id": 82,"name": "refrigerator"},{"supercategory": "indoor","id": 84,"name": "book"},{"supercategory": "indoor","id": 85,"name": "clock"},{"supercategory": "indoor","id": 86,"name": "vase"},{"supercategory": "indoor","id": 87,"name": "scissors"},{"supercategory": "indoor","id": 88,"name": "teddy bear"},{"supercategory": "indoor","id": 89,"name": "hair drier"},{"supercategory": "indoor","id": 90,"name": "toothbrush"}]
 
-# SET DEVICES AND DIRS
-device = 'cuda0'
-CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared'
-CACHE_DIR_PRIVATE = '/mnt/cimec-storage6/users/filippo.merlo'
-
 # INIT MODELS
+# set devices
+device = 'cuda0'
+
 # Initialize the model for scene categorization
 import wandb
+import torch
 from transformers import AutoImageProcessor, ViTForImageClassification
 
 # Create the label to ID mapping
@@ -82,5 +85,17 @@ with wandb.init(project="vit-base-patch16-224_SUN397") as run:
         cache_dir=CACHE_DIR_PRIVATE
     ).to(device)
 
+# Initialize model for image embedding
+from transformers import AutoImageProcessor, ViTModel 
+vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
+vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
 
+# Initialize model for generation
+from diffusers import AutoPipelineForInpainting
+pipeline =  AutoPipelineForInpainting.from_pretrained("kandinsky-community/kandinsky-2-2-decoder-inpaint", cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
+pipeline.enable_model_cpu_offload()
+
+# remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
+pipeline.enable_xformers_memory_efficient_attention()
+generator = torch.Generator("cuda").manual_seed(92)
 
