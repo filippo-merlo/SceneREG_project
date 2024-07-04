@@ -29,7 +29,7 @@ things_plus_size_mean_path = os.path.join(data_folder_path,'THINGSplus/Metadata/
 
 # IMPORT DATA
 # Object scene similarity metrics matices and norms 
-things_plus_size_mean_matrix = pd.read_csv('/mnt/cimec-storage6/users/filippo.merlo/sceneREG_data/THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv', sep='\t', engine='python', encoding='utf-8')
+things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
 with open(llama_ade_object_scene_similarities_path, 'rb') as f:
     llama_norms = pkl.load(f)
 
