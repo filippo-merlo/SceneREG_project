@@ -96,6 +96,5 @@ pipeline =  AutoPipelineForInpainting.from_pretrained("kandinsky-community/kandi
 pipeline.enable_model_cpu_offload()
 
 # remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
-pipeline.enable_xformers_memory_efficient_attention()
 generator = torch.Generator("cuda").manual_seed(92)
 
