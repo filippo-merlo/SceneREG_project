@@ -298,6 +298,24 @@ def get_images_names(substitutes_list):
                 images_path_list.append(i_p)
     return images_path_list, images_names_list
 
+def get_all_names(path):
+    """
+    This function retrieves all file and folder names within a directory and its subdirectories.
+
+    Args:
+        path: The directory path to search.
+
+    Returns:
+        A list containing all file and folder names.
+    """
+    names = []
+    for root, dirs, files in os.walk(path):
+        for name in files:
+            names.append(os.path.join(root, name))
+        for name in dirs:
+            names.append(os.path.join(root, name))
+    return names
+
 
 def compare_imgs(target_patch, substitutes_list):
     # get things images paths [(name, path)...]
@@ -346,25 +364,6 @@ def visualize_images(image_paths):
     except FileNotFoundError:
       print(f"Error: File not found: {path}")
 
-import os
-
-def get_all_names(path):
-    """
-    This function retrieves all file and folder names within a directory and its subdirectories.
-
-    Args:
-        path: The directory path to search.
-
-    Returns:
-        A list containing all file and folder names.
-    """
-    names = []
-    for root, dirs, files in os.walk(path):
-        for name in files:
-            names.append(os.path.join(root, name))
-        for name in dirs:
-            names.append(os.path.join(root, name))
-    return names
 
 
 def visualize_coco_image(self, img_name = None):
