@@ -282,7 +282,7 @@ def find_object_for_replacement(target_object_name, scene_name):
 
 def get_images_names(substitutes_list):
     # get things images paths [(name, path)...]
-    things_folder_names = list(set([str(things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==n]['uniqueID']) for n in substitutes_list]))
+    things_folder_names = list(set([things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==n]['uniqueID'] for n in substitutes_list]))
     print(type(things_folder_names))
     print(things_folder_names)
     images_names_list = []
