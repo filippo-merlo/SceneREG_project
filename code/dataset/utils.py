@@ -214,7 +214,7 @@ def get_coco_image_data(data, img_name = None):
         return target, scene_category, image_picture, target_bbox, cropped_masked_image_pil
 
 ### SCENE CLASSIFICATION
-def classify_scene_vit(image_picture, device, processor, model):
+def classify_scene_vit(image_picture):
     """
     Classify an image with the classes of SUN397 using a Vision Transformer model.
     """
