@@ -522,7 +522,7 @@ def get_scene_predictions(self):
 ### GEenerate image function
 
 # check predictions
-def generate(init_image, target_box, new_object):
+def generate(init_image, target_box, new_object, target):
     # Given data
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
     max_w, max_h = init_image.size  # Size of the image
@@ -555,7 +555,7 @@ def generate(init_image, target_box, new_object):
     mask[int(y):int(y_end), int(x):int(x_end)] = 1
     print(new_object)
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
-    negative_prompt = "bad anatomy, deformed, ugly, disfigured"
+    negative_prompt = f"{target}, bad anatomy, deformed, ugly, disfigured"
     generated_image = pipeline(prompt=prompt,negative_prompt=negative_prompt, image=init_image, mask_image=mask, generator=generator).images[0]
     return generated_image
 
@@ -567,7 +567,7 @@ def generate_new_image(data):
     objects_for_replacement_list = find_object_for_replacement(target, scene_category)
     images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
     print(images_names)
-    generated_image = generate(image_picture, target_bbox, images_names[0])
+    generated_image = generate(image_picture, target_bbox, images_names[0], target)
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category}_{target}_{images_names[0]}.jpg')
     generated_image.save(save_path)
