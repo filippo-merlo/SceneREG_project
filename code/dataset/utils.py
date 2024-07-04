@@ -283,14 +283,11 @@ def find_object_for_replacement(target_object_name, scene_name):
 def get_images_names(substitutes_list):
     # get things images paths [(name, path)...]
     things_folder_names = list(set([things_words_id[things_words_context.index(n)] for n in substitutes_list]))
-    print(things_folder_names)
     images_names_list = []
     images_path_list = []
     for folder_name in things_folder_names:
         folders_path = os.path.join(things_images_path, folder_name)
-        print(folders_path)
         images_paths = get_all_names(folders_path)
-
         for i_p in images_paths:
             things_obj_name = re.sub(r"\d+", "",i_p.split('/')[-2]).replace('_',' ')
             if folder_name == things_obj_name:
@@ -310,9 +307,6 @@ def get_all_names(path):
     """
     names = []
     for root, dirs, files in os.walk(path):
-        print(root)
-        print(dirs)
-        print(files)
         for name in files:
             names.append(os.path.join(root, name))
         for name in dirs:
@@ -532,6 +526,7 @@ def generate(init_image, target_box, new_object):
     # Given data
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
     max_w, max_h = init_image.size  # Size of the image
+    '''
     # Create a black background image
     mask = Image.new("RGB", (max_w, max_h), "black")
     # Create a drawing object
@@ -548,6 +543,19 @@ def generate(init_image, target_box, new_object):
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
     negative_prompt = "bad anatomy, deformed, ugly, disfigured"
     generated_image = pipeline(prompt=prompt, negative_prompt=negative_prompt, image=init_image, mask_image=blurred_mask, generator=generator).images[0]
+    '''
+    # Create the mask with the size of the image
+    mask = np.zeros((max_h, max_w), dtype=np.float32)
+
+    # Adjusting the region to fit within the image size limits
+    x_end = min(x + w, max_w)
+    y_end = min(y + h, max_h)
+
+    # Mask out the area defined by x, y, w, h
+    mask[y:y_end, x:x_end] = 1
+    prompt = f"a {new_object}, realistic, highly detailed, 8k"
+    negative_prompt = "bad anatomy, deformed, ugly, disfigured"
+    generated_image = pipeline(prompt=prompt,negative_prompt=negative_prompt, image=init_image, mask_image=mask, generator=generator).images[0]
     return generated_image
 
 # GET SUBSTITUTE
