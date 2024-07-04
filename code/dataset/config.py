@@ -28,7 +28,7 @@ llama_ade_object_scene_similarities_path = os.path.join(data_folder_path,'scene_
 things_plus_size_mean_path = os.path.join(data_folder_path,'THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv')
 
 # Path for images
-things_images_path = os.path.join(data_folder_path,'THINGSplus/Images')
+things_images_path = os.path.join(data_folder_path,'THINGS/Images')
 # IMPORT DATA
 # Object scene similarity metrics matices and norms 
 things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
