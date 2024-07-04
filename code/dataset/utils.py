@@ -316,7 +316,7 @@ def compare_imgs(target_patch, substitutes_list):
     # get things images paths [(name, path)...]
     print(substitutes_list)
     images_path_list, images_names_list = get_images_names(substitutes_list)
-
+    print(len(images_path_list))
     # embed images
     images_embeddings = []
     with torch.no_grad():
