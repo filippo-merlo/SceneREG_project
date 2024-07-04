@@ -299,6 +299,8 @@ letter_to_division = reverse_dict(letters)
 def get_images_names(substitutes_list):
     # get things images paths [(name, path)...]
     things_folder_names = list(set([str(things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==n]['uniqueID']) for n in substitutes_list]))
+    print(type(things_folder_names))
+    print(things_folder_names)
     images_names_list = []
     images_path_list = []
     for folder_name in things_folder_names:
