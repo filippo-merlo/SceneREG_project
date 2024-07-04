@@ -575,5 +575,4 @@ def generate_new_image(data):
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category}_{target}_{images_names[0]}.jpg')
     generated_image.save(save_path)
-    image_picture.show()
     #visualize_images(images_paths)
