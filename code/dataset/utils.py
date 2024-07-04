@@ -574,5 +574,7 @@ def generate_new_image(data):
     generated_image = generate(image_picture, target_bbox, images_names[0], target)
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category}_{target}_{images_names[0]}.jpg')
+    save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category}_{target}_{images_names[0]}_original.jpg')
     generated_image.save(save_path)
+    image_picture.save(save_path_original)
     #visualize_images(images_paths)
