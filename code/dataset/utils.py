@@ -556,7 +556,12 @@ def generate(init_image, target_box, new_object, target):
     print(new_object)
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
     negative_prompt = f"{target}, bad anatomy, deformed, ugly, disfigured"
-    generated_image = pipeline(prompt=prompt, image=init_image, mask_image=mask, generator=generator).images[0]
+    generated_image = pipeline(prompt=prompt, 
+                            image=init_image, 
+                            mask_image=mask,
+                            height=768,
+                            width=768,
+                            num_inference_steps=150).images[0]
     return generated_image
 
 # GET SUBSTITUTE
