@@ -552,7 +552,7 @@ def generate(init_image, target_box, new_object):
     y_end = min(y + h, max_h)
 
     # Mask out the area defined by x, y, w, h
-    mask[y:y_end, x:x_end] = 1
+    mask[int(y):int(y_end), int(x):int(x_end)] = 1
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
     negative_prompt = "bad anatomy, deformed, ugly, disfigured"
     generated_image = pipeline(prompt=prompt,negative_prompt=negative_prompt, image=init_image, mask_image=mask, generator=generator).images[0]
