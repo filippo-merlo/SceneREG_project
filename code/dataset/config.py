@@ -93,7 +93,8 @@ vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch
 vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
 
 # Initialize model for generation
-from diffusers import AutoPipelineForInpainting
+from diffusers import AutoPipelineForInpainting, DiffusionPipeline
+pipeline = DiffusionPipeline.from_pretrained("JunhaoZhuang/PowerPaint-v2-1")
 pipeline =  AutoPipelineForInpainting.from_pretrained("JunhaoZhuang/PowerPaint-v2-1", cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
 pipeline.enable_model_cpu_offload()
 
