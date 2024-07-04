@@ -553,8 +553,9 @@ def generate(init_image, target_box, new_object, target):
 
     # Mask out the area defined by x, y, w, h
     mask[int(y):int(y_end), int(x):int(x_end)] = 1
+
     print(new_object)
-    prompt = f"a carrot"
+    prompt = f"a {new_object}, realistic, highly detailed, 8k"
     negative_prompt = f"{target}, bad anatomy, deformed, ugly, disfigured"
     generated_image = pipeline(prompt=prompt, 
                             image=init_image, 
@@ -574,4 +575,5 @@ def generate_new_image(data):
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category}_{target}_{images_names[0]}.jpg')
     generated_image.save(save_path)
+    image_picture.show()
     #visualize_images(images_paths)
