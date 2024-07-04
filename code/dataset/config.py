@@ -94,7 +94,7 @@ vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache
 
 # Initialize model for generation
 from diffusers import AutoPipelineForInpainting
-pipeline =  AutoPipelineForInpainting.from_pretrained('Sanster/PowerPaint_v2', cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
+pipeline =  AutoPipelineForInpainting.from_pretrained('JunhaoZhuang/PowerPaint_v2', cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
 pipeline.enable_model_cpu_offload()
 
 # remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
