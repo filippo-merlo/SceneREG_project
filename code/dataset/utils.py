@@ -291,7 +291,7 @@ def get_images_names(substitutes_list):
         for i_p in images_paths:
             things_obj_name = re.sub(r"\d+", "",i_p.split('/')[-2]).replace('_',' ')
             if folder_name == things_obj_name:
-                images_names_list.append(things_words_context[things_words_id.index(folder_name)].replace('/','_')
+                images_names_list.append(things_words_context[things_words_id.index(folder_name)].replace('/','_'))
                 images_path_list.append(i_p)
     return images_path_list, images_names_list
 
