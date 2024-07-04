@@ -336,7 +336,7 @@ def compare_imgs(target_patch, substitutes_list):
         similarities.append(cosine_similarity(target_embeds.detach().numpy(), i_embed.detach().numpy()))
     # get top k
     k = 5
-    print(torch.tensor(similarities).shape())
+    print(torch.tensor(similarities).size())
     v, indices = torch.topk(torch.tensor(similarities), k)
    
     return [images_names_list[i] for i in indices], [images_path_list[i] for i in indices]
