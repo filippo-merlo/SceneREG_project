@@ -10,7 +10,7 @@ CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared'
 CACHE_DIR_PRIVATE = '/mnt/cimec-storage6/users/filippo.merlo'
 
 # Path for the data folder
-data_folder_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data'
+data_folder_path = '/mnt/cimec-storage6/users/filippo.merlo/sceneREG_data'
 
 # Paths for making the dataset 
 coco_ann_path = os.path.join(data_folder_path,'/coco_search18/coco_annotations')

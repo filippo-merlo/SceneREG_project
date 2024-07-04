@@ -94,4 +94,3 @@ class Dataset:
         with open(path, 'w') as f:
             json.dump(self.data, f, indent=4)
     
-dataset = Dataset(dataset_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data/coco_search18/coco_search18_annotated.json')
