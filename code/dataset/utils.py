@@ -310,6 +310,9 @@ def get_all_names(path):
     """
     names = []
     for root, dirs, files in os.walk(path):
+        print(root)
+        print(dirs)
+        print(files)
         for name in files:
             names.append(os.path.join(root, name))
         for name in dirs:
