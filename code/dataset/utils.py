@@ -276,7 +276,7 @@ def find_object_for_replacement(target_object_name, scene_name):
 
         final_scores.append(total_score)
 
-    kidxs, vals = select_k(final_scores, 100, lower = True)
+    kidxs, vals = select_k(final_scores, 20, lower = True)
     things_names = [things_words_context[i] for i in kidxs]
     return things_names
 
@@ -291,7 +291,7 @@ def get_images_names(substitutes_list):
         for i_p in images_paths:
             things_obj_name = re.sub(r"\d+", "",i_p.split('/')[-2]).replace('_',' ')
             if folder_name == things_obj_name:
-                images_names_list.append(things_plus_size_mean_matrix[things_plus_size_mean_matrix['uniqueID']==folder_name]['WordContext'])
+                images_names_list.append(things_words_context[things_words_id.index(folder_name)])
                 images_path_list.append(i_p)
     return images_path_list, images_names_list
 
