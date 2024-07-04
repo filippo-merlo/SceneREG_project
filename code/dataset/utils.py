@@ -298,16 +298,16 @@ letter_to_division = reverse_dict(letters)
 
 def get_images_names(substitutes_list):
     # get things images paths [(name, path)...]
-    things_names = list(set([n[0] for n in substitutes_list]))
+    things_folder_names = list(set([things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==n]['uniqueID'] for n in substitutes_list]))
     images_names_list = []
     images_path_list = []
-    for object_name in things_names:
-        folders_path = os.path.join(things_images_path, letter_to_division[object_name[0]])
+    for folder_name in things_folder_names:
+        folders_path = os.path.join(things_images_path, folder_name)
         images_paths = get_all_names(folders_path)
         for i_p in images_paths:
             things_obj_name = re.sub(r"\d+", "",i_p.split('/')[-2]).replace('_',' ')
-            if object_name == things_obj_name:
-                images_names_list.append(object_name)
+            if folder_name == things_obj_name:
+                images_names_list.append(things_plus_size_mean_matrix[things_plus_size_mean_matrix['uniqueID']==folder_name]['WordContext'])
                 images_path_list.append(i_p)
     return images_path_list, images_names_list
 
