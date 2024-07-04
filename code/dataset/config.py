@@ -1,6 +1,6 @@
 # CONFIG FILE WITH ALL THE PATHS AND VARIABLES NEEDED
 #%%
-from pandas import pd
+import pandas as pd
 import pickle as pkl
 import os
 import json
