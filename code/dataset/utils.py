@@ -290,7 +290,7 @@ def get_images_names(substitutes_list):
         folders_path = os.path.join(things_images_path, folder_name)
         print(folders_path)
         images_paths = get_all_names(folders_path)
-        print(images_paths)
+
         for i_p in images_paths:
             things_obj_name = re.sub(r"\d+", "",i_p.split('/')[-2]).replace('_',' ')
             if folder_name == things_obj_name:
