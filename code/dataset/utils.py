@@ -172,7 +172,6 @@ def get_coco_image_data(data, img_name = None):
         # every ann is an object
         for ann in image[ann_key]:
             id = ann['category_id'] # get the category id
-            object_name = coco_object_cat[id]['name'] # get the object name
             
             # get the target object info
             object_name = ''
