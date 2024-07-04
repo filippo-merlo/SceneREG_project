@@ -13,12 +13,12 @@ CACHE_DIR_PRIVATE = '/mnt/cimec-storage6/users/filippo.merlo'
 data_folder_path = '/mnt/cimec-storage6/users/filippo.merlo/sceneREG_data/'
 
 # Paths for making the dataset 
-coco_ann_path = os.path.join(data_folder_path,'/coco_search18/coco_annotations')
-coco_search_ann_path = os.path.join(data_folder_path,'/coco_search18/coco_search18_TP')
-coco_images_path = os.path.join(data_folder_path,'/coco_search18/images')
+coco_ann_path = os.path.join(data_folder_path,'coco_search18/coco_annotations')
+coco_search_ann_path = os.path.join(data_folder_path,'coco_search18/coco_search18_TP')
+coco_images_path = os.path.join(data_folder_path,'coco_search18/images')
 
 # Paths for the already made dataset 
-dataset_path = os.path.join(data_folder_path,'/coco_search18/coco_search18_annotated.json')
+dataset_path = os.path.join(data_folder_path,'coco_search18/coco_search18_annotated.json')
 
 # Path for mappings
 map_coco2things_path = os.path.join(data_folder_path,'mappings/map_coco2things.json')
