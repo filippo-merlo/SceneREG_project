@@ -25,7 +25,7 @@ map_coco2things_path = os.path.join(data_folder_path,'mappings/map_coco2things.j
 
 # Path for object scene similarity metrics matices and norms
 llama_ade_object_scene_similarities_path = os.path.join(data_folder_path,'scene_object_sim/llama3_8b_instruct_THINGSobject_scene_norms.pkl')
-things_plus_size_mean_path = os.path.join(data_folder_path,'/THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv')
+things_plus_size_mean_path = os.path.join(data_folder_path,'THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv')
 
 # IMPORT DATA
 # Object scene similarity metrics matices and norms 
