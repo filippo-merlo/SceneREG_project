@@ -288,6 +288,7 @@ def get_images_names(substitutes_list):
     images_path_list = []
     for folder_name in things_folder_names:
         folders_path = os.path.join(things_images_path, folder_name)
+        print(folders_path)
         images_paths = get_all_names(folders_path)
         print(images_paths)
         for i_p in images_paths:
