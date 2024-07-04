@@ -280,22 +280,6 @@ def find_object_for_replacement(target_object_name, scene_name):
     things_names = [things_words_context[i] for i in kidxs]
     return things_names
 
-
-things_images_path = '/Users/filippomerlo/Desktop/Datasets/sceneREG_data/THINGS/THINGS/Images'
-
-divisions = {
-  "object_images_A-C": range(ord('a'), ord('c') + 1),  # a-c (inclusive)
-  "object_images_D-K": range(ord('d'), ord('k') + 1),  # d-k (inclusive)
-  "object_images_L-Q": range(ord('l'), ord('q') + 1),  # l-q (inclusive)
-  "object_images_R-S": range(ord('r'), ord('s') + 1),  # r-s (inclusive)
-  "object_images_T-Z": range(ord('t'), ord('z') + 1),  # t-z (inclusive)
-}
-# Convert ranges to lists of characters for clarity (optional)
-letters = {}
-for division, char_range in divisions.items():
-  letters[division] = [chr(c) for c in char_range]
-letter_to_division = reverse_dict(letters)
-
 def get_images_names(substitutes_list):
     # get things images paths [(name, path)...]
     things_folder_names = list(set([str(things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==n]['uniqueID']) for n in substitutes_list]))
