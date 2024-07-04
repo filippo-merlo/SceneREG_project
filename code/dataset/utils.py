@@ -257,10 +257,9 @@ def find_object_for_replacement(target_object_name, scene_name):
 
         # target size
         things_name_target = map_coco2things[target_object_name]
-        if target_object_name == things_name_target:
-            target_idx = things_words_context.index(things_name_target)
-            target_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_mean']
-            target_sd_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_SD']
+        target_idx = things_words_context.index(things_name_target)
+        target_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_mean']
+        target_sd_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_SD']
         
         # object size
         object_idx = things_words_context.index(thing)
