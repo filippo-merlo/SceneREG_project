@@ -79,7 +79,7 @@ coco_object_cat =  [{"supercategory": "person","id": 1,"name": "person"},{"super
 
 # INIT MODELS
 # set devices
-device = 'cuda1'
+device = 'cuda:2'
 
 # Initialize the model for scene categorization
 import wandb
