@@ -27,13 +27,14 @@ map_coco2things_path = os.path.join(data_folder_path,'mappings/map_coco2things.j
 llama_ade_object_scene_similarities_path = os.path.join(data_folder_path,'scene_object_sim/llama3_8b_instruct_THINGSobject_scene_norms.pkl')
 things_plus_size_mean_path = os.path.join(data_folder_path,'THINGSplus/Metadata/Concept-specific/size_meanRatings.tsv')
 things_plus_typicality_mean_path = os.path.join(data_folder_path,'THINGSplus/Metadata/Concept-specific/typicality_meanRatings.tsv')
-
+things_plus_categories_path = os.path.join(data_folder_path,'THINGSplus/Metadata/Concept-specific/category53_wideFormat.tsv')
 # Path for images
 things_images_path = os.path.join(data_folder_path,'THINGS/Images')
 # IMPORT DATA
 # Object scene similarity metrics matices and norms 
 things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
 things_plus_typicality_mean_matrix = pd.read_csv(things_plus_typicality_mean_path, sep='\t', engine='python', encoding='utf-8')
+things_plus_categories = pd.read_csv(things_plus_categories_path, sep='\t', engine='python', encoding='utf-8')
 
 with open(llama_ade_object_scene_similarities_path, 'rb') as f:
     llama_norms = pkl.load(f)
@@ -50,9 +51,15 @@ sun_scene_cat = ['abbey', 'airplane_cabin', 'airport_terminal', 'alley', 'amphit
 # Object Names
 # things dataset
 things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
-typical_things_id = list(things_plus_typicality_mean_matrix[(things_plus_typicality_mean_matrix['typicality_score'] >= 0.6) & (things_plus_typicality_mean_matrix['typicality_score'] <= 1)]['uniqueID'])
+typical_things_id_ = list(things_plus_typicality_mean_matrix[(things_plus_typicality_mean_matrix['typicality_score'] >= 0.55) & (things_plus_typicality_mean_matrix['typicality_score'] <= 1)]['uniqueID'])
 # add all the coco labels
-typical_things_id = list(set(typical_things_id + list(map_coco2things.values())))
+typical_things_id_ = list(set(typical_things_id_ + list(map_coco2things.values())))
+typical_things_id = []
+for thing in typical_things_id:
+    idx = things_plus_categories.index[things_plus_categories['uniqueID'] == thing]
+    if things_plus_categories.at[idx, 'animal'] != 1 and things_plus_categories.at[idx, 'body part'] != 1:
+        typical_things_id.append(thing)
+
 print(len(typical_things_id))
 things_words_id = []
 idx_to_remove = []
