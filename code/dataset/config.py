@@ -50,9 +50,8 @@ sun_scene_cat = ['abbey', 'airplane_cabin', 'airport_terminal', 'alley', 'amphit
 # Object Names
 # things dataset
 things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
-typical_things_id = list(things_plus_typicality_mean_matrix[(things_plus_typicality_mean_matrix['typicality_score'] >= 0.5) & (things_plus_typicality_mean_matrix['typicality_score'] <= 1)]['uniqueID'])
+typical_things_id = list(things_plus_typicality_mean_matrix[(things_plus_typicality_mean_matrix['typicality_score'] >= 0.7) & (things_plus_typicality_mean_matrix['typicality_score'] <= 1)]['uniqueID'])
 print(len(typical_things_id))
-print(typical_things_id)
 things_words_id = []
 idx_to_remove = []
 for idx, thing in enumerate(list(things_plus_size_mean_matrix['uniqueID'])):
@@ -62,6 +61,8 @@ for idx, thing in enumerate(list(things_plus_size_mean_matrix['uniqueID'])):
         idx_to_remove.append(idx)
 
 things_words_context =  [item for idx, item in enumerate(list(things_plus_size_mean_matrix['WordContext'])) if idx in idx_to_remove]
+print(len(things_words_context))
+print(things_words_context)
 things_object_cat = [item for idx, item in enumerate(list(things_plus_size_mean_matrix['Word'])) if idx in idx_to_remove]
 
 # coco dataset
