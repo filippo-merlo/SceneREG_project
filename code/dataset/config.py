@@ -56,6 +56,7 @@ typical_things_id_ = list(things_plus_typicality_mean_matrix[(things_plus_typica
 typical_things_id_ = list(set(typical_things_id_ + list(map_coco2things.values())))
 typical_things_id = []
 for thing in typical_things_id_:
+    print(thing)
     print(list(things_plus_categories.index[things_plus_categories['uniqueID'] == thing]))
     idx = list(things_plus_categories.index[things_plus_categories['uniqueID'] == thing])[0]
     if things_plus_categories.at[idx, 'animal'] == 0 and things_plus_categories.at[idx, 'body part'] == 0:
