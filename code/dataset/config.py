@@ -58,7 +58,7 @@ typical_things_id = []
 for thing in typical_things_id:
     idx = things_plus_categories.index[things_plus_categories['uniqueID'] == thing]
     print(idx)
-    if things_plus_categories.at[idx, 'animal'] != 1 and things_plus_categories.at[idx, 'body part'] != 1:
+    if things_plus_categories.at[idx, 'animal'] == 0 and things_plus_categories.at[idx, 'body part'] == 0:
         typical_things_id.append(thing)
 
 print(len(typical_things_id))
