@@ -61,6 +61,7 @@ for thing in typical_things_id_:
     if thing == 'baseball ':
         idx = list(things_plus_categories.index[things_plus_categories['uniqueID'] == thing])[0]
     else:
+        print(thing.replace(' ','_').replace('_(',' ('))
         idx = list(things_plus_categories.index[things_plus_categories['uniqueID'] == thing.replace(' ','_').replace('_(',' (')])[0]
     if things_plus_categories.at[idx, 'animal'] == 0 and things_plus_categories.at[idx, 'body part'] == 0:
         typical_things_id.append(thing)
