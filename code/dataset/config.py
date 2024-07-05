@@ -57,6 +57,7 @@ typical_things_id_ = list(set(typical_things_id_ + list(map_coco2things.values()
 typical_things_id = []
 for thing in typical_things_id:
     idx = things_plus_categories.index[things_plus_categories['uniqueID'] == thing]
+    print(idx)
     if things_plus_categories.at[idx, 'animal'] != 1 and things_plus_categories.at[idx, 'body part'] != 1:
         typical_things_id.append(thing)
 
