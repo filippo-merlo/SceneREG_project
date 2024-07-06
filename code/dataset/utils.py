@@ -275,7 +275,7 @@ def find_object_for_replacement(target_object_name, scene_name):
 
         final_scores.append(total_score)
 
-    kidxs, vals = select_k(final_scores, 20, lower = True)
+    kidxs, vals = select_k(final_scores, 5, lower = True)
     things_names = [things_words_context[i] for i in kidxs]
     return things_names
 
@@ -565,8 +565,8 @@ def generate(init_image, target_box, new_object, target):
                             image=init_image, 
                             mask_image=mask,
                             generator = generator,
-                            guidance_scale = 0.9,
-                            num_inference_steps=200).images[0]
+                            guidance_scale = 0.1,
+                            num_inference_steps=50).images[0]
     return generated_image
 
 # GET SUBSTITUTE
