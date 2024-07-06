@@ -564,7 +564,7 @@ def generate(init_image, target_box, new_object, target):
                             negative_prompt=negative_prompt,
                             image=init_image, 
                             mask_image=mask,
-                            height = init_image.height,
+                            height = init_image.width,
                             width = init_image.width,
                             generator = generator,
                             guidance_scale = 0.7,
