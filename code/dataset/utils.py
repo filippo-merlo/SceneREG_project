@@ -595,8 +595,12 @@ def generate_sd3(init_image, target_box, new_object, target):
     mask[int(y):int(y_end), int(x):int(x_end)] = 1
     # Convert the mask to a black and white .png format (in memory, not saving to disk)
     mask_png_format = (mask * 255).astype(np.uint8)
+
+    # Convert to PIL image
+    mask_pil = Image.fromarray(mask_png_format)
+
     mask = preprocess_mask(
-        mask_png_format
+        mask_pil
     )
 
     generated_image = pipe(
