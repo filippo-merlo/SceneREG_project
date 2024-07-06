@@ -123,6 +123,8 @@ with wandb.init(project="vit-base-patch16-224_SUN397") as run:
 # remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
 generator = torch.Generator(device).manual_seed(92)
 
+from huggingface_hub import login
+login(token = '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')
 
 from torchvision import transforms
 from pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
