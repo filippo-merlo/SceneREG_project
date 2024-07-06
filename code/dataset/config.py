@@ -110,16 +110,25 @@ with wandb.init(project="vit-base-patch16-224_SUN397") as run:
     ).to(device)
 
 # Initialize model for image embedding
-from transformers import AutoImageProcessor, ViTModel 
-vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
-vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
-
-# Initialize model for generation
-from diffusers import AutoPipelineForInpainting, DiffusionPipeline
-
-pipeline =  AutoPipelineForInpainting.from_pretrained("kandinsky-community/kandinsky-2-2-decoder-inpaint", cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
-pipeline.enable_model_cpu_offload()
+#from transformers import AutoImageProcessor, ViTModel 
+#vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
+#vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
+#
+## Initialize model for generation
+#from diffusers import AutoPipelineForInpainting, DiffusionPipeline
+#
+#pipeline =  AutoPipelineForInpainting.from_pretrained("kandinsky-community/kandinsky-2-2-decoder-inpaint", cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
+#pipeline.enable_model_cpu_offload()
 
 # remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
-generator = torch.Generator("cuda").manual_seed(92)
+generator = torch.Generator(device).manual_seed(92)
 
+
+from torchvision import transforms
+from pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
+from diffusers.utils import load_image
+
+pipe = StableDiffusion3InpaintPipeline.from_pretrained(
+    "stabilityai/stable-diffusion-3-medium-diffusers",
+    torch_dtype=torch.float16,
+).to("cuda")

@@ -524,9 +524,9 @@ def get_scene_predictions(self):
 def generate(init_image, target_box, new_object, target):
     # Given data
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
-    print('tbox',x, y, w, h)
+
     max_w, max_h = init_image.size  # Size of the image
-    print('isize',max_w, max_h)
+
     '''
     # Create a black background image
     mask = Image.new("RGB", (max_w, max_h), "black")
@@ -555,9 +555,6 @@ def generate(init_image, target_box, new_object, target):
     # Mask out the area defined by x, y, w, h
     mask[int(y):int(y_end), int(x):int(x_end)] = 1
 
-    print('msize',mask.shape)
-    print(mask)
-    print(new_object)
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
     negative_prompt = f"{target}, out of frame, lowres, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, disfigured, gross proportions, malformed limbs, watermark, signature"
     generated_image = pipeline(prompt=prompt, 
@@ -569,6 +566,51 @@ def generate(init_image, target_box, new_object, target):
                             num_inference_steps=100).images[0]
     return generated_image
 
+def preprocess_mask(mask):
+        mask = mask.convert("L")
+        mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
+        mask = transforms.ToTensor()(mask)
+        mask = mask.to("cuda")
+        return mask
+
+def preprocess_image(image):
+        image = image.convert("RGB")
+        image = transforms.CenterCrop((image.size[1] // 64 * 64, image.size[0] // 64 * 64))(image)
+        image = transforms.ToTensor()(image)
+        image = image.unsqueeze(0).to("cuda")
+        return image
+
+def generate_sd3(init_image, target_box, new_object, target):
+  
+    prompt = f"a {new_object}, realistic, highly detailed, 8k"
+    source_image = init_image
+    source = preprocess_image(source_image)
+    x, y, w, h = target_box  # Coordinates and dimensions of the white box
+    max_w, max_h = init_image.size 
+    # Create the mask with the size of the image
+    mask = np.zeros((max_h, max_w), dtype=np.float32)
+    # Adjusting the region to fit within the image size limits
+    x_end = min(x + w, max_w)
+    y_end = min(y + h, max_h)
+    mask[int(y):int(y_end), int(x):int(x_end)] = 1
+    # Convert the mask to a black and white .png format (in memory, not saving to disk)
+    mask_png_format = (mask * 255).astype(np.uint8)
+    mask = preprocess_mask(
+        mask_png_format
+    )
+
+    generated_image = pipe(
+        prompt=prompt,
+        image=source,
+        mask_image=mask,
+        height=1024,
+        width=1024,
+        num_inference_steps=50,
+        guidance_scale=7.0,
+        strength=0.6,
+    ).images[0]
+
+    return generated_image
 # GET SUBSTITUTE
 def generate_new_image(data):
     # Get the masked image with target and scene category
@@ -577,7 +619,7 @@ def generate_new_image(data):
     objects_for_replacement_list = find_object_for_replacement(target, scene_category)
     images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
     print(images_names)
-    generated_image = generate(image_picture, target_bbox, images_names[0], target)
+    generated_image = generate_sd3(image_picture, target_bbox, images_names[0], target)
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
     save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
