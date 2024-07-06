@@ -556,12 +556,15 @@ def generate(init_image, target_box, new_object, target):
     print(new_object)
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
     negative_prompt = f"{target}, out of frame, lowres, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, disfigured, gross proportions, malformed limbs, watermark, signature"
-    generated_image = pipeline(prompt=prompt, 
-                            negative_prompt=negative_prompt,
+    generated_image = pipeline(negative_image_embeds=prompt, 
+                            negative_image_embeds=negative_prompt,
                             image=init_image, 
                             mask_image=mask,
+                            height = max_h,
+                            width = max_w,
                             generator = generator,
-                            num_inference_steps=150).images[0]
+                            guidance_scale = 0.7,
+                            num_inference_steps=200).images[0]
     return generated_image
 
 # GET SUBSTITUTE

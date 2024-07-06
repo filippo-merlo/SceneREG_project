@@ -79,7 +79,7 @@ coco_object_cat =  [{"supercategory": "person","id": 1,"name": "person"},{"super
 
 # INIT MODELS
 # set devices
-device = 'cuda:2'
+device = 'cuda:1'
 
 # Initialize the model for scene categorization
 import wandb
@@ -119,6 +119,7 @@ vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache
 from diffusers import AutoPipelineForInpainting, DiffusionPipeline
 
 pipeline =  AutoPipelineForInpainting.from_pretrained("kandinsky-community/kandinsky-2-2-decoder-inpaint", cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
+pipeline.args
 pipeline.enable_model_cpu_offload()
 
 # remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
