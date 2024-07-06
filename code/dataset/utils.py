@@ -565,7 +565,7 @@ def generate(init_image, target_box, new_object, target):
                             image=init_image, 
                             mask_image=mask,
                             generator = generator,
-                            guidance_scale = 0.7,
+                            guidance_scale = 0.9,
                             num_inference_steps=200).images[0]
     return generated_image
 
