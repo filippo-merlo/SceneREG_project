@@ -524,7 +524,9 @@ def get_scene_predictions(self):
 def generate(init_image, target_box, new_object, target):
     # Given data
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
+    print('tbox',x, y, w, h)
     max_w, max_h = init_image.size  # Size of the image
+    print('isize',max_w, max_h)
     '''
     # Create a black background image
     mask = Image.new("RGB", (max_w, max_h), "black")
@@ -552,7 +554,7 @@ def generate(init_image, target_box, new_object, target):
 
     # Mask out the area defined by x, y, w, h
     mask[int(y):int(y_end), int(x):int(x_end)] = 1
-    print(mask.shape)
+    print('msize',mask.shape)
     print(new_object)
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
     negative_prompt = f"{target}, out of frame, lowres, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, disfigured, gross proportions, malformed limbs, watermark, signature"
