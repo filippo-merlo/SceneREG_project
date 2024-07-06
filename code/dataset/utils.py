@@ -554,6 +554,7 @@ def generate(init_image, target_box, new_object, target):
 
     # Mask out the area defined by x, y, w, h
     mask[int(y):int(y_end), int(x):int(x_end)] = 1
+
     print('msize',mask.shape)
     print(mask)
     print(new_object)
@@ -563,8 +564,8 @@ def generate(init_image, target_box, new_object, target):
                             negative_prompt=negative_prompt,
                             image=init_image, 
                             mask_image=mask,
-                            height = max_h,
-                            width = max_w,
+                            height = int(y + h),
+                            width = int(x + w),
                             generator = generator,
                             guidance_scale = 0.7,
                             num_inference_steps=200).images[0]
