@@ -124,7 +124,7 @@ with wandb.init(project="vit-base-patch16-224_SUN397") as run:
 generator = torch.Generator(device).manual_seed(92)
 
 from huggingface_hub import login
-login(token = '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')
+login(token = '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')
 
 from torchvision import transforms
 from pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
