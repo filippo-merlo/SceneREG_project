@@ -53,7 +53,7 @@ sun_scene_cat = ['abbey', 'airplane_cabin', 'airport_terminal', 'alley', 'amphit
 things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
 typical_things_id_ = list(things_plus_typicality_mean_matrix[(things_plus_typicality_mean_matrix['typicality_score'] >= 0.50) & (things_plus_typicality_mean_matrix['typicality_score'] <= 1)]['uniqueID'])
 # add all the coco labels
-things_id_in_coco = list(things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==x]['uniqueID']for x in map_coco2things.values())
+things_id_in_coco = list(list(things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==x]['uniqueID'])[0]for x in map_coco2things.values())
 print(things_id_in_coco)
 typical_things_id_ = list(set(typical_things_id_)) + things_id_in_coco
 typical_things_id = []
