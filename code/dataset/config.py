@@ -130,7 +130,7 @@ from torchvision import transforms
 from pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
 from diffusers.utils import load_image
 
-pipe = StableDiffusion3InpaintPipelsline.from_pretrained(
+pipe = StableDiffusion3InpaintPipeline.from_pretrained(
     "stabilityai/stable-diffusion-3-medium-diffusers",
     torch_dtype=torch.float16,
     cache_dir=CACHE_DIR_SHARED
