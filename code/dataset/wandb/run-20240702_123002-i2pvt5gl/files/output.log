@@ -1,5 +1,0 @@
-[34m[1mwandb[39m[22m: Downloading large artifact model-on5m6wmj:v0, 328.51MB. 3 files...
-[34m[1mwandb[39m[22m:   3 of 3 files downloaded.
-Done. 0:0:2.3
-/Users/filippomerlo/miniconda3/envs/torch/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
