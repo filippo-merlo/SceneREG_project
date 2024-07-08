@@ -583,7 +583,7 @@ def preprocess_image(image):
 def generate_sd3(init_image, target_box, new_object, target):
   
     #prompt = f"a {new_object}, realistic, highly detailed, 8k"
-    promt = f"remove the {new_object} and uniform with the background"
+    prompt = f"remove the {new_object} and uniform with the background"
     source_image = init_image
 
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
