@@ -133,6 +133,6 @@ from diffusers.utils import load_image
 
 pipe = StableDiffusion3InpaintPipeline.from_pretrained(
     "stabilityai/stable-diffusion-3-medium-diffusers",
-    #torch_dtype=torch.float16,
+    torch_dtype=torch.float16,
     cache_dir=CACHE_DIR_SHARED
 ).to(device_gen)
