@@ -633,7 +633,8 @@ def generate_sd3(init_image, target_box, new_object, target):
         strength=0.6,
     ).images[0]
 
-    return generated_image, new_image
+    return generated_image, new_image, mask_image
+
 # GET SUBSTITUTE
 def generate_new_image(data):
     # Get the masked image with target and scene category
@@ -642,10 +643,12 @@ def generate_new_image(data):
     objects_for_replacement_list = find_object_for_replacement(target, scene_category)
     images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
     print(images_names)
-    generated_image, new_image = generate_sd3(image_picture, target_bbox, images_names[0], target)
+    generated_image, new_image, mask_image = generate_sd3(image_picture, target_bbox, images_names[0], target)
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
     save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
+    save_path_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
     generated_image.save(save_path)
     new_image.save(save_path_original)
+    mask_image.save(save_path_mask)
     #visualize_images(images_paths)
