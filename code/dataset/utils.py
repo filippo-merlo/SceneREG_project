@@ -602,7 +602,7 @@ def generate_sd3(init_image, target_box, new_object, target):
     # The adjusted bounding box
     adjusted_box = (new_x, new_y, w, h)
 
-    source = preprocess_image(source_image)
+    source = preprocess_image(new_image)
 
     # Step 3: Create the mask with the size of the new square image
     mask = np.zeros((new_size, new_size), dtype=np.float32)
