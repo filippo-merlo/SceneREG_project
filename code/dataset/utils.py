@@ -584,23 +584,42 @@ def generate_sd3(init_image, target_box, new_object, target):
   
     prompt = f"a {new_object}, realistic, highly detailed, 8k"
     source_image = init_image
-    source = preprocess_image(source_image)
+
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
     max_w, max_h = init_image.size 
-    # Create the mask with the size of the image
-    mask = np.zeros((max_h, max_w), dtype=np.float32)
+
+    # Step 1: Add a black background to make the image square
+    new_size = max(max_w, max_h)
+    new_image = Image.new("RGB", (new_size, new_size), (0, 0, 0))
+    offset_x = (new_size - max_w) // 2
+    offset_y = (new_size - max_h) // 2
+    new_image.paste(init_image, (offset_x, offset_y))
+
+    # Step 2: Adjust the coordinates of the bounding box
+    new_x = x + offset_x
+    new_y = y + offset_y
+
+    # The adjusted bounding box
+    adjusted_box = (new_x, new_y, w, h)
+
+    source = preprocess_image(source_image)
+
+    # Step 3: Create the mask with the size of the new square image
+    mask = np.zeros((new_size, new_size), dtype=np.float32)
+
     # Adjusting the region to fit within the image size limits
-    x_end = min(x + w, max_w)
-    y_end = min(y + h, max_h)
-    mask[int(y):int(y_end), int(x):int(x_end)] = 1
+    x_end = min(new_x + w, new_size)
+    y_end = min(new_y + h, new_size)
+    mask[int(new_y):int(y_end), int(new_x):int(x_end)] = 1
+
     # Convert the mask to a black and white .png format (in memory, not saving to disk)
     mask_png_format = (mask * 255).astype(np.uint8)
 
-    # Convert to PIL image
-    mask_pil = Image.fromarray(mask_png_format)
+    # Optional: Convert to a PIL image to visualize
+    mask_image = Image.fromarray(mask_png_format)
 
     mask = preprocess_mask(
-        mask_pil
+        mask_image
     )
 
     generated_image = pipe(
