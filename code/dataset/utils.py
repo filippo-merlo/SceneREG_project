@@ -614,9 +614,11 @@ def api_upscale_image_x2(image):
 
     output_base64 = api_response.json().get("data", [])[0]
 
-    print(api_payload)
-    print(api_response)
-
+    # Add padding if necessary
+    missing_padding = len(output_base64) % 4
+    if missing_padding:
+        output_base64 += '=' * (4 - missing_padding)
+        
     return Image.open(io.BytesIO(base64.b64decode(output_base64)))
 
 def add_black_background(image, target_box):
