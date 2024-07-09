@@ -618,7 +618,7 @@ def add_black_background(image, target_box):
     return new_image, adjusted_box
 
 
-def generate_sd3(image, target_box, new_object, target):
+def generate_sd3(image, target_box, new_object):
     # the image is square so ill get only one dimension
     size, _ = image.size
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
@@ -644,7 +644,7 @@ def generate_sd3(image, target_box, new_object, target):
     )
 
     prompt = f"a {new_object}, realistic, high resolution, highly detailed, 8k"
-    
+
     generated_image = pipe(
         prompt=prompt,
         image=source,
@@ -676,7 +676,7 @@ def generate_new_image(data):
     upscaled_bbox = [x*2 for x in new_bbox]
 
     # Inpainting the target
-    generated_image, new_image, mask_image = generate_sd3(upscaled_image_picture, upscaled_bbox, images_names[0], target)
+    generated_image, mask_image = generate_sd3(upscaled_image_picture, upscaled_bbox, images_names[0])
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
     save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
