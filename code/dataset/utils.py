@@ -580,20 +580,33 @@ def preprocess_image(image):
         image = image.unsqueeze(0).to(device_gen)
         return image
 
-def generate_sd3(init_image, target_box, new_object, target):
-  
-    prompt = f"a {new_object}, realistic, high resolution, highly detailed, 8k"
-    source_image = init_image
+def upscale_image_x2(image, scene_category):
+    prompt = f"a photo of a {scene_category} scene, high resolution, ultra realistic"
 
+    # we stay in latent space! Let's make sure that Stable Diffusion returns the image
+    # in latent space
+    low_res_latents = pipeline(prompt, generator=generator, output_type="latent").images
+
+    upscaled_image = upscaler(
+        prompt=prompt,
+        image=low_res_latents,
+        num_inference_steps=20,
+        guidance_scale=0,
+        generator=generator,
+    ).images[0]
+
+    return upscaled_image 
+
+def add_black_background(image, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
-    max_w, max_h = init_image.size 
+    max_w, max_h = image.size 
 
     # Step 1: Add a black background to make the image square
     new_size = max(max_w, max_h)
     new_image = Image.new("RGB", (new_size, new_size), (0, 0, 0))
     offset_x = (new_size - max_w) // 2
     offset_y = (new_size - max_h) // 2
-    new_image.paste(init_image, (offset_x, offset_y))
+    new_image.paste(image, (offset_x, offset_y))
 
     # Step 2: Adjust the coordinates of the bounding box
     new_x = x + offset_x
@@ -602,15 +615,23 @@ def generate_sd3(init_image, target_box, new_object, target):
     # The adjusted bounding box
     adjusted_box = (new_x, new_y, w, h)
 
-    source = preprocess_image(new_image)
+    return new_image, adjusted_box
+
+
+def generate_sd3(image, target_box, new_object, target):
+    # the image is square so ill get only one dimension
+    size, _ = image.size
+    x, y, w, h = target_box  # Coordinates and dimensions of the white box
+
+    source = preprocess_image(image)
 
     # Step 3: Create the mask with the size of the new square image
-    mask = np.zeros((new_size, new_size), dtype=np.float32)
+    mask = np.zeros((size, size), dtype=np.float32)
 
     # Adjusting the region to fit within the image size limits
-    x_end = min(new_x + w, new_size)
-    y_end = min(new_y + h, new_size)
-    mask[int(new_y):int(y_end), int(new_x):int(x_end)] = 1
+    x_end = min(x + w, size)
+    y_end = min(y + h, size)
+    mask[int(y):int(y_end), int(x):int(x_end)] = 1
 
     # Convert the mask to a black and white .png format (in memory, not saving to disk)
     mask_png_format = (mask * 255).astype(np.uint8)
@@ -622,33 +643,45 @@ def generate_sd3(init_image, target_box, new_object, target):
         mask_image
     )
 
+    prompt = f"a {new_object}, realistic, high resolution, highly detailed, 8k"
+    
     generated_image = pipe(
         prompt=prompt,
         image=source,
         mask_image=mask,
-        height=new_size,
-        width=new_size,
+        height=size,
+        width=size,
         num_inference_steps=100,
         guidance_scale=7.0,
         strength=0.6,
     ).images[0]
 
-    return generated_image, new_image, mask_image
+    return generated_image, mask_image
 
 # GET SUBSTITUTE
 def generate_new_image(data):
     # Get the masked image with target and scene category
     target, scene_category, image_picture, target_bbox, cropped_masked_image = get_coco_image_data(data)
+    
     # get the list of objects for replace
     objects_for_replacement_list = find_object_for_replacement(target, scene_category)
     images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
     print(images_names)
-    generated_image, new_image, mask_image = generate_sd3(image_picture, target_bbox, images_names[0], target)
+
+    # add black background
+    image_with_background, new_bbox = add_black_background(image_picture, target_bbox)
+
+    # upscale image and update bbox
+    upscaled_image_picture = upscale_image_x2(image_with_background, scene_category)
+    upscaled_bbox = [x*2 for x in new_bbox]
+
+    # Inpainting the target
+    generated_image, new_image, mask_image = generate_sd3(upscaled_image_picture, upscaled_bbox, images_names[0], target)
     # save the image
     save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
     save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
     save_path_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
     generated_image.save(save_path)
-    new_image.save(save_path_original)
+    upscaled_image_picture.save(save_path_original)
     mask_image.save(save_path_mask)
     #visualize_images(images_paths)

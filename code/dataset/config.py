@@ -110,18 +110,18 @@ with wandb.init(project="vit-base-patch16-224_SUN397") as run:
         cache_dir=CACHE_DIR_PRIVATE
     ).to(device)
 
-# Initialize model for image embedding
+# Initialize model for IMAGE EMBEDDING
 from transformers import AutoImageProcessor, ViTModel 
 vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
 vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
 #
-## Initialize model for generation
+## Initialize model for INPAINTING
+
 #from diffusers import AutoPipelineForInpainting, DiffusionPipeline
 #
 #pipeline =  AutoPipelineForInpainting.from_pretrained("kandinsky-community/kandinsky-2-2-decoder-inpaint", cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
 #pipeline.enable_model_cpu_offload()
 
-# remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
 generator = torch.Generator(device).manual_seed(92)
 
 from huggingface_hub import login
@@ -136,3 +136,10 @@ pipe = StableDiffusion3InpaintPipeline.from_pretrained(
     torch_dtype=torch.float16,
     cache_dir=CACHE_DIR_SHARED
 ).to(device_gen)
+
+## Init model for UPSCALING 
+from diffusers import StableDiffusionLatentUpscalePipeline, StableDiffusionPipeline
+import torch
+
+pipeline = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16, cache_dir=CACHE_DIR_SHARED).to(device)
+upscaler = StableDiffusionLatentUpscalePipeline.from_pretrained("stabilityai/sd-x2-latent-upscaler", torch_dtype=torch.float16, cache_dir=CACHE_DIR_SHARED).to(device)
