@@ -691,7 +691,7 @@ def generate_new_image(data):
     image_with_background, new_bbox = add_black_background(image_picture, target_bbox)
 
     # upscale image and update bbox
-    upscaled_image_picture = api_upscale_image_x2(image_with_background, scene_category)
+    upscaled_image_picture = api_upscale_image_x2(image_with_background)
     upscaled_bbox = [x*2 for x in new_bbox]
 
     # Inpainting the target
