@@ -615,9 +615,9 @@ def api_upscale_image_x2(image):
     output_base64 = api_response.json().get("data", [])[0]
 
     # Add padding if necessary
-    #missing_padding = len(output_base64) % 4
-    #if missing_padding:
-    #    output_base64 += '=' * (4 - missing_padding)
+    missing_padding = len(output_base64) % 4
+    if missing_padding:
+        output_base64 += '=' * (4 - missing_padding)
 
     return Image.open(io.BytesIO(base64.b64decode(output_base64)))
 
