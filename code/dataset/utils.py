@@ -581,20 +581,8 @@ def preprocess_image(image):
         return image
 
 def upscale_image_x2(image, scene_category):
-    prompt = f"a photo of a {scene_category} scene, high resolution, ultra realistic"
-
-    # we stay in latent space! Let's make sure that Stable Diffusion returns the image
-    # in latent space
-    low_res_latents = pipeline(prompt, generator=generator, output_type="latent").images
-
-    upscaled_image = upscaler(
-        prompt=prompt,
-        image=low_res_latents,
-        num_inference_steps=20,
-        guidance_scale=0,
-        generator=generator,
-    ).images[0]
-
+    prompt = f"a {scene_category}"
+    upscaled_image = upscale_pipeline(prompt=prompt, image=image).images[0]
     return upscaled_image 
 
 def add_black_background(image, target_box):

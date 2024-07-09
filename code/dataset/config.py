@@ -138,8 +138,9 @@ pipe = StableDiffusion3InpaintPipeline.from_pretrained(
 ).to(device_gen)
 
 ## Init model for UPSCALING 
-from diffusers import StableDiffusionLatentUpscalePipeline, StableDiffusionPipeline
-import torch
+from io import BytesIO
+from diffusers import StableDiffusionUpscalePipeline
 
-pipeline = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16, cache_dir=CACHE_DIR_SHARED).to(device)
-upscaler = StableDiffusionLatentUpscalePipeline.from_pretrained("stabilityai/sd-x2-latent-upscaler", torch_dtype=torch.float16, cache_dir=CACHE_DIR_SHARED).to(device)
+model_id = "stabilityai/stable-diffusion-x4-upscaler"
+upscale_pipeline = StableDiffusionUpscalePipeline.from_pretrained(model_id, torch_dtype=torch.float16, cache_dir=CACHE_DIR_SHARED)
+upscale_pipeline = upscale_pipeline.to(device)
