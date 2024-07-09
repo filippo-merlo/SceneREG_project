@@ -613,7 +613,7 @@ def api_upscale_image_x2(image):
     )
 
     output_base64 = api_response.json().get("data", [])[0]
-
+    print(output_base64)
     # Add padding if necessary
     missing_padding = len(output_base64) % 4
     if missing_padding:
