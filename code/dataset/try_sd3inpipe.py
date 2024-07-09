@@ -25,7 +25,7 @@ pipe = StableDiffusion3InpaintPipeline.from_pretrained(
     torch_dtype=torch.float16,
 ).to("cuda")
 
-prompt = "Face of a penis, high resolution, sitting on a park bench"
+prompt = "Face of a red cat, high resolution"
 source_image = load_image(
     "./overture-creations-5sI6fQgYIuo.png"
 )
