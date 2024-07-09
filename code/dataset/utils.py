@@ -580,10 +580,41 @@ def preprocess_image(image):
         image = image.unsqueeze(0).to(device_gen)
         return image
 
-def upscale_image_x2(image, scene_category):
-    prompt = f"a {scene_category}"
-    upscaled_image = upscale_pipeline(prompt=prompt, image=image).images[0]
-    return upscaled_image 
+#def upscale_image_x2(image, scene_category):
+#    prompt = f"a {scene_category}"
+#    upscaled_image = upscale_pipeline(prompt=prompt, image=image).images[0]
+#    return upscaled_image 
+
+import io
+import base64
+import requests
+
+def encode_image_for_api(image):
+    buffer = io.BytesIO()
+    image.save(buffer, format='PNG')
+    byte_data = buffer.getvalue()
+    # Encode the byte stream to a Base64 string
+    encoded_image = base64.b64encode(byte_data).decode('utf-8')
+    return encoded_image
+
+def api_upscale_image_x2(image):
+    upscaler_model = "modelx2"
+
+    encoded_image = encode_image_for_api(image)
+
+    # Create the payload for the API request
+    api_payload = {
+        "data": [encoded_image, upscaler_model]
+    }
+
+    api_response = requests.post(
+        "https://bookbot-image-upscaling-playground.hf.space/api/predict",
+        json={"data": [encoded_image, upscaler_model]}
+    )
+
+    output_base64 = api_response.json().get("data", [])[0]
+
+    return Image.open(io.BytesIO(base64.b64decode(output_base64)))
 
 def add_black_background(image, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
@@ -660,7 +691,7 @@ def generate_new_image(data):
     image_with_background, new_bbox = add_black_background(image_picture, target_bbox)
 
     # upscale image and update bbox
-    upscaled_image_picture = upscale_image_x2(image_with_background, scene_category)
+    upscaled_image_picture = api_upscale_image_x2(image_with_background, scene_category)
     upscaled_bbox = [x*2 for x in new_bbox]
 
     # Inpainting the target
