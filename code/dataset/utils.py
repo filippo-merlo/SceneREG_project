@@ -654,7 +654,7 @@ def add_black_background(image, target_box):
     adjusted_box = (new_x, new_y, w, h)
 
     # save temporarely image:
-    path = os.path.join(data_folder_path, 'temp.png')
+    path = os.path.join(data_folder_path, 'temp.jpg')
     new_image.save(path)
 
     return new_image, adjusted_box, path
@@ -697,7 +697,7 @@ def generate_sd3(image, target_box, new_object):
         num_inference_steps=100,
         guidance_scale=7.0,
         strength=0.6,
-    ).images[0]
+    ).images
 
     return generated_image, mask_image
 
@@ -722,10 +722,11 @@ def generate_new_image(data):
         # Inpainting the target
         generated_image, mask_image = generate_sd3(upscaled_image_picture, upscaled_bbox, images_names[0])
         # save the image
-        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
         save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
         save_path_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
-        generated_image.save(save_path)
+        for i in generated_image:
+            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_{i}.jpg')
+            generated_image.save(save_path)
         upscaled_image_picture.save(save_path_original)
         mask_image.save(save_path_mask)
         #visualize_images(images_paths)
