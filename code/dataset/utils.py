@@ -632,7 +632,8 @@ def api_upscale_image_gradio_x2(image, path_to_image):
             "modelx2",	# str in 'Choose Upscaler' Radio component
             api_name="/predict"
     )
-    return result
+    new_image = Image.open(result)
+    return new_image
 
 def add_black_background(image, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
@@ -714,7 +715,6 @@ def generate_new_image(data):
 
     # upscale image and update bbox
     upscaled_image_picture = api_upscale_image_gradio_x2(image_with_background, path)
-    print(upscaled_image_picture)
     upscaled_bbox = [x*2 for x in new_bbox]
 
     # Inpainting the target
