@@ -698,7 +698,7 @@ def generate_sd3(image, target_box, new_object):
         guidance_scale=7.0,
         strength=0.6,
     ).images
-    print(generated_image)
+
     return generated_image, mask_image
 
 # GET SUBSTITUTE
@@ -724,9 +724,9 @@ def generate_new_image(data):
         # save the image
         save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
         save_path_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
-        for i in generated_image:
+        for i, image in enumerate(generated_image):
             save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_{i}.jpg')
-            generated_image.save(save_path)
+            image.save(save_path)
         upscaled_image_picture.save(save_path_original)
         mask_image.save(save_path_mask)
         #visualize_images(images_paths)
