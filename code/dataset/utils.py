@@ -663,6 +663,7 @@ def add_black_background(image, target_box):
 def generate_sd3(image, target_box, new_object):
     # the image is square so ill get only one dimension
     size, _ = image.size
+    print('SIZE:', size)
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
 
     source = preprocess_image(image)
