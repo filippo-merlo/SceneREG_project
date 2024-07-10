@@ -597,6 +597,7 @@ def encode_image_for_api(image):
     encoded_image = base64.b64encode(byte_data).decode('utf-8')
     return encoded_image
 
+
 def api_upscale_image_x2(image):
     upscaler_model = "modelx2"
 
@@ -621,6 +622,18 @@ def api_upscale_image_x2(image):
 
     return Image.open(io.BytesIO(base64.b64decode(output_base64)))
 
+from gradio_client import Client
+
+def api_upscale_image_gradio_x2(image, path_to_image):
+    client = Client("https://bookbot-image-upscaling-playground.hf.space/")
+    encoded_image = encode_image_for_api(image)
+    result = client.predict(
+            path_to_image,	
+            "modelx2",	# str in 'Choose Upscaler' Radio component
+            api_name="/predict"
+    )
+    return result
+
 def add_black_background(image, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
     max_w, max_h = image.size 
@@ -639,7 +652,11 @@ def add_black_background(image, target_box):
     # The adjusted bounding box
     adjusted_box = (new_x, new_y, w, h)
 
-    return new_image, adjusted_box
+    # save temporarely image:
+    path = os.path.join(data_folder_path, 'temp.png')
+    new_image.save(path)
+
+    return new_image, adjusted_box, path
 
 
 def generate_sd3(image, target_box, new_object):
@@ -693,10 +710,11 @@ def generate_new_image(data):
     print(images_names)
 
     # add black background
-    image_with_background, new_bbox = add_black_background(image_picture, target_bbox)
+    image_with_background, new_bbox, path = add_black_background(image_picture, target_bbox)
 
     # upscale image and update bbox
-    upscaled_image_picture = api_upscale_image_x2(image_with_background)
+    upscaled_image_picture = api_upscale_image_gradio_x2(image_with_background, path)
+    print(upscaled_image_picture)
     upscaled_bbox = [x*2 for x in new_bbox]
 
     # Inpainting the target
