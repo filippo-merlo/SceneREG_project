@@ -703,28 +703,32 @@ def generate_sd3(image, target_box, new_object):
 
 # GET SUBSTITUTE
 def generate_new_image(data):
-    # Get the masked image with target and scene category
-    target, scene_category, image_picture, target_bbox, cropped_masked_image = get_coco_image_data(data)
-    
-    # get the list of objects for replace
-    objects_for_replacement_list = find_object_for_replacement(target, scene_category)
-    #images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
-    #print(images_names)
-    images_names = objects_for_replacement_list
-    # add black background
-    image_with_background, new_bbox, path = add_black_background(image_picture, target_bbox)
+    try:
+        # Get the masked image with target and scene category
+        target, scene_category, image_picture, target_bbox, cropped_masked_image = get_coco_image_data(data)
+        
+        # get the list of objects for replace
+        objects_for_replacement_list = find_object_for_replacement(target, scene_category)
+        #images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
+        #print(images_names)
+        images_names = objects_for_replacement_list
+        # add black background
+        image_with_background, new_bbox, path = add_black_background(image_picture, target_bbox)
 
-    # upscale image and update bbox
-    upscaled_image_picture = api_upscale_image_gradio_x2(image_with_background, path)
-    upscaled_bbox = [x*2 for x in new_bbox]
+        # upscale image and update bbox
+        upscaled_image_picture = api_upscale_image_gradio_x2(image_with_background, path)
+        upscaled_bbox = [x*2 for x in new_bbox]
 
-    # Inpainting the target
-    generated_image, mask_image = generate_sd3(upscaled_image_picture, upscaled_bbox, images_names[0])
-    # save the image
-    save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
-    save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
-    save_path_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
-    generated_image.save(save_path)
-    upscaled_image_picture.save(save_path_original)
-    mask_image.save(save_path_mask)
-    #visualize_images(images_paths)
+        # Inpainting the target
+        generated_image, mask_image = generate_sd3(upscaled_image_picture, upscaled_bbox, images_names[0])
+        # save the image
+        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
+        save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
+        save_path_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
+        generated_image.save(save_path)
+        upscaled_image_picture.save(save_path_original)
+        mask_image.save(save_path_mask)
+        #visualize_images(images_paths)
+    except:
+        print('Error')
+        pass
