@@ -708,9 +708,9 @@ def generate_new_image(data):
     
     # get the list of objects for replace
     objects_for_replacement_list = find_object_for_replacement(target, scene_category)
-    images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
-    print(images_names)
-
+    #images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
+    #print(images_names)
+    images_names = objects_for_replacement_list
     # add black background
     image_with_background, new_bbox, path = add_black_background(image_picture, target_bbox)
 
