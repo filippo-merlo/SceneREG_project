@@ -266,9 +266,9 @@ def find_object_for_replacement(target_object_name, scene_name):
         object_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_mean']
         object_sd_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_SD']
        
-        z_size_score = abs((target_size_score - object_size_score)/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2))
+        size_distance = abs((target_size_score - object_size_score))#/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2))
 
-        total_score = z_size_score + scene_relatedness_score
+        total_score = size_distance + scene_relatedness_score
 
         if thing == things_name_target or related:
             total_score = 100
