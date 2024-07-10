@@ -731,5 +731,5 @@ def generate_new_image(data):
         mask_image.save(save_path_mask)
         #visualize_images(images_paths)
     except:
-        print('Error')
+        print('*** ERROR ***')
         pass
