@@ -698,7 +698,7 @@ def generate_sd3(image, target_box, new_object):
         guidance_scale=7.0,
         strength=0.6,
     ).images
-
+    print(generated_image)
     return generated_image, mask_image
 
 # GET SUBSTITUTE
