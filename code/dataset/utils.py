@@ -188,10 +188,10 @@ def get_coco_image_data(data, img_name = None):
         # Segment the target area in the image
         # Convert the image from RGB to BGR format using OpenCV
         image_mask_cv2 = cv2.cvtColor(np.array(image_picture), cv2.COLOR_RGB2BGR)
-
+        print(target_segmentation)
         # Convert the target segmentation coordinates to a NumPy array of type int32
         target_segmentation = np.array(target_segmentation, dtype=np.int32).reshape((-1, 2))
-
+        print(target_segmentation)
         # Create a mask with the same height and width as the image, initialized to zeros (black)
         image_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
 
@@ -641,9 +641,9 @@ def generate_sd3(image, target_box, new_object):
         mask_image=mask,
         height=size,
         width=size,
-        num_inference_steps=200,
-        strength=0.9,
-        guidance_scale=0.9,
+        num_inference_steps=100,
+        strength=1,
+        guidance_scale=1,
     ).images
 
     return generated_image, mask_image
@@ -662,35 +662,44 @@ def generate_new_image(data):
         # ADD BACKGROUND
         image_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_picture, image_mask, target_bbox)
 
-        #image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
-
-        # upscale image and update bbox
-        scale_up_factor = 2
-        upscaled_image = api_upscale_image_gradio(image_with_background, path, scale_up_factor)
-        upscaled_bbox = [x*scale_up_factor for x in new_bbox]
-
-        ## and mask
-        ## Get the current size of the image
-        #size, _ = image_mask_with_background.size
-        ## Define the new size (scale by 2)
-        #new_size = (size * 2, size * 2)
-        ## Resize the image
-        #upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
-        #temp_path = os.path.join(data_folder_path, 'temp_.png')
-        #upscaled_image_mask_with_background.save(temp_path)
-        #upscaled_image_mask_with_background = Image.open(temp_path).convert('L')
-#
-        #save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
-        #upscaled_image_with_background.save(save_path_original)
+        image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
         
-        ## Remove the object with LaMa
-        #clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
+        save_path_original_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
+        image_mask_with_background.save(save_path_original_mask)
+        save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+        image_with_background_clean.save(save_path_original_clean)
+        # upscale image and update bbox
+        #scale_up_factor = 2
+        #upscaled_image = api_upscale_image_gradio(image_with_background_clean, path, scale_up_factor)
+        #upscaled_bbox = [x*scale_up_factor for x in new_bbox]
+    except:
+        print('Error')
+        '''
+        # and mask
+        # Get the current size of the image
+        size, _ = image_mask_with_background.size
+        # Define the new size (scale by 2)
+        new_size = (size * 2, size * 2)
+        # Resize the image
+        upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
+        temp_path = os.path.join(data_folder_path, 'temp_.png')
+        upscaled_image_mask_with_background.save(temp_path)
+        upscaled_image_mask_with_background = Image.open(temp_path).convert('L')
 
-        #save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
-        #clean_upscaled_image.save(save_path_original_clean)
-#
-        #print(upscaled_image_with_background)
-        #print(clean_upscaled_image)
+        save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
+        upscaled_image_with_background.save(save_path_original)
+        
+        # Remove the object with LaMa
+        clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
+        
+
+        save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+    
+        clean_upscaled_image.save(save_path_original_clean)
+
+        print(upscaled_image_with_background)
+        print(clean_upscaled_image)
+
         # Inpainting the target
         generated_image, square_mask_image = generate_sd3(upscaled_image, upscaled_bbox, images_names[0])
         # save the image
@@ -712,3 +721,4 @@ def generate_new_image(data):
     except:
        print('Error')
 
+'''
