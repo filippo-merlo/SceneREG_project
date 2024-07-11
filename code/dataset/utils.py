@@ -678,19 +678,29 @@ def generate_new_image(data):
     upscaled_image_mask_with_background.save(temp_path)
     upscaled_image_mask_with_background = Image.open(temp_path).convert('L')
 
-    print(upscaled_image_mask_with_background)
-    print(upscaled_image_with_background)
+    save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
+    upscaled_image_with_background.save(save_path_original)
+    
     # Remove the object with LaMa
     clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
 
+    save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+    clean_upscaled_image.save(save_path_original_clean)
+
+    print(upscaled_image_with_background)
+    print(clean_upscaled_image)
     # Inpainting the target
     generated_image, square_mask_image = generate_sd3(clean_upscaled_image, upscaled_bbox, images_names[0])
     # save the image
     save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
     upscaled_image_with_background.save(save_path_original)
 
+    save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+    clean_upscaled_image.save(save_path_original_clean)
+
     save_path_round_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_round_mask.jpg')
     upscaled_image_mask_with_background.save(save_path_round_mask)
+
     save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
     square_mask_image.save(save_path_square_mask)
 
