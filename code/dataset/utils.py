@@ -665,7 +665,7 @@ def generate_new_image(data):
         #image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
 
         # upscale image and update bbox
-        scale_up_factor = 4
+        scale_up_factor = 2
         upscaled_image = api_upscale_image_gradio(image_with_background, path, scale_up_factor)
         upscaled_bbox = [x*scale_up_factor for x in new_bbox]
 
