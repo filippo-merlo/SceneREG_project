@@ -640,7 +640,7 @@ def generate_sd3(image, target_box, new_object):
         height=size,
         width=size,
         num_inference_steps=100,
-        strength=0.6,
+        strength=0.9,
         guidance_scale=1,
     ).images
 
