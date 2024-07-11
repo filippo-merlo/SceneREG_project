@@ -633,7 +633,7 @@ def generate_sd3(image, target_box, new_object):
 
     prompt = f"a high quality photography of a {new_object} taken with Canon EOS R3a"
     negative_prompt = f"worst quality, normal quality, low quality, low res, blurry, text, watermark, logo, banner, extra digits, cropped, jpeg artifacts, signature, username, error, sketch ,duplicate, ugly, monochrome, horror, geometry, mutation, disgusting"
-    
+
     generated_image = pipe(
         prompt=prompt,
         negative_prompt=negative_prompt,
@@ -663,10 +663,10 @@ def generate_new_image(data):
         # ADD BACKGROUND
         image_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_picture, image_mask, target_bbox)
 
-        image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
+        #image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
 
         # upscale image and update bbox
-        clean_upscaled_image = api_upscale_image_gradio_x2(image_with_background_clean, path)
+        upscaled_image = api_upscale_image_gradio_x2(image_with_background, path)
         upscaled_bbox = [x*2 for x in new_bbox]
 
         ## and mask
@@ -692,13 +692,13 @@ def generate_new_image(data):
         #print(upscaled_image_with_background)
         #print(clean_upscaled_image)
         # Inpainting the target
-        generated_image, square_mask_image = generate_sd3(clean_upscaled_image, upscaled_bbox, images_names[0])
+        generated_image, square_mask_image = generate_sd3(upscaled_image, upscaled_bbox, images_names[0])
         # save the image
         #save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
         #upscaled_image_with_background.save(save_path_original)
 
-        save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
-        clean_upscaled_image.save(save_path_original_clean)
+        #save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+        #clean_upscaled_image.save(save_path_original_clean)
 
         #save_path_round_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_round_mask.jpg')
         #upscaled_image_mask_with_background.save(save_path_round_mask)
