@@ -686,7 +686,7 @@ def generate_sd3(image, target_box, new_object):
 
 # GET SUBSTITUTE
 def generate_new_image(data):
-    try:
+    #try:
         # Get the masked image with target and scene category
         target, scene_category, image_picture, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
         
@@ -708,8 +708,7 @@ def generate_new_image(data):
         #scale_up_factor = 2
         #upscaled_image = api_upscale_image_gradio(image_with_background_clean, path, scale_up_factor)
         #upscaled_bbox = [x*scale_up_factor for x in new_bbox]
-    except:
-        print('Error')
+
         '''
         # and mask
         # Get the current size of the image
