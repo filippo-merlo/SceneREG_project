@@ -661,45 +661,45 @@ def generate_new_image(data):
         # ADD BACKGROUND
         image_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_picture, image_mask, target_bbox)
 
+        image_with_background = remove_object(image_with_background, image_mask_with_background.convert('L'))
+
         # upscale image and update bbox
-        upscaled_image_with_background = api_upscale_image_gradio_x2(image_with_background, path)
+        clean_upscaled_image = api_upscale_image_gradio_x2(image_with_background, path)
         upscaled_bbox = [x*2 for x in new_bbox]
 
-        # and mask
-        # Get the current size of the image
-        size, _ = image_mask_with_background.size
-
-        # Define the new size (scale by 2)
-        new_size = (size * 2, size * 2)
-
-        # Resize the image
-        upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
-        temp_path = os.path.join(data_folder_path, 'temp_.png')
-        upscaled_image_mask_with_background.save(temp_path)
-        upscaled_image_mask_with_background = Image.open(temp_path).convert('L')
-
-        save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
-        upscaled_image_with_background.save(save_path_original)
+        ## and mask
+        ## Get the current size of the image
+        #size, _ = image_mask_with_background.size
+        ## Define the new size (scale by 2)
+        #new_size = (size * 2, size * 2)
+        ## Resize the image
+        #upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
+        #temp_path = os.path.join(data_folder_path, 'temp_.png')
+        #upscaled_image_mask_with_background.save(temp_path)
+        #upscaled_image_mask_with_background = Image.open(temp_path).convert('L')
+#
+        #save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
+        #upscaled_image_with_background.save(save_path_original)
         
-        # Remove the object with LaMa
-        clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
+        ## Remove the object with LaMa
+        #clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
 
-        save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
-        clean_upscaled_image.save(save_path_original_clean)
-
-        print(upscaled_image_with_background)
-        print(clean_upscaled_image)
+        #save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+        #clean_upscaled_image.save(save_path_original_clean)
+#
+        #print(upscaled_image_with_background)
+        #print(clean_upscaled_image)
         # Inpainting the target
         generated_image, square_mask_image = generate_sd3(clean_upscaled_image, upscaled_bbox, images_names[0])
         # save the image
-        save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
-        upscaled_image_with_background.save(save_path_original)
+        #save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
+        #upscaled_image_with_background.save(save_path_original)
 
         save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
         clean_upscaled_image.save(save_path_original_clean)
 
-        save_path_round_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_round_mask.jpg')
-        upscaled_image_mask_with_background.save(save_path_round_mask)
+        #save_path_round_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_round_mask.jpg')
+        #upscaled_image_mask_with_background.save(save_path_round_mask)
 
         save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
         square_mask_image.save(save_path_square_mask)
