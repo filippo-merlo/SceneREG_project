@@ -244,7 +244,6 @@ def get_coco_image_data(data, img_name = None):
         # Crop the image to a bounding box around the segmented area
         # Extract the bounding box coordinates and dimensions
         x, y, w, h = target_bbox
-        max_w, max_h = image_picture.size
 
         # Adjust the coordinates and dimensions to include some padding
         x_c = subtract_in_bounds(x, 20)
