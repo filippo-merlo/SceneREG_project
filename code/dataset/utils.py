@@ -678,6 +678,8 @@ def generate_new_image(data):
     # Resize the image
     upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
 
+    print(upscaled_image_mask_with_background.size)
+    
     # Remove the object with LaMa
     clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
 
