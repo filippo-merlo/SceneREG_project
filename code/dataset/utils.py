@@ -676,7 +676,7 @@ def generate_new_image(data):
     upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
     temp_path = os.path.join(data_folder_path, 'temp_.png')
     upscaled_image_mask_with_background.save(temp_path)
-    upscaled_image_mask_with_background = Image.open(temp_path)
+    upscaled_image_mask_with_background = Image.open(temp_path).convert('L')
 
     print(upscaled_image_mask_with_background)
     print(upscaled_image_with_background)
