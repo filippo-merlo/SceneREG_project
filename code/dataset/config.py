@@ -111,9 +111,9 @@ with wandb.init(project="vit-base-patch16-224_SUN397") as run:
     ).to(device)
 
 # Initialize model for IMAGE EMBEDDING
-#from transformers import AutoImageProcessor, ViTModel 
-#vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
-#vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
+from transformers import AutoImageProcessor, ViTModel 
+vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
+vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
 #
 ## Initialize model for INPAINTING
 
