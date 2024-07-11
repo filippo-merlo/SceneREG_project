@@ -565,12 +565,12 @@ def encode_image_for_api(image):
 
 from gradio_client import Client
 
-def api_upscale_image_gradio_x2(image, path_to_image):
+def api_upscale_image_gradio(image, path_to_image, scale_up_factor=2):
     client = Client("https://bookbot-image-upscaling-playground.hf.space/")
     encoded_image = encode_image_for_api(image)
     result = client.predict(
             path_to_image,	
-            "modelx2",	# str in 'Choose Upscaler' Radio component
+            f"modelx{scale_up_factor}",	# str in 'Choose Upscaler' Radio component
             api_name="/predict"
     )
     new_image = Image.open(result)
@@ -665,8 +665,9 @@ def generate_new_image(data):
         #image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
 
         # upscale image and update bbox
-        upscaled_image = api_upscale_image_gradio_x2(image_with_background, path)
-        upscaled_bbox = [x*2 for x in new_bbox]
+        scale_up_factor = 4
+        upscaled_image = api_upscale_image_gradio(image_with_background, path, scale_up_factor)
+        upscaled_bbox = [x*scale_up_factor for x in new_bbox]
 
         ## and mask
         ## Get the current size of the image
