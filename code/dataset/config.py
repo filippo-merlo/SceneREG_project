@@ -117,11 +117,6 @@ vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache
 #
 ## Initialize model for INPAINTING
 
-#from diffusers import AutoPipelineForInpainting, DiffusionPipeline
-#
-#pipeline =  AutoPipelineForInpainting.from_pretrained("kandinsky-community/kandinsky-2-2-decoder-inpaint", cache_dir = CACHE_DIR_SHARED,  torch_dtype=torch.float16).to(device)
-#pipeline.enable_model_cpu_offload()
-
 generator = torch.Generator(device).manual_seed(92)
 
 from huggingface_hub import login
@@ -138,9 +133,24 @@ pipe = StableDiffusion3InpaintPipeline.from_pretrained(
 ).to(device_gen)
 
 ### Init model for UPSCALING 
-#from io import BytesIO
-#from diffusers import StableDiffusionUpscalePipeline
+
+# Initialize PowerPaint
+#import torch
+#import os
+#from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
 #
-#model_id = "stabilityai/stable-diffusion-x4-upscaler"
-#upscale_pipeline = StableDiffusionUpscalePipeline.from_pretrained(model_id, torch_dtype=torch.float16, cache_dir=CACHE_DIR_SHARED)
-#upscale_pipeline = upscale_pipeline.to(device)
+#base_path = './PowerPaint_v2'
+## download repo to the base_path directory using git
+#os.system('apt install git')
+#os.system('apt install git-lfs')
+#os.system(f'git clone https://code.openxlab.org.cn/zhuangjunhao/PowerPaint_v2.git {base_path}')
+#os.system(f'cd {base_path} && git lfs pull')
+#
+##load transformers model
+#tokenizer = AutoTokenizer.from_pretrained(base_path,trust_remote_code=True)
+## please replace "AutoModelForCausalLM" with your real task
+#model = AutoModelForCausalLM.from_pretrained(base_path,trust_remote_code=True, torch_dtype=torch.float16).cuda
+
+# Inpaint LaMa
+from simple_lama_inpainting import SimpleLama
+simple_lama = SimpleLama()

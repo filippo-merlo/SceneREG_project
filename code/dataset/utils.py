@@ -184,34 +184,52 @@ def get_coco_image_data(data, img_name = None):
                 target_segmentation = ann['segmentation']
                 target_area = ann['area']
 
-        # Crop
-        # Segmentation
+        # Image processing and cropping code
+        # Segment the target area in the image
+        # Convert the image from RGB to BGR format using OpenCV
         image_mask_cv2 = cv2.cvtColor(np.array(image_picture), cv2.COLOR_RGB2BGR)
-        target_segmentation = np.array(target_segmentation, dtype=np.int32).reshape((-1, 2))
-        # Create a mask
-        target_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
-        cv2.fillPoly(target_mask, [target_segmentation], 255)
-        # Apply the mask to the image
-        masked_image = cv2.bitwise_and(image_mask_cv2, image_mask_cv2, mask=target_mask)
-        # Crop image 
-        # Box
-        x,y,w,h = target_bbox
-        max_w, max_h = image_picture.size
-        x_c = subtract_in_bounds(x,20)
-        y_c = subtract_in_bounds(y,20)
-        w_c = add_in_bounds(x,w+20,max_w)
-        h_c = add_in_bounds(y,h+20,max_h)
-        cropped_masked_image = masked_image[y_c:h_c, x_c:w_c]
-        # Convert the cropped image from BGR to RGB
-        cropped_masked_image_rgb = cv2.cvtColor(cropped_masked_image, cv2.COLOR_BGR2RGB)
-        # Convert the cropped image to a PIL image
-        cropped_masked_image_pil = Image.fromarray(cropped_masked_image_rgb)
 
-        cropped_image = image_picture.crop((x_c,y_c,w_c,h_c))
+        # Convert the target segmentation coordinates to a NumPy array of type int32
+        target_segmentation = np.array(target_segmentation, dtype=np.int32).reshape((-1, 2))
+
+        # Create a mask with the same height and width as the image, initialized to zeros (black)
+        image_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
+
+        # Fill the polygon defined by target_segmentation on the mask with white (255)
+        cv2.fillPoly(image_mask, [target_segmentation], 255)
+
+        # Convert the mask to a PIL image
+        image_mask_pil = Image.fromarray(image_mask)
+
+        # Apply the mask to the image, resulting in an image where only the segmented area is visible
+        target_only_image = cv2.bitwise_and(image_mask_cv2, image_mask_cv2, mask=image_mask)
+
+        # Crop the image to a bounding box around the segmented area
+        # Extract the bounding box coordinates and dimensions
+        x, y, w, h = target_bbox
+        max_w, max_h = image_picture.size
+
+        # Adjust the coordinates and dimensions to include some padding
+        x_c = subtract_in_bounds(x, 20)
+        y_c = subtract_in_bounds(y, 20)
+        w_c = add_in_bounds(x, w + 20, max_w)
+        h_c = add_in_bounds(y, h + 20, max_h)
+
+        # Crop the masked image using the adjusted coordinates and dimensions
+        cropped_target_only_image = target_only_image[y_c:h_c, x_c:w_c]
+
+        # Convert the cropped image from BGR to RGB format
+        cropped_target_only_image_rgb = cv2.cvtColor(cropped_target_only_image, cv2.COLOR_BGR2RGB)
+
+        # Convert the cropped image to a PIL image
+        cropped_target_only_image_pil = Image.fromarray(cropped_target_only_image_rgb)
+
+        # Additionally, crop the original image (without the mask) to the same bounding box
+        #cropped_image = image_picture.crop((x_c, y_c, w_c, h_c))
        
         # Classify scene
         scene_category = classify_scene_vit(image_picture)
-        return target, scene_category, image_picture, target_bbox, cropped_masked_image_pil
+        return target, scene_category, image_picture, target_bbox, cropped_target_only_image_pil, image_mask_pil
 
 ### SCENE CLASSIFICATION
 def classify_scene_vit(image_picture):
@@ -520,52 +538,6 @@ def get_scene_predictions(self):
 
 ### GEenerate image function
 
-# check predictions
-def generate(init_image, target_box, new_object, target):
-    # Given data
-    x, y, w, h = target_box  # Coordinates and dimensions of the white box
-
-    max_w, max_h = init_image.size  # Size of the image
-
-    '''
-    # Create a black background image
-    mask = Image.new("RGB", (max_w, max_h), "black")
-    # Create a drawing object
-    draw = ImageDraw.Draw(mask)
-    # Define the coordinates of the white box
-    left = x
-    top = y
-    right = x + w
-    bottom = y + h
-    # Draw the white box on the black background
-    draw.rectangle([left, top, right, bottom], outline="white", fill="white")
-    # Save or display the image
-    blurred_mask = pipeline.mask_processor.blur(mask, blur_factor=33)
-    prompt = f"a {new_object}, realistic, highly detailed, 8k"
-    negative_prompt = "bad anatomy, deformed, ugly, disfigured"
-    generated_image = pipeline(prompt=prompt, negative_prompt=negative_prompt, image=init_image, mask_image=blurred_mask, generator=generator).images[0]
-    '''
-    # Create the mask with the size of the image
-    mask = np.zeros((max_h, max_w), dtype=np.float32)
-
-    # Adjusting the region to fit within the image size limits
-    x_end = min(x + w, max_w)
-    y_end = min(y + h, max_h)
-
-    # Mask out the area defined by x, y, w, h
-    mask[int(y):int(y_end), int(x):int(x_end)] = 1
-
-    prompt = f"a {new_object}, realistic, highly detailed, 8k"
-    negative_prompt = f"{target}, out of frame, lowres, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, disfigured, gross proportions, malformed limbs, watermark, signature"
-    generated_image = pipeline(prompt=prompt, 
-                            #negative_prompt=negative_prompt,
-                            image=init_image, 
-                            mask_image=mask,
-                            #generator = generator,
-                            #guidance_scale = 0.1,
-                            num_inference_steps=100).images[0]
-    return generated_image
-
 def preprocess_mask(mask):
         mask = mask.convert("L")
         mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
@@ -580,14 +552,8 @@ def preprocess_image(image):
         image = image.unsqueeze(0).to(device_gen)
         return image
 
-#def upscale_image_x2(image, scene_category):
-#    prompt = f"a {scene_category}"
-#    upscaled_image = upscale_pipeline(prompt=prompt, image=image).images[0]
-#    return upscaled_image 
-
 import io
 import base64
-import requests
 
 def encode_image_for_api(image):
     buffer = io.BytesIO()
@@ -596,31 +562,6 @@ def encode_image_for_api(image):
     # Encode the byte stream to a Base64 string
     encoded_image = base64.b64encode(byte_data).decode('utf-8')
     return encoded_image
-
-
-def api_upscale_image_x2(image):
-    upscaler_model = "modelx2"
-
-    encoded_image = encode_image_for_api(image)
-
-    # Create the payload for the API request
-    api_payload = {
-        "data": [encoded_image, upscaler_model]
-    }
-
-    api_response = requests.post(
-        "https://bookbot-image-upscaling-playground.hf.space/api/predict",
-        json={"data": [encoded_image, upscaler_model]}
-    )
-
-    output_base64 = api_response.json().get("data", [])[0]
-    print(output_base64)
-    # Add padding if necessary
-    missing_padding = len(output_base64) % 4
-    if missing_padding:
-        output_base64 += '=' * (4 - missing_padding)
-
-    return Image.open(io.BytesIO(base64.b64decode(output_base64)))
 
 from gradio_client import Client
 
@@ -635,16 +576,18 @@ def api_upscale_image_gradio_x2(image, path_to_image):
     new_image = Image.open(result)
     return new_image
 
-def add_black_background(image, target_box):
+def add_black_background(image, image_mask, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
     max_w, max_h = image.size 
 
     # Step 1: Add a black background to make the image square
     new_size = max(max_w, max_h)
     new_image = Image.new("RGB", (new_size, new_size), (0, 0, 0))
+    new_image_mask = Image.new("RGB", (new_size, new_size), (0, 0, 0))
     offset_x = (new_size - max_w) // 2
     offset_y = (new_size - max_h) // 2
     new_image.paste(image, (offset_x, offset_y))
+    new_image_mask.paste(image_mask, (offset_x, offset_y))
 
     # Step 2: Adjust the coordinates of the bounding box
     new_x = x + offset_x
@@ -657,8 +600,13 @@ def add_black_background(image, target_box):
     path = os.path.join(data_folder_path, 'temp.jpg')
     new_image.save(path)
 
-    return new_image, adjusted_box, path
+    return new_image, new_image_mask, adjusted_box, path
 
+def remove_object(image, masked_image):
+    image = image
+    mask = masked_image
+    result = simple_lama(image, mask)
+    return result
 
 def generate_sd3(image, target_box, new_object):
     # the image is square so ill get only one dimension
@@ -705,31 +653,49 @@ def generate_sd3(image, target_box, new_object):
 def generate_new_image(data):
     try:
         # Get the masked image with target and scene category
-        target, scene_category, image_picture, target_bbox, cropped_masked_image = get_coco_image_data(data)
+        target, scene_category, image_picture, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
         
-        # get the list of objects for replace
+        # SELECT OBJECT TO REPLACE
         objects_for_replacement_list = find_object_for_replacement(target, scene_category)
-        #images_names, images_paths = compare_imgs(cropped_masked_image, objects_for_replacement_list)
+        #images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
         #print(images_names)
         images_names = objects_for_replacement_list
-        # add black background
-        image_with_background, new_bbox, path = add_black_background(image_picture, target_bbox)
+
+        # ADD BACKGROUND
+        image_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_picture, image_mask, target_bbox)
 
         # upscale image and update bbox
-        upscaled_image_picture = api_upscale_image_gradio_x2(image_with_background, path)
+        upscaled_image_with_background = api_upscale_image_gradio_x2(image_with_background, path)
         upscaled_bbox = [x*2 for x in new_bbox]
 
+        # and mask
+        # Get the current size of the image
+        size, _ = image_mask_with_background.size
+
+        # Define the new size (scale by 2)
+        new_size = (size * 2, size * 2)
+
+        # Resize the image
+        upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
+
+        # Remove the object with LaMa
+        clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
+
         # Inpainting the target
-        generated_image, mask_image = generate_sd3(upscaled_image_picture, upscaled_bbox, images_names[0])
+        generated_image, square_mask_image = generate_sd3(clean_upscaled_image, upscaled_bbox, images_names[0])
         # save the image
         save_path_original = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
-        save_path_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
+        upscaled_image_with_background.save(save_path_original)
+
+        save_path_round_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_round_mask.jpg')
+        upscaled_image_mask_with_background.save(save_path_round_mask)
+        save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
+        square_mask_image.save(save_path_square_mask)
+
         for i, image in enumerate(generated_image):
             save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_{i}.jpg')
             image.save(save_path)
-        upscaled_image_picture.save(save_path_original)
-        mask_image.save(save_path_mask)
-        #visualize_images(images_paths)
+
     except:
         print('*** ERROR ***')
         pass
