@@ -661,10 +661,10 @@ def generate_new_image(data):
         # ADD BACKGROUND
         image_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_picture, image_mask, target_bbox)
 
-        image_with_background = remove_object(image_with_background, image_mask_with_background.convert('L'))
+        image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
 
         # upscale image and update bbox
-        clean_upscaled_image = api_upscale_image_gradio_x2(image_with_background, path)
+        clean_upscaled_image = api_upscale_image_gradio_x2(image_with_background_clean, path)
         upscaled_bbox = [x*2 for x in new_bbox]
 
         ## and mask
