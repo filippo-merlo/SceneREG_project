@@ -631,7 +631,7 @@ def generate_sd3(image, target_box, new_object):
         mask_image
     )
 
-    prompt = f"a {new_object}, realistic, high resolution, highly detailed, 8k"
+    prompt = f"a {new_object}"
 
     generated_image = pipe(
         prompt=prompt,
@@ -640,8 +640,8 @@ def generate_sd3(image, target_box, new_object):
         height=size,
         width=size,
         num_inference_steps=100,
-        strength=0.9,
-        guidance_scale=0.9,
+        strength=1,
+        guidance_scale=1,
     ).images
 
     return generated_image, mask_image
