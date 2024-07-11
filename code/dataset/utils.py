@@ -603,10 +603,7 @@ def add_black_background(image, image_mask, target_box):
     return new_image, new_image_mask, adjusted_box, path
 
 def remove_object(image, masked_image):
-    image = image
-    mask = masked_image
-    result = simple_lama(image, mask)
-    return result
+    return simple_lama(image, masked_image)
 
 def generate_sd3(image, target_box, new_object):
     # the image is square so ill get only one dimension
@@ -679,7 +676,7 @@ def generate_new_image(data):
     upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
 
     print(upscaled_image_mask_with_background.size)
-    
+    print(upscaled_image_with_background)
     # Remove the object with LaMa
     clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
 
