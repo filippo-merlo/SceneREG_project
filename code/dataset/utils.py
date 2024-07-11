@@ -675,7 +675,7 @@ def generate_new_image(data):
     # Resize the image
     upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
 
-    print(upscaled_image_mask_with_background.size)
+    print(upscaled_image_mask_with_background)
     print(len(upscaled_image_mask_with_background.getbands()))
     print(upscaled_image_with_background)
     print(len(upscaled_image_with_background.getbands()))
