@@ -678,10 +678,8 @@ def generate_new_image(data):
     upscaled_image_mask_with_background.save(temp_path)
     upscaled_image_mask_with_background = Image.open(temp_path)
 
-
-
-    print(len(upscaled_image_mask_with_background.getbands()))
-    print(len(upscaled_image_with_background.getbands()))
+    print(upscaled_image_mask_with_background)
+    print(upscaled_image_with_background)
     # Remove the object with LaMa
     clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
 
