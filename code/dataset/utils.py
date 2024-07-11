@@ -128,6 +128,42 @@ def select_k(alist, k, lower = True):
     
     return k_indices, k_values
 
+
+def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height):
+    # Convert the list to a numpy array and reshape to a 2D array
+    coords = np.array(coordinates).reshape(-1, 2)
+    
+    # Calculate the centroid
+    centroid = np.mean(coords, axis=0)
+    
+    # Translate coordinates to the origin (centroid)
+    translated_coords = coords - centroid
+    
+    # Initial scaling
+    scaled_coords = translated_coords * scale_factor
+    
+    # Translate the coordinates back to the original centroid position
+    augmented_coords = scaled_coords + centroid
+    
+    # Check if any point is out of bounds
+    min_x, min_y = np.min(augmented_coords, axis=0)
+    max_x, max_y = np.max(augmented_coords, axis=0)
+    
+    # Adjust scale factor if necessary
+    if min_x < 0 or min_y < 0 or max_x > img_width or max_y > img_height:
+        # Calculate the necessary scaling factors for both x and y directions
+        scale_x = min(img_width / (max_x - centroid[0]), centroid[0] / -min_x) if min_x < 0 or max_x > img_width else scale_factor
+        scale_y = min(img_height / (max_y - centroid[1]), centroid[1] / -min_y) if min_y < 0 or max_y > img_height else scale_factor
+        
+        # Use the smaller of the two scaling factors to ensure no out-of-bounds
+        adjusted_scale_factor = min(scale_x, scale_y)
+        
+        # Re-scale with the adjusted scale factor
+        scaled_coords = translated_coords * adjusted_scale_factor
+        augmented_coords = scaled_coords + centroid
+    
+    return augmented_coords
+
 ### GET COCO IMAGE DATA
 def get_coco_image_data(data, img_name = None):
         
@@ -188,10 +224,11 @@ def get_coco_image_data(data, img_name = None):
         # Segment the target area in the image
         # Convert the image from RGB to BGR format using OpenCV
         image_mask_cv2 = cv2.cvtColor(np.array(image_picture), cv2.COLOR_RGB2BGR)
-        print(target_segmentation)
-        # Convert the target segmentation coordinates to a NumPy array of type int32
-        target_segmentation = np.array(target_segmentation, dtype=np.int32).reshape((-1, 2))
-        print(target_segmentation)
+
+        # Get augmented segmentation coordinates
+        max_w, max_h = image_picture.size
+        target_segmentation = augment_area_within_bounds(target_segmentation, 1.15, max_w, max_h)
+
         # Create a mask with the same height and width as the image, initialized to zeros (black)
         image_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
 
