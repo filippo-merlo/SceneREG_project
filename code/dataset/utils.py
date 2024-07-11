@@ -674,10 +674,13 @@ def generate_new_image(data):
 
     # Resize the image
     upscaled_image_mask_with_background = image_mask_with_background.resize(new_size, Image.Resampling.LANCZOS)
+    temp_path = os.path.join(data_folder_path, 'temp_.png')
+    upscaled_image_mask_with_background.save(temp_path)
+    upscaled_image_mask_with_background = Image.open(temp_path)
 
-    print(upscaled_image_mask_with_background)
+
+
     print(len(upscaled_image_mask_with_background.getbands()))
-    print(upscaled_image_with_background)
     print(len(upscaled_image_with_background.getbands()))
     # Remove the object with LaMa
     clean_upscaled_image = remove_object(upscaled_image_with_background, upscaled_image_mask_with_background)
