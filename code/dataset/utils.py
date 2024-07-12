@@ -131,8 +131,6 @@ def select_k(alist, k, lower = True):
 
 import numpy as np
 
-import numpy as np
-
 def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height, power=1.5):
     # Convert the list to a numpy array and reshape to a 2D array
     coords = np.array(coordinates).reshape(-1, 2)
