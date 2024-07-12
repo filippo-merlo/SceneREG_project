@@ -262,8 +262,7 @@ def get_coco_image_data(data, img_name = None):
         cropped_target_only_image_pil = Image.fromarray(cropped_target_only_image_rgb)
 
         # Additionally, crop the original image (without the mask) to the same bounding box
-        #cropped_image = image_picture.crop((x_c, y_c, w_c, h_c))
-       
+
         # Classify scene
         scene_category = classify_scene_vit(image_picture)
         return target, scene_category, image_picture, target_bbox, cropped_target_only_image_pil, image_mask_pil
@@ -690,6 +689,10 @@ def generate_new_image(data):
     #try:
         # Get the masked image with target and scene category
         target, scene_category, image_picture, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
+        
+        # remove the object
+        image_without_object = remove_object(image_picture, image_mask.convert('L'))
+        image_without_object.save(os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_pure.jpg'))
         
         # SELECT OBJECT TO REPLACE
         objects_for_replacement_list = find_object_for_replacement(target, scene_category)
