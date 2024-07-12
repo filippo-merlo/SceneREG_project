@@ -228,7 +228,7 @@ def get_coco_image_data(data, img_name = None):
 
         # Get augmented segmentation coordinates
         max_w, max_h = image_picture.size
-        target_segmentation = augment_area_within_bounds(target_segmentation, 1.20, max_w, max_h)
+        target_segmentation = augment_area_within_bounds(target_segmentation, 1.18, max_w, max_h)
 
         # Create a mask with the same height and width as the image, initialized to zeros (black)
         image_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
