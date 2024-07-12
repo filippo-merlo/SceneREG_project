@@ -152,7 +152,7 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
     radii = np.linalg.norm(translated_coords, axis=1)
     angles = np.arctan2(translated_coords[:, 1], translated_coords[:, 0])
     
-    # Scale the modified radial distances
+    # Scale the radial distances
     scaled_radii = radii * scale_factor
     
     # Convert back to Cartesian coordinates
@@ -174,7 +174,7 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
         # Use the smaller of the two scaling factors to ensure no out-of-bounds
         adjusted_scale_factor = min(scale_x, scale_y)
         
-        # Re-scale the modified radial distances with the adjusted scale factor
+        # Re-scale the radial distances with the adjusted scale factor
         scaled_radii = radii * adjusted_scale_factor
         scaled_coords = np.column_stack((scaled_radii * np.cos(angles), scaled_radii * np.sin(angles)))
         augmented_coords = scaled_coords + centroid
@@ -722,7 +722,7 @@ def generate_new_image(data):
 
         save_path_original_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
         image_mask_with_background.save(save_path_original_mask)
-        
+
         save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
         image_clean_with_background.save(save_path_original_clean)
         # upscale image and update bbox
