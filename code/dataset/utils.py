@@ -690,14 +690,14 @@ def generate_new_image(data):
         # Get the masked image with target and scene category
         target, scene_category, image_picture, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
         
-        # remove the object
-        image_without_object = remove_object(image_picture, image_mask.convert('L'))
-        image_without_object.save(os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_pure.jpg'))
-        
         # SELECT OBJECT TO REPLACE
         objects_for_replacement_list = find_object_for_replacement(target, scene_category)
         images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
         print(images_names)
+
+        # remove the object before background
+        image_without_object = remove_object(image_picture, image_mask.convert('L'))
+        image_without_object.save(os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_pure.jpg'))
 
         # ADD BACKGROUND
         image_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_picture, image_mask, target_bbox)
