@@ -132,8 +132,15 @@ def select_k(alist, k, lower = True):
 import numpy as np
 
 def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height, power=1.5):
+    if not isinstance(coordinates, np.ndarray):
+        coordinates = np.array(coordinates)
+    
+    # Flatten the array if it's a list of coordinate pairs
+    if coordinates.ndim == 2 and coordinates.shape[1] == 2:
+        coords = coordinates
     # Convert the list to a numpy array and reshape to a 2D array
-    coords = np.array(coordinates).reshape(-1, 2)
+    else:
+        coords = coordinates.reshape(-1, 2)
     
     # Calculate the centroid
     centroid = np.mean(coords, axis=0)
