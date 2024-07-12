@@ -161,7 +161,7 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
         # Re-scale with the adjusted scale factor
         scaled_coords = translated_coords * adjusted_scale_factor
         augmented_coords = scaled_coords + centroid
-    
+    print(augmented_coords)
     return augmented_coords
 
 ### GET COCO IMAGE DATA
