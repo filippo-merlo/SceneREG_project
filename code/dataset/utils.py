@@ -129,6 +129,8 @@ def select_k(alist, k, lower = True):
     return k_indices, k_values
 
 
+import numpy as np
+
 def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height):
     # Convert the list to a numpy array and reshape to a 2D array
     coords = np.array(coordinates).reshape(-1, 2)
@@ -139,8 +141,15 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
     # Translate coordinates to the origin (centroid)
     translated_coords = coords - centroid
     
-    # Initial scaling
-    scaled_coords = translated_coords * scale_factor
+    # Convert to polar coordinates
+    radii = np.linalg.norm(translated_coords, axis=1)
+    angles = np.arctan2(translated_coords[:, 1], translated_coords[:, 0])
+    
+    # Scale the radial distances
+    scaled_radii = radii * scale_factor
+    
+    # Convert back to Cartesian coordinates
+    scaled_coords = np.column_stack((scaled_radii * np.cos(angles), scaled_radii * np.sin(angles)))
     
     # Translate the coordinates back to the original centroid position
     augmented_coords = scaled_coords + centroid
@@ -158,11 +167,13 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
         # Use the smaller of the two scaling factors to ensure no out-of-bounds
         adjusted_scale_factor = min(scale_x, scale_y)
         
-        # Re-scale with the adjusted scale factor
-        scaled_coords = translated_coords * adjusted_scale_factor
+        # Re-scale the radial distances with the adjusted scale factor
+        scaled_radii = radii * adjusted_scale_factor
+        scaled_coords = np.column_stack((scaled_radii * np.cos(angles), scaled_radii * np.sin(angles)))
         augmented_coords = scaled_coords + centroid
 
     return augmented_coords.astype(np.int32)
+
 
 
 ### GET COCO IMAGE DATA
@@ -228,7 +239,7 @@ def get_coco_image_data(data, img_name = None):
 
         # Get augmented segmentation coordinates
         max_w, max_h = image_picture.size
-        target_segmentation = augment_area_within_bounds(target_segmentation, 1.18, max_w, max_h)
+        target_segmentation = augment_area_within_bounds(target_segmentation, 1.20, max_w, max_h)
 
         # Create a mask with the same height and width as the image, initialized to zeros (black)
         image_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
