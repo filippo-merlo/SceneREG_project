@@ -131,7 +131,7 @@ def select_k(alist, k, lower = True):
 
 import numpy as np
 
-def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height, power=1.5):
+def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height):
     if not isinstance(coordinates, np.ndarray):
         coordinates = np.array(coordinates)
     
@@ -152,11 +152,8 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height,
     radii = np.linalg.norm(translated_coords, axis=1)
     angles = np.arctan2(translated_coords[:, 1], translated_coords[:, 0])
     
-    # Apply a power function to the radial distances to make the shape rounder
-    modified_radii = np.power(radii, power)
-    
     # Scale the modified radial distances
-    scaled_radii = modified_radii * scale_factor
+    scaled_radii = radii * scale_factor
     
     # Convert back to Cartesian coordinates
     scaled_coords = np.column_stack((scaled_radii * np.cos(angles), scaled_radii * np.sin(angles)))
@@ -178,7 +175,7 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height,
         adjusted_scale_factor = min(scale_x, scale_y)
         
         # Re-scale the modified radial distances with the adjusted scale factor
-        scaled_radii = modified_radii * adjusted_scale_factor
+        scaled_radii = radii * adjusted_scale_factor
         scaled_coords = np.column_stack((scaled_radii * np.cos(angles), scaled_radii * np.sin(angles)))
         augmented_coords = scaled_coords + centroid
 
