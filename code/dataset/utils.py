@@ -715,18 +715,16 @@ def generate_new_image(data):
         print(images_names)
 
         # remove the object before background
-        image_without_object = remove_object(image_picture, image_mask.convert('L'))
-        image_without_object.save(os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_pure.jpg'))
+        image_clean = remove_object(image_picture, image_mask.convert('L'))
 
         # ADD BACKGROUND
-        image_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_picture, image_mask, target_bbox)
+        image_clean_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_clean, image_mask, target_bbox)
 
-        image_with_background_clean = remove_object(image_with_background, image_mask_with_background.convert('L'))
-        
         save_path_original_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_mask.jpg')
         image_mask_with_background.save(save_path_original_mask)
+        
         save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
-        image_with_background_clean.save(save_path_original_clean)
+        image_clean_with_background.save(save_path_original_clean)
         # upscale image and update bbox
         #scale_up_factor = 2
         #upscaled_image = api_upscale_image_gradio(image_with_background_clean, path, scale_up_factor)
