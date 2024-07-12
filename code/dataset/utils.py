@@ -161,7 +161,7 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
         # Re-scale with the adjusted scale factor
         scaled_coords = translated_coords * adjusted_scale_factor
         augmented_coords = scaled_coords + centroid
-    print(augmented_coords)
+
     return augmented_coords.astype(np.int32)
 
 
@@ -228,8 +228,8 @@ def get_coco_image_data(data, img_name = None):
 
         # Get augmented segmentation coordinates
         max_w, max_h = image_picture.size
-        target_segmentation = augment_area_within_bounds(target_segmentation, 1.15, max_w, max_h)
-        print(target_segmentation)
+        target_segmentation = augment_area_within_bounds(target_segmentation, 1.20, max_w, max_h)
+
         # Create a mask with the same height and width as the image, initialized to zeros (black)
         image_mask = np.zeros(image_mask_cv2.shape[:2], dtype=np.uint8)
 
