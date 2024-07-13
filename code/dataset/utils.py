@@ -699,8 +699,8 @@ def generate_sd3(image, target_box, new_object, scene_category):
         height=size,
         width=size,
         num_inference_steps=100,
-        strength=1,
-        guidance_scale=1,
+        strength=6,
+        guidance_scale=9,
     ).images
 
     return generated_image, mask_image
