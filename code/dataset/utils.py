@@ -337,8 +337,11 @@ def find_object_for_replacement(target_object_name, scene_name):
         object_idx = things_words_context.index(thing)
         object_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_mean']
         object_sd_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_SD']
-       
-        size_distance = abs((target_size_score - object_size_score)/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2))
+        # modify to get only smaller objects
+        #size_distance = abs((target_size_score - object_size_score)/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2))
+        size_distance = (target_size_score - object_size_score)#/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2)
+        if size_distance < 0:
+            size_distance = 100
 
         total_score = size_distance + scene_relatedness_score
 
@@ -347,7 +350,7 @@ def find_object_for_replacement(target_object_name, scene_name):
 
         final_scores.append(total_score)
 
-    kidxs, vals = select_k(final_scores, 12, lower = True)
+    kidxs, vals = select_k(final_scores, 10, lower = True)
     things_names = [things_words_context[i] for i in kidxs]
     return things_names
 
