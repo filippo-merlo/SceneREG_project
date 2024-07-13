@@ -690,7 +690,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
         mask_image
     )
 
-    prompt = f"a {new_object} in a {scene_category}."
+    prompt = f"a {new_object}."
     negative_prompt = f"worst quality, normal quality, low quality, low res, blurry, text, watermark, logo, banner, extra digits, cropped, jpeg artifacts, signature, username, error, sketch ,duplicate, ugly, monochrome, horror, geometry, mutation, disgusting"
 
     generated_image = pipe(
@@ -701,8 +701,8 @@ def generate_sd3(image, target_box, new_object, scene_category):
         height=size,
         width=size,
         num_inference_steps=100,
-        strength=6,
-        guidance_scale=9,
+        strength=0.7,
+        guidance_scale=0.5,
     ).images
 
     return generated_image, mask_image
