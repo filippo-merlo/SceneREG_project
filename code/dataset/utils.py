@@ -10,7 +10,7 @@ from tqdm import tqdm
 import random as rn
 import cv2
 import matplotlib.pyplot as plt
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 import numpy as np
 from collections import Counter
 import re
@@ -662,12 +662,11 @@ def remove_object(image, masked_image):
     return simple_lama(image, masked_image)
 
 def generate_sd3(image, target_box, new_object, scene_category):
-    # the image is square so ill get only one dimension
     size, _ = image.size
     print('SIZE:', size)
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
 
-    source = preprocess_image(image)
+    source = preprocess_image(image)  # Assuming this function exists
 
     # Step 3: Create the mask with the size of the new square image
     mask = np.zeros((size, size), dtype=np.float32)
@@ -680,8 +679,11 @@ def generate_sd3(image, target_box, new_object, scene_category):
     # Convert the mask to a black and white .png format (in memory, not saving to disk)
     mask_png_format = (mask * 255).astype(np.uint8)
 
-    # Optional: Convert to a PIL image to visualize
+    # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
+
+    # Apply Gaussian blur to the mask
+    mask_image = mask_image.filter(ImageFilter.GaussianBlur(10))
 
     mask = preprocess_mask(
         mask_image
