@@ -130,6 +130,7 @@ def select_k(alist, k, lower = True):
 
 
 import numpy as np
+from scipy.spatial import ConvexHull
 
 def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height):
     if not isinstance(coordinates, np.ndarray):
@@ -138,16 +139,18 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
     # Flatten the array if it's a list of coordinate pairs
     if coordinates.ndim == 2 and coordinates.shape[1] == 2:
         coords = coordinates
-    # Convert the list to a numpy array and reshape to a 2D array
     else:
         coords = coordinates.reshape(-1, 2)
     
-    print(coords)
+    # Calculate the convex hull
+    hull = ConvexHull(coords)
+    hull_coords = coords[hull.vertices]
+    
     # Calculate the centroid
-    centroid = np.mean(coords, axis=0)
+    centroid = np.mean(hull_coords, axis=0)
     
     # Translate coordinates to the origin (centroid)
-    translated_coords = coords - centroid
+    translated_coords = hull_coords - centroid
     
     # Convert to polar coordinates
     radii = np.linalg.norm(translated_coords, axis=1)
@@ -168,14 +171,9 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
     
     # Adjust scale factor if necessary
     if min_x < 0 or min_y < 0 or max_x > img_width or max_y > img_height:
-        # Calculate the necessary scaling factors for both x and y directions
         scale_x = min(img_width / (max_x - centroid[0]), centroid[0] / -min_x) if min_x < 0 or max_x > img_width else scale_factor
         scale_y = min(img_height / (max_y - centroid[1]), centroid[1] / -min_y) if min_y < 0 or max_y > img_height else scale_factor
-        
-        # Use the smaller of the two scaling factors to ensure no out-of-bounds
         adjusted_scale_factor = min(scale_x, scale_y)
-        
-        # Re-scale the radial distances with the adjusted scale factor
         scaled_radii = radii * adjusted_scale_factor
         scaled_coords = np.column_stack((scaled_radii * np.cos(angles), scaled_radii * np.sin(angles)))
         augmented_coords = scaled_coords + centroid
