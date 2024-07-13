@@ -697,7 +697,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
         height=1024,
         width=1024,
         num_inference_steps=25,
-        guidance_scale=9.0,
+        #guidance_scale=9.0,
         strength=0.9,
     ).images
 
