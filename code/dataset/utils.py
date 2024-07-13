@@ -329,14 +329,17 @@ def find_object_for_replacement(target_object_name, scene_name):
 
         # target size
         things_name_target = map_coco2things[target_object_name]
-        target_idx = things_words_context.index(things_name_target)
-        target_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_mean']
-        target_sd_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_SD']
+        target_size_score = things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==things_name_target]['Size_mean'].values[0]
+        #target_idx = things_words_context.index(things_name_target)
+        #target_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_mean']
+        #target_sd_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_SD']
         
         # object size
-        object_idx = things_words_context.index(thing)
-        object_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_mean']
-        object_sd_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_SD']
+        object_size_score = things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==thing]['Size_mean'].values[0]
+        #object_idx = things_words_context.index(thing)
+        #object_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_mean']
+        #object_sd_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_SD']
+        
         # modify to get only smaller objects
         #size_distance = abs((target_size_score - object_size_score)/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2))
         size_distance = (target_size_score - object_size_score)#/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2)
@@ -690,7 +693,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
         mask_image
     )
 
-    prompt = f"red roses"
+    prompt = f"a flower"
     negative_prompt = f"worst quality, normal quality, low quality, low res, blurry, text, watermark, logo, banner, extra digits, cropped, jpeg artifacts, signature, username, error, sketch ,duplicate, ugly, monochrome, horror, geometry, mutation, disgusting"
 
     generated_image = pipe(
@@ -700,7 +703,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
         mask_image=mask,
         height=size,
         width=size,
-        num_inference_steps=50,
+        num_inference_steps=25,
         guidance_scale=9.0,
         strength=0.9,
     ).images
