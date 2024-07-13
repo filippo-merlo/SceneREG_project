@@ -659,7 +659,7 @@ def add_black_background(image, image_mask, target_box):
 def remove_object(image, masked_image):
     return simple_lama(image, masked_image)
 
-def generate_sd3(image, target_box, new_object):
+def generate_sd3(image, target_box, new_object, scene_category):
     # the image is square so ill get only one dimension
     size, _ = image.size
     print('SIZE:', size)
@@ -685,7 +685,7 @@ def generate_sd3(image, target_box, new_object):
         mask_image
     )
 
-    prompt = f"a high quality photography of a {new_object} taken with Canon EOS R3a"
+    prompt = f"a high quality photography of a {new_object} in a {scene_category} taken with Canon EOS R3a"
     negative_prompt = f"worst quality, normal quality, low quality, low res, blurry, text, watermark, logo, banner, extra digits, cropped, jpeg artifacts, signature, username, error, sketch ,duplicate, ugly, monochrome, horror, geometry, mutation, disgusting"
 
     generated_image = pipe(
@@ -725,7 +725,7 @@ def generate_new_image(data):
         upscaled_bbox = [x*scale_up_factor for x in new_bbox]
 
         # Inpainting the target
-        generated_image, square_mask_image = generate_sd3(upscaled_image, upscaled_bbox, images_names[0])
+        generated_image, square_mask_image = generate_sd3(upscaled_image, upscaled_bbox, images_names[0], scene_category)
         # save the image
        
         save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
