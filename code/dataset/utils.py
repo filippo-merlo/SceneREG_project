@@ -716,8 +716,9 @@ def generate_new_image(data):
 
         # remove the object before background
         image_clean = remove_object(image_picture, image_mask.convert('L'))
-        image_clean = remove_object(image_clean, image_mask.convert('L'))
-        image_clean = remove_object(image_clean, image_mask.convert('L'))
+        #image_clean = remove_object(image_clean, image_mask.convert('L'))
+        #image_clean = remove_object(image_clean, image_mask.convert('L'))
+
         # ADD BACKGROUND
         image_clean_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_clean, image_mask, target_bbox)
 
