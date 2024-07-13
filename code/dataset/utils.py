@@ -682,9 +682,6 @@ def generate_sd3(image, target_box, new_object, scene_category):
     # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
 
-    # Apply Gaussian blur to the mask
-    mask_image = mask_image.filter(ImageFilter.GaussianBlur(10))
-
     mask = preprocess_mask(
         mask_image
     )
