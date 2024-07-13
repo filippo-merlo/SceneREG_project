@@ -704,7 +704,7 @@ def generate_sd3(image, target_box, new_object):
 
 # GET SUBSTITUTE
 def generate_new_image(data):
-    #try:
+    try:
         # Get the masked image with target and scene category
         target, scene_category, image_picture, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
         
@@ -715,8 +715,8 @@ def generate_new_image(data):
 
         # remove the object before background
         image_clean = remove_object(image_picture, image_mask.convert('L'))
-        #image_clean = remove_object(image_clean, image_mask.convert('L'))
-        #image_clean = remove_object(image_clean, image_mask.convert('L'))
+        image_clean = remove_object(image_clean, image_mask.convert('L'))
+        image_clean = remove_object(image_clean, image_mask.convert('L'))
 
         # ADD BACKGROUND
         image_clean_with_background, image_mask_with_background, new_bbox, path = add_black_background(image_clean, image_mask, target_bbox)
@@ -775,7 +775,6 @@ def generate_new_image(data):
         for i, image in enumerate(generated_image):
             save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_{i}.jpg')
             image.save(save_path)
+''' 
     except:
-       print('Error')
-
-'''
+        print('Error')
