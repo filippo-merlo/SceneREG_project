@@ -688,12 +688,12 @@ def generate_sd3(image, target_box, new_object, scene_category):
         mask_image
     )
 
-    prompt = f"a high quality photography of a {new_object} in a {scene_category} taken with Canon EOS R3a"
+    prompt = f"a {new_object} in a {scene_category}."
     negative_prompt = f"worst quality, normal quality, low quality, low res, blurry, text, watermark, logo, banner, extra digits, cropped, jpeg artifacts, signature, username, error, sketch ,duplicate, ugly, monochrome, horror, geometry, mutation, disgusting"
 
     generated_image = pipe(
         prompt=prompt,
-        negative_prompt=negative_prompt,
+        #negative_prompt=negative_prompt,
         image=source,
         mask_image=mask,
         height=size,
