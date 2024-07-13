@@ -352,6 +352,8 @@ def find_object_for_replacement(target_object_name, scene_name):
 
     kidxs, vals = select_k(final_scores, 10, lower = True)
     things_names = [things_words_context[i] for i in kidxs]
+    print(things_names)
+    print(vals)
     return things_names
 
 def get_images_names(substitutes_list):
