@@ -142,6 +142,7 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
     else:
         coords = coordinates.reshape(-1, 2)
     
+    print(coords)
     # Calculate the centroid
     centroid = np.mean(coords, axis=0)
     
