@@ -330,15 +330,9 @@ def find_object_for_replacement(target_object_name, scene_name):
         # target size
         things_name_target = map_coco2things[target_object_name]
         target_size_score = things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==things_name_target]['Size_mean'].values[0]
-        #target_idx = things_words_context.index(things_name_target)
-        #target_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_mean']
-        #target_sd_size_score = things_plus_size_mean_matrix.at[target_idx, 'Size_SD']
         
         # object size
         object_size_score = things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==thing]['Size_mean'].values[0]
-        #object_idx = things_words_context.index(thing)
-        #object_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_mean']
-        #object_sd_size_score = things_plus_size_mean_matrix.at[object_idx, 'Size_SD']
         
         # modify to get only smaller objects
         #size_distance = abs((target_size_score - object_size_score)/math.sqrt(target_sd_size_score**2 + object_sd_size_score**2))
