@@ -682,7 +682,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
 
     # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
-    mask = mask_png_format.convert("L")
+    mask = mask_image.convert("L")
     #mask = preprocess_mask(
     #    mask_image
     #)
