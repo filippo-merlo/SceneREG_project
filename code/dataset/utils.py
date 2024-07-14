@@ -687,18 +687,21 @@ def generate_sd3(image, target_box, new_object, scene_category):
     )
 
     prompt = f"a flower"
-    negative_prompt = f"worst quality, normal quality, low quality, low res, blurry, text, watermark, logo, banner, extra digits, cropped, jpeg artifacts, signature, username, error, sketch ,duplicate, ugly, monochrome, horror, geometry, mutation, disgusting"
+    prompt_2 = f"realistic, small and in the center of the image"
+    prompt_3 = f"realistic, small and in the center of the image"
 
     generated_image = pipe(
         prompt=prompt,
-        #negative_prompt=negative_prompt,
+        prompt_2=prompt_2,
+        prompt_3=prompt_3,
         image=source,
         mask_image=mask,
-        height=1024,
-        width=1024,
-        num_inference_steps=25,
-        #guidance_scale=9.0,
-        strength=0.9,
+        height=size,
+        width=size,
+        num_inference_steps=32,
+        guidance_scale=4,
+        strength=1,
+        padding_mask_crop = 100
     ).images
 
     return generated_image, mask_image
