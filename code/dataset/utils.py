@@ -666,7 +666,8 @@ def generate_sd3(image, target_box, new_object, scene_category):
     print('SIZE:', size)
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
 
-    source = preprocess_image(image)  # Assuming this function exists
+    #source = preprocess_image(image)  # Assuming this function exists
+    image = image.convert("RGB").to(device_gen)
 
     # Step 3: Create the mask with the size of the new square image
     mask = np.zeros((size, size), dtype=np.float32)
@@ -681,10 +682,10 @@ def generate_sd3(image, target_box, new_object, scene_category):
 
     # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
-
-    mask = preprocess_mask(
-        mask_image
-    )
+    mask = mask.convert("L").to(device_gen)
+    #mask = preprocess_mask(
+    #    mask_image
+    #)
 
     prompt = f"A beautifully detailed and realistic flower in a vase, showcasing a stunning array of vibrant colors. The delicate petals exhibit intricate patterns, while the lush green leaves provide a striking contrast. The vase itself is elegantly designed, complementing the flower's natural beauty and adding a touch of sophistication to the scene."
     prompt_2 = f"realistic, small and in the center of the image"
@@ -694,7 +695,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
         prompt=prompt,
         prompt_2=prompt_2,
         prompt_3=prompt_3,
-        image=source,
+        image=image,
         mask_image=mask,
         height=size,
         width=size,
