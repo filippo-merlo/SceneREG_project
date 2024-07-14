@@ -667,7 +667,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
 
     #source = preprocess_image(image)  # Assuming this function exists
-    image = image.convert("RGB").to(device_gen)
+    image = image.convert("RGB")
 
     # Step 3: Create the mask with the size of the new square image
     mask = np.zeros((size, size), dtype=np.float32)
@@ -682,7 +682,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
 
     # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
-    mask = mask.convert("L").to(device_gen)
+    mask = mask.convert("L")
     #mask = preprocess_mask(
     #    mask_image
     #)
