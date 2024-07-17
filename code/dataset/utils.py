@@ -687,8 +687,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
     #    mask_image
     #)
 
-    #prompt = f"A beautifully detailed and realistic flower in a vase, showcasing a stunning array of vibrant colors. The delicate petals exhibit intricate patterns, while the lush green leaves provide a striking contrast. The vase itself is elegantly designed, complementing the flower's natural beauty and adding a touch of sophistication to the scene."
-    prompt = f"a {new_object}"
+    prompt = f"A beautifully detailed and realistic flower in a vase, showcasing a stunning array of vibrant colors. The delicate petals exhibit intricate patterns, while the lush green leaves provide a striking contrast. The vase itself is elegantly designed, complementing the flower's natural beauty and adding a touch of sophistication to the scene."
     prompt_2 = f"realistic, small and in the center of the image"
     prompt_3 = f"realistic, small and in the center of the image"
 
@@ -702,7 +701,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
         width=size,
         num_inference_steps=32,
         guidance_scale=4,
-        strength=0.8,
+        strength=1,
         padding_mask_crop = 100
     ).images
 
