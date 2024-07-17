@@ -701,7 +701,7 @@ def generate_sd3(image, target_box, new_object, scene_category):
         width=size,
         num_inference_steps=32,
         guidance_scale=4,
-        strength=1,
+        strength=0.9,
         padding_mask_crop = 100
     ).images
 
