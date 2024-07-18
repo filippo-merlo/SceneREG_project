@@ -239,6 +239,11 @@ def get_coco_image_data(data, img_name = None):
                 target_segmentation = ann['segmentation']
                 target_area = ann['area']
 
+        if target_bbox:
+            image_picture_w_bbox = ImageDraw.Draw(image_picture)
+            x, y, width, height = target_bbox
+            image_picture_w_bbox.rectangle([x, y, x + width, y + height], outline="red", width=3)
+
         # Image processing and cropping code
         # Segment the target area in the image
         # Convert the image from RGB to BGR format using OpenCV
@@ -283,7 +288,7 @@ def get_coco_image_data(data, img_name = None):
 
         # Classify scene
         scene_category = classify_scene_vit(image_picture)
-        return target, scene_category, image_picture, target_bbox, cropped_target_only_image_pil, image_mask_pil
+        return target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image_pil, image_mask_pil
 
 ### SCENE CLASSIFICATION
 def classify_scene_vit(image_picture):
@@ -593,6 +598,7 @@ def get_scene_predictions(self):
     return count, label_with_paths
 
 ### GEenerate image function
+from torchvision import transforms
 
 def preprocess_mask(mask):
         mask = mask.convert("L")
@@ -661,7 +667,41 @@ def add_black_background(image, image_mask, target_box):
 def remove_object(image, masked_image):
     return simple_lama(image, masked_image)
 
-def generate_sd3(image, target_box, new_object, scene_category):
+def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category, position=False):
+        # Text-only template
+    text_only_template = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {} ASSISTANT:"
+    image = image
+    # Input user query
+    if position:
+        query = f"Human: In this {scene_category} scene there is one object that is higligted in red. Without mentioning its name describe its position in relation with the sourrounding objects."
+    else:
+        query = f"Human: Describe the {obj} in the image. Be specific and detailed about its appearence. Do not mention its location."
+
+    # Format query
+    if image is None:
+        query = text_only_template.format(query)
+
+    # Prepare input for model
+    if image is None:
+        input_by_model = model.build_conversation_input_ids(tokenizer, query=query, template_version='chat')
+    else:
+        input_by_model = model.build_conversation_input_ids(tokenizer, query=query, images=[image], template_version='chat')
+
+    inputs = {
+        'input_ids': input_by_model['input_ids'].unsqueeze(0).to(device_gen),
+        'token_type_ids': input_by_model['token_type_ids'].unsqueeze(0).to(device_gen),
+        'attention_mask': input_by_model['attention_mask'].unsqueeze(0).to(device_gen),
+        'images': [[input_by_model['images'][0].to(device_gen).to(torch.float16)]] if image is not None else None,
+    }
+
+    # Generate response
+    gen_kwargs = {"max_new_tokens": 2048, "pad_token_id": 128002}
+    with torch.no_grad():
+        outputs = model.generate(**inputs, **gen_kwargs)
+        outputs = outputs[:, inputs['input_ids'].shape[1]:]
+        response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+def generate_sd3(pipe, image, target_box, new_object, scene_category):
     size, _ = image.size
     print('SIZE:', size)
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
@@ -708,41 +748,60 @@ def generate_sd3(image, target_box, new_object, scene_category):
     return generated_image, mask_image
 
 # GET SUBSTITUTE
-def generate_new_image(data):
-
+def generate_new_image(data, n):
+    gen_images = n
+    # init models for image selection
+    vit_processor, vit_model, vitc_image_processor, vitc_mode,  simple_lama, cogvlm2_tokenizer, cogvlm2_model = init_image_prep_models()
+    sets = []
+    for i in range(gen_images):
         # Get the masked image with target and scene category
-        target, scene_category, image_picture, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
-        
+        target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
         # SELECT OBJECT TO REPLACE
         objects_for_replacement_list = find_object_for_replacement(target, scene_category)
         images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
         print(images_names)
 
+        prompt_loc = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_tokenizer, image_picture_w_bbox, target, scene_category, position=True)
+        prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_tokenizer, Image.open(images_paths[0]), images_names[0], scene_category, position=True)
+        
+        print(prompt_loc, '\n', prompt_obj_descr)
+
+    """   
         # remove the object before background
         image_clean = remove_object(image_picture, image_mask.convert('L'))
 
         # ADD BACKGROUND
         image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
-
+        
         # upscale image and update bbox
         scale_up_factor = 2
         upscaled_image = api_upscale_image_gradio(image_clean_with_background, path_to_img, scale_up_factor)
         upscaled_bbox = [x*scale_up_factor for x in new_bbox]
 
-        # Inpainting the target
-        generated_image, square_mask_image = generate_sd3(upscaled_image, upscaled_bbox, images_names[0], scene_category)
-        # save the image
-       
-        save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
-        image_mask_with_background.save(save_path_target_mask)
+    del vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
+    torch.cuda.empty_cache()
 
-        save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
-        upscaled_image.save(save_path_original_clean)
+    pipe = init_sd3_model()
 
-        save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
-        square_mask_image.save(save_path_square_mask)
 
-        for i, image in enumerate(generated_image):
-            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
-            image.save(save_path)
+    # Inpainting the target
+    generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category)
+    # save the image
+    
+    save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
+    image_mask_with_background.save(save_path_target_mask)
 
+    save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+    upscaled_image.save(save_path_original_clean)
+
+    save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
+    square_mask_image.save(save_path_square_mask)
+
+    for i, image in enumerate(generated_image):
+        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
+        image.save(save_path)
+
+    del pipe
+    torch.cuda.empty_cache()
+
+    """     

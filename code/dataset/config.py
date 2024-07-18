@@ -80,77 +80,74 @@ coco_object_cat =  [{"supercategory": "person","id": 1,"name": "person"},{"super
 # set devices
 device = 'cuda:0'
 device_gen = 'cuda:1'
+generator = torch.Generator(device_gen).manual_seed(92)
 
 # Initialize the model for scene categorization
 import wandb
 import torch
-from transformers import AutoImageProcessor, ViTForImageClassification
+from transformers import AutoImageProcessor, ViTForImageClassification, ViTModel, AutoModelForCausalLM, AutoTokenizer
 
 # Create the label to ID mapping
 label2id = {label: idx for idx, label in enumerate(sun_scene_cat)}
 # Reverse the mapping to create ID to label mapping
 id2label = {idx: label for label, idx in label2id.items()}
 
-with wandb.init(project="vit-base-patch16-224_SUN397") as run:
-    # Pass the name and version of Artifact
-    my_model_name = "model-on5m6wmj:v0"
-    my_model_artifact = run.use_artifact(my_model_name)
+def init_image_prep_models():
+    with wandb.init(project="vit-base-patch16-224_SUN397") as run:
+        # Pass the name and version of Artifact
+        my_model_name = "model-on5m6wmj:v0"
+        my_model_artifact = run.use_artifact(my_model_name)
 
-    # Download model weights to a folder and return the path
-    model_dir = my_model_artifact.download(CACHE_DIR_PRIVATE)
+        # Download model weights to a folder and return the path
+        model_dir = my_model_artifact.download(CACHE_DIR_PRIVATE)
 
-    # Load your Hugging Face model from that folder
-    #  using the same model class
-    vit_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224", cache_dir=CACHE_DIR_PRIVATE)
-    vit_model = ViTForImageClassification.from_pretrained(
-        model_dir,
-        num_labels=len(sun_scene_cat),
-        id2label=id2label,
-        label2id=label2id,
+        # Load your Hugging Face model from that folder
+        #  using the same model class
+        vit_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224", cache_dir=CACHE_DIR_PRIVATE)
+        vit_model = ViTForImageClassification.from_pretrained(
+            model_dir,
+            num_labels=len(sun_scene_cat),
+            id2label=id2label,
+            label2id=label2id,
+            cache_dir=CACHE_DIR_PRIVATE
+        ).to(device)
+
+    # Initialize model for IMAGE EMBEDDING
+    vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
+    vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
+
+    # Inpaint LaMa
+    simple_lama = SimpleLama()
+
+    # Init CogVLM2
+    MODEL_PATH = "THUDM/cogvlm2-llama3-chat-19B"
+    TORCH_TYPE =  torch.float16
+
+    cogvlm2_tokenizer = AutoTokenizer.from_pretrained(
+        "THUDM/cogvlm2-llama3-chat-19B",
+        trust_remote_code=True,
         cache_dir=CACHE_DIR_PRIVATE
-    ).to(device)
+    )
+    cogvlm2_model = AutoModelForCausalLM.from_pretrained(
+        MODEL_PATH,
+        torch_dtype=TORCH_TYPE,
+        trust_remote_code=True,
+        cache_dir=CACHE_DIR_SHARED
+    ).to(device_gen).eval()
 
-# Initialize model for IMAGE EMBEDDING
-from transformers import AutoImageProcessor, ViTModel 
-vitc_image_processor = AutoImageProcessor.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_PRIVATE)
-vitc_model = ViTModel.from_pretrained("google/vit-base-patch16-224-in21k", cache_dir=CACHE_DIR_SHARED).to(device)
+    return vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
 #
 ## Initialize model for INPAINTING
-
-generator = torch.Generator(device).manual_seed(92)
-
 from huggingface_hub import login
-login(token = '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')
-
-from torchvision import transforms
 from pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
-from diffusers.utils import load_image
-
-pipe = StableDiffusion3InpaintPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-3-medium-diffusers",
-    torch_dtype=torch.float16,
-    cache_dir=CACHE_DIR_SHARED
-).to(device_gen)
-
-### Init model for UPSCALING 
-
-# Initialize PowerPaint
-#import torch
-#import os
-#from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
-#
-#base_path = './PowerPaint_v2'
-## download repo to the base_path directory using git
-#os.system('apt install git')
-#os.system('apt install git-lfs')
-#os.system(f'git clone https://code.openxlab.org.cn/zhuangjunhao/PowerPaint_v2.git {base_path}')
-#os.system(f'cd {base_path} && git lfs pull')
-#
-##load transformers model
-#tokenizer = AutoTokenizer.from_pretrained(base_path,trust_remote_code=True)
-## please replace "AutoModelForCausalLM" with your real task
-#model = AutoModelForCausalLM.from_pretrained(base_path,trust_remote_code=True, torch_dtype=torch.float16).cuda
-
-# Inpaint LaMa
 from simple_lama_inpainting import SimpleLama
-simple_lama = SimpleLama()
+
+def init_sd3_model():
+    login(token = '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')
+
+    pipe = StableDiffusion3InpaintPipeline.from_pretrained(
+        "stabilityai/stable-diffusion-3-medium-diffusers",
+        torch_dtype = torch.float16,
+        cache_dir=CACHE_DIR_SHARED
+    ).to(device_gen)
+    return pipe
