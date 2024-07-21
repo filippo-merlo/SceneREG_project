@@ -749,56 +749,59 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     return generated_image, mask_image
 
 def generate_new_image(data, n):
-    gen_images = n
-    sets = []
-    cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
-    for i in range(gen_images):
-        # Get the masked image with target and scene category
-        target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
-        # SELECT OBJECT TO REPLACE
-        objects_for_replacement_list = find_object_for_replacement(target, scene_category)
-        images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
-        print(images_names)
- 
-        #prompt_loc = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, image_picture_w_bbox, target, scene_category, position=True)
-        prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category, position=False)
-        print(prompt_obj_descr)
-        # remove the object before background
-        image_clean = remove_object(image_picture, image_mask.convert('L'))
+    try:
+        gen_images = n
+        sets = []
+        cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
+        for i in range(gen_images):
+            # Get the masked image with target and scene category
+            target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
+            # SELECT OBJECT TO REPLACE
+            objects_for_replacement_list = find_object_for_replacement(target, scene_category)
+            images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
+            print(images_names)
+    
+            #prompt_loc = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, image_picture_w_bbox, target, scene_category, position=True)
+            prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category, position=False)
+            print(prompt_obj_descr)
+            # remove the object before background
+            image_clean = remove_object(image_picture, image_mask.convert('L'))
 
-        # ADD BACKGROUND
-        image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
+            # ADD BACKGROUND
+            image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
+            
+            # upscale image and update bbox
+            scale_up_factor = 2
+            upscaled_image = api_upscale_image_gradio(image_clean_with_background, path_to_img, scale_up_factor)
+            upscaled_bbox = [x*scale_up_factor for x in new_bbox]
+            sets.append((upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr))
+
+        del cogvlm2_tokenizer, cogvlm2_model
+        torch.cuda.empty_cache()
+
+        pipe = init_sd3_model()
+
+        for i, set in enumerate(sets):
+            upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr = sets[i]
+            # Inpainting the target
+            generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
+            # save the image
+            
+            save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
+            image_mask_with_background.save(save_path_target_mask)
+
+            save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+            upscaled_image.save(save_path_original_clean)
+
+            save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
+            square_mask_image.save(save_path_square_mask)
+
+            for i, image in enumerate(generated_image):
+                save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
+                image.save(save_path)
+
+        del pipe
+        torch.cuda.empty_cache()
+    except:
+        print('error')
         
-        # upscale image and update bbox
-        scale_up_factor = 2
-        upscaled_image = api_upscale_image_gradio(image_clean_with_background, path_to_img, scale_up_factor)
-        upscaled_bbox = [x*scale_up_factor for x in new_bbox]
-        sets.append((upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr))
-
-    del cogvlm2_tokenizer, cogvlm2_model
-    torch.cuda.empty_cache()
-
-    pipe = init_sd3_model()
-
-    for i, set in enumerate(sets):
-        upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr = sets[i]
-        # Inpainting the target
-        generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
-        # save the image
-        
-        save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
-        image_mask_with_background.save(save_path_target_mask)
-
-        save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
-        upscaled_image.save(save_path_original_clean)
-
-        save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
-        square_mask_image.save(save_path_square_mask)
-
-        for i, image in enumerate(generated_image):
-            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
-            image.save(save_path)
-
-    del pipe
-    torch.cuda.empty_cache()
-
