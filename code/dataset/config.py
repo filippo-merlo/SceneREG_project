@@ -136,7 +136,7 @@ def init_image_prep_models():
         cogvlm2_model = AutoModelForCausalLM.from_pretrained(
             MODEL_PATH,
             torch_dtype=TORCH_TYPE,
-            trust_remote_code=True,
+            trust_remote_code=True
             cache_dir=CACHE_DIR_SHARED
         )
 
@@ -150,7 +150,8 @@ def init_image_prep_models():
         max_memory={i: max_memory_per_gpu for i in range(num_gpus)},
         no_split_module_classes=["CogVLMDecoderLayer"]
     )
-    cogvlm2_model = load_checkpoint_and_dispatch(cogvlm2_model, MODEL_PATH, device_map=device_map, dtype=TORCH_TYPE)
+    
+    cogvlm2_model = load_checkpoint_and_dispatch(cogvlm2_model, '/mnt/cimec-storage6/shared/hf_llms_checkpoints/models--THUDM--cogvlm2-llama3-chat-19B/snapshots/2bf7de6892877eb50142395af14847519ba95998', device_map=device_map, dtype=TORCH_TYPE)
     cogvlm2_model = cogvlm2_model.eval()
 
     return vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
