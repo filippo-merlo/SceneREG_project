@@ -122,18 +122,36 @@ def init_image_prep_models():
     # Init CogVLM2
     MODEL_PATH = "THUDM/cogvlm2-llama3-chat-19B"
     TORCH_TYPE =  torch.float16
+    DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+    from accelerate import init_empty_weights, load_checkpoint_and_dispatch, infer_auto_device_map
 
     cogvlm2_tokenizer = AutoTokenizer.from_pretrained(
         "THUDM/cogvlm2-llama3-chat-19B",
         trust_remote_code=True,
         cache_dir=CACHE_DIR_PRIVATE
     )
-    cogvlm2_model = AutoModelForCausalLM.from_pretrained(
-        MODEL_PATH,
-        torch_dtype=TORCH_TYPE,
-        trust_remote_code=True,
-        cache_dir=CACHE_DIR_SHARED
-    ).to(device_gen).eval()
+
+    with init_empty_weights():
+        cogvlm2_model = AutoModelForCausalLM.from_pretrained(
+            MODEL_PATH,
+            torch_dtype=TORCH_TYPE,
+            trust_remote_code=True,
+            cache_dir=CACHE_DIR_SHARED
+        )
+
+    num_gpus = torch.cuda.device_count()
+    max_memory_per_gpu = "16GiB"
+    if num_gpus > 2:
+        max_memory_per_gpu = f"{round(42 / num_gpus)}GiB"
+
+    device_map = infer_auto_device_map(
+        model=cogvlm2_model,
+        max_memory={i: max_memory_per_gpu for i in range(num_gpus)},
+        no_split_module_classes=["CogVLMDecoderLayer"]
+    )
+    cogvlm2_model = load_checkpoint_and_dispatch(cogvlm2_model, MODEL_PATH, device_map=device_map, dtype=TORCH_TYPE)
+    cogvlm2_model = cogvlm2_model.eval()
 
     return vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
 #

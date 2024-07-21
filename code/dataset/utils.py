@@ -699,7 +699,9 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category, positi
     with torch.no_grad():
         outputs = model.generate(**inputs, **gen_kwargs)
         outputs = outputs[:, inputs['input_ids'].shape[1]:]
-        response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        response = tokenizer.decode(outputs[0])
+        response = response.split("<|end_of_text|>")[0]
+        #response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 def generate_sd3(pipe, image, target_box, new_object, scene_category):
     size, _ = image.size
