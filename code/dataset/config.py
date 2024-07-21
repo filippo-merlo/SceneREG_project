@@ -85,6 +85,8 @@ from transformers import AutoImageProcessor, ViTForImageClassification, ViTModel
 # set devices
 device = 'cuda:0'
 device_gen = 'cuda:1'
+DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 generator = torch.Generator(device_gen).manual_seed(92)
 
 # Create the label to ID mapping
@@ -122,7 +124,6 @@ def init_image_prep_models():
     # Init CogVLM2
     MODEL_PATH = "THUDM/cogvlm2-llama3-chat-19B"
     TORCH_TYPE =  torch.float16
-    DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     from accelerate import init_empty_weights, load_checkpoint_and_dispatch, infer_auto_device_map
 
