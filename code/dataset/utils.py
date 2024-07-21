@@ -688,10 +688,10 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category, positi
         input_by_model = model.build_conversation_input_ids(tokenizer, query=query, images=[image], template_version='chat')
 
     inputs = {
-        'input_ids': input_by_model['input_ids'].unsqueeze(0).to(device_gen),
-        'token_type_ids': input_by_model['token_type_ids'].unsqueeze(0).to(device_gen),
-        'attention_mask': input_by_model['attention_mask'].unsqueeze(0).to(device_gen),
-        'images': [[input_by_model['images'][0].to(device_gen).to(torch.float16)]] if image is not None else None,
+        'input_ids': input_by_model['input_ids'].unsqueeze(0).to(DEVICE),
+        'token_type_ids': input_by_model['token_type_ids'].unsqueeze(0).to(DEVICE),
+        'attention_mask': input_by_model['attention_mask'].unsqueeze(0).to(DEVICE),
+        'images': [[input_by_model['images'][0].to(DEVICE).to(torch.float16)]] if image is not None else None,
     }
 
     # Generate response
