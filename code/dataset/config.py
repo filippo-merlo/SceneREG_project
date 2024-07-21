@@ -6,7 +6,7 @@ import os
 import json
 
 # DECLARE PATHS
-CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared'
+CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared/hf_llms_checkpoints'
 CACHE_DIR_PRIVATE = '/mnt/cimec-storage6/users/filippo.merlo'
 
 # Path for the data folder
