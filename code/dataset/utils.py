@@ -752,7 +752,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 def generate_new_image(data, n):
     gen_images = n
     sets = []
-
+    
     for i in range(gen_images):
         # Get the masked image with target and scene category
         target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
