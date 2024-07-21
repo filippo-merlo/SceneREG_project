@@ -439,7 +439,6 @@ def visualize_images(image_paths):
       print(f"Error: File not found: {path}")
 
 
-
 def visualize_coco_image(self, img_name = None):
         
         if img_name != None:
@@ -752,7 +751,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 def generate_new_image(data, n):
     gen_images = n
     sets = []
-    
+    cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
     for i in range(gen_images):
         # Get the masked image with target and scene category
         target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
@@ -776,7 +775,7 @@ def generate_new_image(data, n):
         upscaled_bbox = [x*scale_up_factor for x in new_bbox]
         sets.append((upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr))
 
-    del vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
+    del cogvlm2_tokenizer, cogvlm2_model
     torch.cuda.empty_cache()
 
     pipe = init_sd3_model()

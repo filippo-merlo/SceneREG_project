@@ -121,6 +121,9 @@ def init_image_prep_models():
     # Inpaint LaMa
     simple_lama = SimpleLama()
 
+    return vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama
+#
+def init_covlm2():
     # Init CogVLM2
     MODEL_PATH = "THUDM/cogvlm2-llama3-chat-19B"
     TORCH_TYPE =  torch.float16
@@ -153,8 +156,8 @@ def init_image_prep_models():
     cogvlm2_model = load_checkpoint_and_dispatch(cogvlm2_model, '/mnt/cimec-storage6/shared/hf_llms_checkpoints/models--THUDM--cogvlm2-llama3-chat-19B/snapshots/2bf7de6892877eb50142395af14847519ba95998', device_map=device_map, dtype=TORCH_TYPE)
     cogvlm2_model = cogvlm2_model.eval()
 
-    return vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
-#
+    return cogvlm2_tokenizer, cogvlm2_model
+
 ## Initialize model for INPAINTING
 from huggingface_hub import login
 from pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
