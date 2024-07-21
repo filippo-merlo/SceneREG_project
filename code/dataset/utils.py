@@ -743,7 +743,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
         num_inference_steps=32,
         guidance_scale=4,
         strength=0.9,
-        padding_mask_crop = 150
+        padding_mask_crop = 30
     ).images
 
     return generated_image, mask_image
