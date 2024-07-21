@@ -136,7 +136,7 @@ def init_image_prep_models():
         cogvlm2_model = AutoModelForCausalLM.from_pretrained(
             MODEL_PATH,
             torch_dtype=TORCH_TYPE,
-            trust_remote_code=True
+            trust_remote_code=True,
             cache_dir=CACHE_DIR_SHARED
         )
 
