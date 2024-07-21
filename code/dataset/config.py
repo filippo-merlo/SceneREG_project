@@ -83,7 +83,7 @@ import torch
 from transformers import AutoImageProcessor, ViTForImageClassification, ViTModel, AutoModelForCausalLM, AutoTokenizer
 
 # set devices
-device = 'cuda:0'
+device = 'cuda:1'
 device_gen = 'cuda:1'
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
