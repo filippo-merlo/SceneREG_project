@@ -185,8 +185,6 @@ def augment_area_within_bounds(coordinates, scale_factor, img_width, img_height)
     return augmented_coords.astype(np.int32)
 
 
-
-
 ### GET COCO IMAGE DATA
 def get_coco_image_data(data, img_name = None):
         
@@ -244,9 +242,10 @@ def get_coco_image_data(data, img_name = None):
                 target_area = ann['area']
 
         if target_bbox:
-            image_picture_w_bbox = ImageDraw.Draw(image_picture)
+            image_picture_w_bbox = Image.open(image_path)
+            draw = ImageDraw.Draw(image_picture_w_bbox)
             x, y, width, height = target_bbox
-            image_picture_w_bbox.rectangle([x, y, x + width, y + height], outline="red", width=3)
+            draw.rectangle([x, y, x + width, y + height], outline="red", width=3)
 
         # Image processing and cropping code
         # Segment the target area in the image
