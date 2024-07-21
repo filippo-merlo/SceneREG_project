@@ -728,9 +728,9 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     #    mask_image
     #)
 
-    prompt = f"{prompt_obj_descr}"
+    prompt = f"realistic, small, in the center of the image"
     prompt_2 = f"realistic, small, in the center of the image"
-    prompt_3 = f"realistic, small, in the center of the image"
+    prompt_3 = f"{prompt_obj_descr}"
 
     generated_image = pipe(
         prompt=prompt,
