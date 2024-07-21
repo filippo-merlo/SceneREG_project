@@ -673,7 +673,7 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category, positi
     if position:
         query = f"Human: In this {scene_category} scene there is one object that is higligted in red. Without mentioning its name describe its position in relation with the sourrounding objects."
     else:
-        query = f"Human: Describe the {obj} in the image. Be specific and detailed about its appearence. Do not mention its location."
+        query = f"Human: Describe this {obj}. Be specific and detailed about its appearence."
 
     # Format query
     if image is None:
