@@ -127,7 +127,7 @@ def init_image_prep_models():
     from accelerate import init_empty_weights, load_checkpoint_and_dispatch, infer_auto_device_map
 
     cogvlm2_tokenizer = AutoTokenizer.from_pretrained(
-        "THUDM/cogvlm2-llama3-chat-19B",
+        MODEL_PATH,
         trust_remote_code=True,
         cache_dir=CACHE_DIR_PRIVATE
     )
