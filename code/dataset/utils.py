@@ -760,9 +760,12 @@ def generate_new_image(data, n):
         objects_for_replacement_list = find_object_for_replacement(target, scene_category)
         images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
         print(images_names)
-
+        ##
+        pat = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_higlited.jpg')
+        image_picture_w_bbox.save(pat)
+        ##
         prompt_loc = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_tokenizer, image_picture_w_bbox, target, scene_category, position=True)
-        prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_tokenizer, Image.open(images_paths[0]), images_names[0], scene_category, position=True)
+        prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_tokenizer, Image.open(images_paths[0]), images_names[0], scene_category, position=False)
         
         print(prompt_loc, '\n', prompt_obj_descr)
 
