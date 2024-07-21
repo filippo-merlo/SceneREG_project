@@ -16,10 +16,6 @@ from collections import Counter
 import re
 from PIL import Image
 
-
- # init models for image selection
-vit_processor, vit_model, vitc_image_processor, vitc_model,  simple_lama, cogvlm2_tokenizer, cogvlm2_model = init_image_prep_models()
-
 ### GENERAL FUNCTIONS
 
 def get_files(directory):
@@ -753,10 +749,20 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 
     return generated_image, mask_image
 
-# GET SUBSTITUTE
+ # init models for image selection
+vit_processor, vit_model, vitc_image_processor, vitc_model,  simple_lama, cogvlm2_tokenizer, cogvlm2_model = init_image_prep_models()
+
 def generate_new_image(data, n):
     gen_images = n
     sets = []
+    cogvlm2_tokenizer = cogvlm2_tokenizer
+    cogvlm2_model = cogvlm2_model
+    vit_processor = vit_processor
+    vit_model = vit_model
+    vitc_image_processor = vitc_image_processor 
+    vitc_model = vitc_model
+    simple_lama = simple_lama
+    
     for i in range(gen_images):
         # Get the masked image with target and scene category
         target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
