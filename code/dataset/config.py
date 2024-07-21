@@ -150,7 +150,7 @@ def init_image_prep_models():
         max_memory={i: max_memory_per_gpu for i in range(num_gpus)},
         no_split_module_classes=["CogVLMDecoderLayer"]
     )
-    cogvlm2_model = load_checkpoint_and_dispatch(cogvlm2_model, CACHE_DIR_SHARED+'/models--THUDM--cogvlm2-llama3-chat-19B', device_map=device_map, dtype=TORCH_TYPE)
+    cogvlm2_model = load_checkpoint_and_dispatch(cogvlm2_model, MODEL_PATH, device_map=device_map, dtype=TORCH_TYPE)
     cogvlm2_model = cogvlm2_model.eval()
 
     return vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
