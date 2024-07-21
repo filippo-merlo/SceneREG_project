@@ -730,7 +730,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 
     prompt = f"realistic, small, in the center of the image"
     prompt_2 = f"realistic, small, in the center of the image"
-    prompt_3 = f"{new_object} in a {scene_category}. {prompt_obj_descr}"
+    prompt_3 = f"{new_object}. {prompt_obj_descr}"
 
     negative_prompt = f"human body, human body parts, hand, face, person, people, human, human face, human head, human hand, human arm, human leg, human foot, human mouth, human nose, human ear, human eye, human hair, human"
 
