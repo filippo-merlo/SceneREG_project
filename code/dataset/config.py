@@ -169,3 +169,5 @@ def init_sd3_model():
         cache_dir=CACHE_DIR_SHARED
     ).to(device_gen)
     return pipe
+
+vit_processor, vit_model, vitc_image_processor, vitc_model,  simple_lama, cogvlm2_tokenizer, cogvlm2_model = init_image_prep_models()
