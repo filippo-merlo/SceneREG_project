@@ -707,7 +707,7 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category, positi
         #response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return response
 
-def generate_sd3(pipe, image, target_box, new_object, scene_category):
+def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
     print('SIZE:', size)
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
@@ -733,7 +733,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category):
     #    mask_image
     #)
 
-    prompt = f"A beautifully detailed and realistic flower in a vase, showcasing a stunning array of vibrant colors. The delicate petals exhibit intricate patterns, while the lush green leaves provide a striking contrast. The vase itself is elegantly designed, complementing the flower's natural beauty and adding a touch of sophistication to the scene."
+    prompt = f"{prompt_obj_descr}"
     prompt_2 = f"realistic, small and in the center of the image"
     prompt_3 = f"realistic, small and in the center of the image"
 
@@ -764,16 +764,10 @@ def generate_new_image(data, n):
         objects_for_replacement_list = find_object_for_replacement(target, scene_category)
         images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
         print(images_names)
-        ##
-        pat = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_higlited.jpg')
-        image_picture_w_bbox.save(pat)
-        ##
-        prompt_loc = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, image_picture_w_bbox, target, scene_category, position=True)
+ 
+        #prompt_loc = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, image_picture_w_bbox, target, scene_category, position=True)
         prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category, position=False)
-        
-        print(prompt_loc, '\n', prompt_obj_descr)
-
-    """   
+        print(prompt_obj_descr)
         # remove the object before background
         image_clean = remove_object(image_picture, image_mask.convert('L'))
 
@@ -784,31 +778,32 @@ def generate_new_image(data, n):
         scale_up_factor = 2
         upscaled_image = api_upscale_image_gradio(image_clean_with_background, path_to_img, scale_up_factor)
         upscaled_bbox = [x*scale_up_factor for x in new_bbox]
+        sets.append((upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr))
 
     del vit_processor, vit_model, vitc_image_processor, vitc_model, simple_lama, cogvlm2_tokenizer, cogvlm2_model
     torch.cuda.empty_cache()
 
     pipe = init_sd3_model()
 
+    for i, set in enumerate(sets):
+        upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr = sets[i]
+        # Inpainting the target
+        generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
+        # save the image
+        
+        save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
+        image_mask_with_background.save(save_path_target_mask)
 
-    # Inpainting the target
-    generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category)
-    # save the image
-    
-    save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
-    image_mask_with_background.save(save_path_target_mask)
+        save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
+        upscaled_image.save(save_path_original_clean)
 
-    save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
-    upscaled_image.save(save_path_original_clean)
+        save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
+        square_mask_image.save(save_path_square_mask)
 
-    save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
-    square_mask_image.save(save_path_square_mask)
-
-    for i, image in enumerate(generated_image):
-        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
-        image.save(save_path)
+        for i, image in enumerate(generated_image):
+            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
+            image.save(save_path)
 
     del pipe
     torch.cuda.empty_cache()
 
-    """     
