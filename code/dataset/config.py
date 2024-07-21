@@ -142,13 +142,11 @@ def init_image_prep_models():
         )
 
     num_gpus = torch.cuda.device_count()
-    max_memory_per_gpu = "16GiB"
-    if num_gpus > 2:
-        max_memory_per_gpu = f"{round(42 / num_gpus)}GiB"
+    max_memory_per_gpu = "20GiB"
 
     device_map = infer_auto_device_map(
         model=cogvlm2_model,
-        max_memory={i: max_memory_per_gpu for i in range(num_gpus)},
+        max_memory={0: max_memory_per_gpu, 1: max_memory_per_gpu},
         no_split_module_classes=["CogVLMDecoderLayer"]
     )
     
