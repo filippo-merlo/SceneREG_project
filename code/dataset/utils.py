@@ -705,6 +705,7 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category, positi
         response = tokenizer.decode(outputs[0])
         response = response.split("<|end_of_text|>")[0]
         #response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return response
 
 def generate_sd3(pipe, image, target_box, new_object, scene_category):
     size, _ = image.size
