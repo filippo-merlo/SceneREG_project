@@ -732,16 +732,19 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     prompt_2 = f"realistic, small, in the center of the image"
     prompt_3 = f"{new_object} in a {scene_category}. {prompt_obj_descr}"
 
+    negative_prompt = f"human body, human body parts, hand, face, person, people, human, human face, human head, human hand, human arm, human leg, human foot, human mouth, human nose, human ear, human eye, human hair, human"
+
     generated_image = pipe(
         prompt=prompt,
         prompt_2=prompt_2,
         prompt_3=prompt_3,
+        negative_prompt=negative_prompt,
         image=image,
         mask_image=mask,
         height=size,
         width=size,
         num_inference_steps=32,
-        guidance_scale=7,
+        guidance_scale=9,
         strength=0.9,
         padding_mask_crop = 50
     ).images
