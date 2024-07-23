@@ -717,10 +717,10 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 
     # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
-    mask = mask_image.convert("L")
+    #mask = mask_image.convert("L")
 
     image = preprocess_image(image)
-    mask = preprocess_image(mask)
+    mask = preprocess_image(mask_image)
 
     if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
         art = 'An'
