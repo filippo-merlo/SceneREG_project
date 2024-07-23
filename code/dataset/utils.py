@@ -723,8 +723,8 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     else:
         art = 'A'
 
-    prompt = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality."
-    prompt_2 = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality."
+    prompt = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality, correct perspective."
+    prompt_2 = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality, correct perspective."
     prompt_3 = f"{art} {new_object}. {prompt_obj_descr}"
     
     with torch.no_grad():
@@ -736,11 +736,11 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
             mask_image=mask,
             height=size,
             width=size,
-            num_inference_steps=26,
+            num_inference_steps=30,
             guidance_scale=7.0,
             strength=0.8,
             padding_mask_crop = 20,
-            num_images_per_prompt = 1
+            num_images_per_prompt = 6
         ).images
 
     return generated_image, mask_image
