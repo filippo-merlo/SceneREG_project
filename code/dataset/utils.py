@@ -776,7 +776,9 @@ def generate_new_image(data, n):
         except:
             print('error 1')
 
+    import gc
     del cogvlm2_tokenizer, cogvlm2_model
+    gc.collect()
     torch.cuda.empty_cache()
 
     pipe = init_sd3_model()
