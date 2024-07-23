@@ -738,9 +738,9 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
         mask_image=mask,
         height=size,
         width=size,
-        num_inference_steps=35,
+        num_inference_steps=30,
         guidance_scale=5,
-        strength=0.85,
+        strength=0.9,
         padding_mask_crop = 0,
         num_images_per_prompt = 4
     ).images
@@ -805,6 +805,4 @@ def generate_new_image(data, n):
         except:
             print('error 2')
 
-    del pipe
-    torch.cuda.empty_cache()
         
