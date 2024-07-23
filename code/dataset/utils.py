@@ -670,7 +670,7 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
     text_only_template = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {} ASSISTANT:"
     image = image
     # Input user query
-    query = f"Human: Describe this {obj}. Focus only on its appearence."
+    query = f"Human: Describe the {obj}. Focus only on its appearence."
 
     # Format query
     if image is None:
