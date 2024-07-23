@@ -787,7 +787,7 @@ def generate_new_image(data, n):
 
             upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background = sets[i]
             # Inpainting the target
-            generated_image, square_mask_image = git p(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
+            generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
             # save the image
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
