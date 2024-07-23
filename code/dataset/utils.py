@@ -784,7 +784,7 @@ def generate_new_image(data, n):
     pipe = init_sd3_model()
 
     for i, set in enumerate(sets):
-
+        try:
             upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background = sets[i]
             # Inpainting the target
             generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
@@ -806,6 +806,8 @@ def generate_new_image(data, n):
                 image = api_upscale_image_gradio(path_to_img, 2)
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
                 image.save(save_path)
+        except:
+            print('error 2')
 
 
         
