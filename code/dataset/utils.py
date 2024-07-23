@@ -740,7 +740,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
         width=size,
         num_inference_steps=50,
         guidance_scale=9,
-        strength=0.5,
+        strength=0.8,
         padding_mask_crop = 0
     ).images
 
