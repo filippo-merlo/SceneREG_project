@@ -730,20 +730,21 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     else:
         prompt_3 = f"A {new_object}. {prompt_obj_descr}"
 
-    generated_image = pipe(
-        prompt=prompt,
-        prompt_2=prompt_2,
-        prompt_3=prompt_3,
-        image=image,
-        mask_image=mask,
-        height=size,
-        width=size,
-        num_inference_steps=30,
-        guidance_scale=5,
-        strength=0.9,
-        padding_mask_crop = 0,
-        num_images_per_prompt = 3
-    ).images
+    with torch.no_grad():
+        generated_image = pipe(
+            prompt=prompt,
+            prompt_2=prompt_2,
+            prompt_3=prompt_3,
+            image=image,
+            mask_image=mask,
+            height=size,
+            width=size,
+            num_inference_steps=30,
+            guidance_scale=5,
+            strength=0.9,
+            padding_mask_crop = 0,
+            num_images_per_prompt = 3
+        ).images
 
     return generated_image, mask_image
 
