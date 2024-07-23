@@ -690,7 +690,7 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
     }
 
     # Generate response
-    gen_kwargs = {"max_new_tokens": 2048, "pad_token_id": 128002}
+    gen_kwargs = {"max_new_tokens": 255, "pad_token_id": 128002}
     with torch.no_grad():
         outputs = model.generate(**inputs, **gen_kwargs)
         outputs = outputs[:, inputs['input_ids'].shape[1]:]
