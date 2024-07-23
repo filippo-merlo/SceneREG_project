@@ -740,7 +740,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
         width=size,
         num_inference_steps=50,
         guidance_scale=9,
-        strength=1,
+        strength=0.5,
         padding_mask_crop = 0
     ).images
 
@@ -771,7 +771,7 @@ def generate_new_image(data, n):
             scale_up_factor = 2
             upscaled_image = api_upscale_image_gradio(image_clean_with_background, path_to_img, scale_up_factor)
             upscaled_bbox = [x*scale_up_factor for x in new_bbox]
-            sets.append((upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr))
+            sets.append((upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
         except:
             print('error 1')
 
@@ -782,7 +782,7 @@ def generate_new_image(data, n):
 
     for i, set in enumerate(sets):
         try:
-            upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr = sets[i]
+            upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background = sets[i]
             # Inpainting the target
             generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
             # save the image
