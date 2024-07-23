@@ -720,7 +720,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     mask = mask_image.convert("L")
 
     image = preprocess_image(image)
-    image = preprocess_image(image)
+    mask = preprocess_image(mask)
 
     if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
         art = 'An'
