@@ -610,9 +610,8 @@ def encode_image_for_api(image):
 
 from gradio_client import Client
 
-def api_upscale_image_gradio(image, path_to_image, scale_up_factor=2):
+def api_upscale_image_gradio(path_to_image, scale_up_factor=2):
     client = Client("https://bookbot-image-upscaling-playground.hf.space/")
-    encoded_image = encode_image_for_api(image)
     result = client.predict(
             path_to_image,	
             f"modelx{scale_up_factor}",	# str in 'Choose Upscaler' Radio component
@@ -756,7 +755,7 @@ def generate_new_image(data, n):
             
             # upscale image and update bbox
             scale_up_factor = 2
-            #upscaled_image = api_upscale_image_gradio(image_clean_with_background, path_to_img, scale_up_factor)
+            #upscaled_image = api_upscale_image_gradio(path_to_img, scale_up_factor)
             #upscaled_bbox = [x*scale_up_factor for x in new_bbox]
             upscaled_image = image_clean_with_background
             upscaled_bbox = new_bbox
@@ -788,6 +787,10 @@ def generate_new_image(data, n):
             square_mask_image.save(save_path_square_mask)
 
             for i, image in enumerate(generated_image):
+                # save temporarely image:
+                path = os.path.join(data_folder_path, 'temp.jpg')
+                image.save(path)
+                image = api_upscale_image_gradio(path_to_img, 2)
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
                 image.save(save_path)
 
