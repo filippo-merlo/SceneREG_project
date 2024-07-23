@@ -721,9 +721,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
     mask = mask_image.convert("L")
-    #mask = preprocess_mask(
-    #    mask_image
-    #)
+    #mask = preprocess_mask(mask_image)  # Assuming this function exists
 
     prompt = f"realistic, small, in the center of the image"
     prompt_2 = f"realistic, small, in the center of the image"
@@ -743,7 +741,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
         num_inference_steps=32,
         guidance_scale=4,
         strength=0.8,
-        padding_mask_crop = 40
+        padding_mask_crop = 0
     ).images
 
     return generated_image, mask_image
