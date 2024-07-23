@@ -597,21 +597,6 @@ def get_scene_predictions(self):
 
 ### GEenerate image function
 from torchvision import transforms
-
-def preprocess_mask(mask):
-        mask = mask.convert("L")
-        mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
-        mask = transforms.ToTensor()(mask)
-        mask = mask.to(device_gen)
-        return mask
-
-def preprocess_image(image):
-        image = image.convert("RGB")
-        image = transforms.CenterCrop((image.size[1] // 64 * 64, image.size[0] // 64 * 64))(image)
-        image = transforms.ToTensor()(image)
-        image = image.unsqueeze(0).to(device_gen)
-        return image
-
 import io
 import base64
 
@@ -737,13 +722,13 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
             prompt_3=prompt_3,
             image=image,
             mask_image=mask,
-            height=size,
-            width=size,
-            num_inference_steps=30,
-            guidance_scale=5,
-            strength=0.9,
+            height=size//2,
+            width=size//2,
+            num_inference_steps=50,
+            guidance_scale=5.0,
+            strength=0.89,
             padding_mask_crop = 0,
-            num_images_per_prompt = 3
+            num_images_per_prompt = 4
         ).images
 
     return generated_image, mask_image
