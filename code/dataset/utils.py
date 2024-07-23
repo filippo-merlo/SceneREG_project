@@ -683,12 +683,25 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
         #response = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return response
 
+def preprocess_image(image):
+    image = image.convert("RGB")
+    image = transforms.CenterCrop((image.size[1] // 64 * 64, image.size[0] // 64 * 64))(image)
+    image = transforms.ToTensor()(image)
+    image = image.unsqueeze(0).to(device_gen)
+    return image
+
+def preprocess_mask(mask):
+    mask = mask.convert("L")
+    mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
+    mask = transforms.ToTensor()(mask)
+    mask = mask.to(device_gen)
+    return mask
+
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
     print('SIZE:', size)
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
 
-    #source = preprocess_image(image)  # Assuming this function exists
     image = image.convert("RGB")
 
     # Step 3: Create the mask with the size of the new square image
@@ -705,15 +718,19 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     # Convert to a PIL image to apply the blur
     mask_image = Image.fromarray(mask_png_format)
     mask = mask_image.convert("L")
-    #mask = preprocess_mask(mask_image)  # Assuming this function exists
 
-    prompt = f"realistic, small, in the center of the image"
-    prompt_2 = f"realistic, small, in the center of the image"
+    image = preprocess_image(image)
+    image = preprocess_image(image)
+
     if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
-        prompt_3 = f"An {new_object}. {prompt_obj_descr}"
+        art = 'An'
     else:
-        prompt_3 = f"A {new_object}. {prompt_obj_descr}"
+        art = 'A'
 
+    prompt = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality."
+    prompt_2 = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality."
+    prompt_3 = f"{art} {new_object}. {prompt_obj_descr}"
+    
     with torch.no_grad():
         generated_image = pipe(
             prompt=prompt,
