@@ -84,7 +84,7 @@ from transformers import AutoImageProcessor, ViTForImageClassification, ViTModel
 
 # set devices
 device = 'cuda:2'
-device_gen = 'cuda:1'
+device_gen = 'cuda:2'
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 generator = torch.Generator(device_gen).manual_seed(92)
@@ -145,7 +145,7 @@ def init_covlm2():
         )
 
     num_gpus = torch.cuda.device_count()
-    max_memory_per_gpu = "22GiB"
+    max_memory_per_gpu = "21GiB"
 
     device_map = infer_auto_device_map(
         model=cogvlm2_model,
