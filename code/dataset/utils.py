@@ -665,15 +665,12 @@ def add_black_background(image, image_mask, target_box):
 def remove_object(image, masked_image):
     return simple_lama(image, masked_image)
 
-def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category, position=False):
+def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
         # Text-only template
     text_only_template = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {} ASSISTANT:"
     image = image
     # Input user query
-    if position:
-        query = f"Human: In this {scene_category} scene there is one object that is higligted in red. Without mentioning its name describe its position in relation with the sourrounding objects."
-    else:
-        query = f"Human: Describe this {obj}. Be specific and detailed about its appearence."
+    query = f"Human: Describe this {obj}. Focus only on its appearence."
 
     # Format query
     if image is None:
@@ -730,15 +727,15 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 
     prompt = f"realistic, small, in the center of the image"
     prompt_2 = f"realistic, small, in the center of the image"
-    prompt_3 = f"{new_object}. {prompt_obj_descr}"
-
-    negative_prompt = f"human body, human body parts, hand, face, person, people, human, human face, human head, human hand, human arm, human leg, human foot, human mouth, human nose, human ear, human eye, human hair, human"
+    if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
+        prompt_3 = f"An {new_object}. {prompt_obj_descr}"
+    else:
+        prompt_3 = f"A {new_object}. {prompt_obj_descr}"
 
     generated_image = pipe(
         prompt=prompt,
         prompt_2=prompt_2,
         prompt_3=prompt_3,
-        negative_prompt=negative_prompt,
         image=image,
         mask_image=mask,
         height=size,
@@ -764,8 +761,7 @@ def generate_new_image(data, n):
             images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
             print(images_names)
 
-            #prompt_loc = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, image_picture_w_bbox, target, scene_category, position=True)
-            prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category, position=False)
+            prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category)
             print(prompt_obj_descr)
             # remove the object before background
             image_clean = remove_object(image_picture, image_mask.convert('L'))
