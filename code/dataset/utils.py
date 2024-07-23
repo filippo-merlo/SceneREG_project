@@ -686,15 +686,11 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
 def preprocess_image(image):
     image = image.convert("RGB")
     image = transforms.CenterCrop((image.size[1] // 64 * 64, image.size[0] // 64 * 64))(image)
-    image = transforms.ToTensor()(image)
-    image = image.unsqueeze(0).to(device_gen)
     return image
 
 def preprocess_mask(mask):
     mask = mask.convert("L")
     mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
-    mask = transforms.ToTensor()(mask)
-    mask = mask.to(device_gen)
     return mask
 
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
