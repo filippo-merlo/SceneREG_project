@@ -801,9 +801,9 @@ def generate_new_image(data, n):
 
             for i, image in enumerate(generated_image):
                 # save temporarely image:
-                path = os.path.join(data_folder_path, 'temp.jpg')
-                image.save(path)
-                image = api_upscale_image_gradio(path_to_img, 2)
+                #path = os.path.join(data_folder_path, 'temp.jpg')
+                #image.save(path)
+                #image = api_upscale_image_gradio(path_to_img, 2)
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
                 image.save(save_path)
         except:
