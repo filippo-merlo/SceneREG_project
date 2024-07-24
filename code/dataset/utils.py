@@ -771,7 +771,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
             num_inference_steps=50,
             guidance_scale=8,
             strength=0.8,
-            padding_mask_crop = 0,
+            padding_mask_crop = 20,
             num_images_per_prompt = 6
         ).images
 
@@ -826,10 +826,6 @@ def generate_new_image(data, n):
             square_mask_image.save(save_path_square_mask)
 
             for i, image in enumerate(generated_image):
-                # save temporarely image:
-                #path = os.path.join(data_folder_path, 'temp.jpg')
-                #image.save(path)
-                #image = api_upscale_image_gradio(path_to_img, 2)
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
                 image.save(save_path)
         except Exception as e:
