@@ -673,7 +673,6 @@ def add_grey_area(image, image_mask, target_box, grey_color=(128, 128, 128)):
     draw.rectangle([new_x, new_y, new_x + w, new_y + h], fill=grey_color)
 
     # Save temporarily image:
-    data_folder_path = "your_directory_path"  # Replace with the desired path
     path = os.path.join(data_folder_path, 'temp.jpg')
     new_image.save(path)
 
@@ -783,24 +782,25 @@ def generate_new_image(data, n):
     sets = []
     cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
     for i in range(gen_images):
+        try:
+            # Get the masked image with target and scene category
+            target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
+            # SELECT OBJECT TO REPLACE
+            objects_for_replacement_list = find_object_for_replacement(target, scene_category)
+            images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
+            print(images_names)
 
-        # Get the masked image with target and scene category
-        target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
-        # SELECT OBJECT TO REPLACE
-        objects_for_replacement_list = find_object_for_replacement(target, scene_category)
-        images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
-        print(images_names)
+            prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category)
+            print(prompt_obj_descr)
+            # remove the object before background
+            image_clean = remove_object(image_picture, image_mask.convert('L'))
 
-        prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category)
-        print(prompt_obj_descr)
-        # remove the object before background
-        image_clean = remove_object(image_picture, image_mask.convert('L'))
-
-        # ADD BACKGROUND
-        image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_grey_area(image_clean, image_mask, target_bbox)
-        
-        sets.append((image_clean_with_background, new_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
-
+            # ADD BACKGROUND
+            image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_grey_area(image_clean, image_mask, target_bbox)
+            
+            sets.append((image_clean_with_background, new_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
+        except Exception as e:
+            print(e)
 
     import gc
     del cogvlm2_tokenizer, cogvlm2_model
