@@ -51,14 +51,14 @@ sun_scene_cat = ['abbey', 'airplane_cabin', 'airport_terminal', 'alley', 'amphit
 # Object Names
 # things dataset
 things_plus_size_mean_matrix = pd.read_csv(things_plus_size_mean_path, sep='\t', engine='python', encoding='utf-8')
-typical_things_id_ = list(things_plus_typicality_mean_matrix[(things_plus_typicality_mean_matrix['typicality_score'] >= 0.5) & (things_plus_typicality_mean_matrix['typicality_score'] <= 1)]['uniqueID'])
+typical_things_id_ = list(things_plus_typicality_mean_matrix[(things_plus_typicality_mean_matrix['typicality_score'] >= 0) & (things_plus_typicality_mean_matrix['typicality_score'] <= 1)]['uniqueID'])
 # add all the coco labels
 things_id_in_coco = list(list(things_plus_size_mean_matrix[things_plus_size_mean_matrix['WordContext']==x]['uniqueID'])[0]for x in map_coco2things.values())
 typical_things_id_ = list(set(typical_things_id_)) + things_id_in_coco
 typical_things_id = []
 for thing in typical_things_id_:
     idx = list(things_plus_categories.index[things_plus_categories['uniqueID'] == thing.replace(' ','_').replace('_(',' (')])[0]
-    if things_plus_categories.at[idx, 'animal'] == 0 and things_plus_categories.at[idx, 'body part'] == 0:
+    if things_plus_categories.at[idx, 'animal'] == 0 and things_plus_categories.at[idx, 'body part'] == 0 and things_plus_categories.at[idx, 'clothing'] == 0 and things_plus_categories.at[idx, 'farm animal'] == 0 and things_plus_categories.at[idx, 'insect'] == 0 and things_plus_categories.at[idx, 'mammal'] == 0 and things_plus_categories.at[idx, 'sea animal'] == 0 and things_plus_categories.at[idx, 'seafood'] == 0 and things_plus_categories.at[idx, "women's clothing"] == 0:
         typical_things_id.append(thing)
 
 print(len(typical_things_id))
