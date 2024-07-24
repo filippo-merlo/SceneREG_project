@@ -785,9 +785,9 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
             height=size,
             width=size,
             num_inference_steps=50,
-            guidance_scale=4,
+            guidance_scale=8,
             strength=0.8,
-            padding_mask_crop = 30,
+            padding_mask_crop = 0,
             num_images_per_prompt = 6
         ).images
 
@@ -814,13 +814,7 @@ def generate_new_image(data, n):
             # ADD BACKGROUND
             image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
             
-            # upscale image and update bbox
-            scale_up_factor = 2
-            #upscaled_image = api_upscale_image_gradio(path_to_img, scale_up_factor)
-            #upscaled_bbox = [x*scale_up_factor for x in new_bbox]
-            upscaled_image = image_clean_with_background
-            upscaled_bbox = new_bbox
-            sets.append((upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
+            sets.append((image_clean_with_background, new_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
         except:
             print('error 1')
 
