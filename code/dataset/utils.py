@@ -647,9 +647,10 @@ def add_black_background(image, image_mask, target_box):
 
     return new_image, new_image_mask, adjusted_box, path
 """
-def add_black_background(image, image_mask, target_box, data_folder_path):
-    x, y, w, h = target_box  # Coordinates and dimensions of the white box
-    max_w, max_h = image.size 
+
+def add_grey_area(image, image_mask, target_box, grey_color=(128, 128, 128)):
+    x, y, w, h = target_box  # Coordinates and dimensions of the bounding box
+    max_w, max_h = image.size
 
     # Step 1: Add a black background to make the image square
     new_size = max(max_w, max_h)
@@ -664,31 +665,15 @@ def add_black_background(image, image_mask, target_box, data_folder_path):
     new_x = x + offset_x
     new_y = y + offset_y
 
-    # Step 3: Ensure the bounding box covers at least 10% of the original image area
-    original_image_area = max_w * max_h
-    min_bbox_area = original_image_area * 0.1
-    min_bbox_side = int(min_bbox_area**0.5)
-
-    if w * h < min_bbox_area:
-        aspect_ratio = w / h
-        if w < min_bbox_side and h < min_bbox_side:
-            if aspect_ratio > 1:  # Width is larger compared to height
-                w = min_bbox_side
-                h = int(min_bbox_side / aspect_ratio)
-            else:  # Height is larger compared to width
-                h = min_bbox_side
-                w = int(min_bbox_side * aspect_ratio)
-        elif w < min_bbox_side:
-            w = min_bbox_side
-            h = int(min_bbox_side / aspect_ratio)
-        elif h < min_bbox_side:
-            h = min_bbox_side
-            w = int(min_bbox_side * aspect_ratio)
-
     # The adjusted bounding box
     adjusted_box = (new_x, new_y, w, h)
 
-    # Save temporarily image
+    # Step 3: Draw a grey area in the specified region
+    draw = ImageDraw.Draw(new_image)
+    draw.rectangle([new_x, new_y, new_x + w, new_y + h], fill=grey_color)
+
+    # Save temporarily image:
+    data_folder_path = "your_directory_path"  # Replace with the desired path
     path = os.path.join(data_folder_path, 'temp.jpg')
     new_image.save(path)
 
