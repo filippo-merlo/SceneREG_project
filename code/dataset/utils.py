@@ -736,10 +736,10 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
             mask_image=mask,
             height=size,
             width=size,
-            num_inference_steps=30,
-            guidance_scale=7.0,
+            num_inference_steps=40,
+            guidance_scale=9.0,
             strength=0.75,
-            padding_mask_crop = 20,
+            padding_mask_crop = 10,
             num_images_per_prompt = 6
         ).images
 
