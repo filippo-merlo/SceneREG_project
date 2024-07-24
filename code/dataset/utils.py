@@ -620,7 +620,7 @@ def api_upscale_image_gradio(path_to_image, scale_up_factor=2):
     new_image = Image.open(result)
     return new_image
 
-"""
+
 def add_black_background(image, image_mask, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
     max_w, max_h = image.size 
@@ -647,7 +647,6 @@ def add_black_background(image, image_mask, target_box):
 
     return new_image, new_image_mask, adjusted_box, path
 """
-
 def add_grey_area(image, image_mask, target_box, grey_color=(128, 128, 128)):
     x, y, w, h = target_box  # Coordinates and dimensions of the bounding box
     max_w, max_h = image.size
@@ -677,6 +676,7 @@ def add_grey_area(image, image_mask, target_box, grey_color=(128, 128, 128)):
     new_image.save(path)
 
     return new_image, new_image_mask, adjusted_box, path
+"""
 
 def remove_object(image, masked_image):
     return simple_lama(image, masked_image)
@@ -796,7 +796,7 @@ def generate_new_image(data, n):
             image_clean = remove_object(image_picture, image_mask.convert('L'))
 
             # ADD BACKGROUND
-            image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_grey_area(image_clean, image_mask, target_bbox)
+            image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
             
             sets.append((image_clean_with_background, new_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
         except Exception as e:
