@@ -620,6 +620,7 @@ def api_upscale_image_gradio(path_to_image, scale_up_factor=2):
     new_image = Image.open(result)
     return new_image
 
+"""
 def add_black_background(image, image_mask, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
     max_w, max_h = image.size 
@@ -641,6 +642,53 @@ def add_black_background(image, image_mask, target_box):
     adjusted_box = (new_x, new_y, w, h)
 
     # save temporarely image:
+    path = os.path.join(data_folder_path, 'temp.jpg')
+    new_image.save(path)
+
+    return new_image, new_image_mask, adjusted_box, path
+"""
+def add_black_background(image, image_mask, target_box, data_folder_path):
+    x, y, w, h = target_box  # Coordinates and dimensions of the white box
+    max_w, max_h = image.size 
+
+    # Step 1: Add a black background to make the image square
+    new_size = max(max_w, max_h)
+    new_image = Image.new("RGB", (new_size, new_size), (0, 0, 0))
+    new_image_mask = Image.new("RGB", (new_size, new_size), (0, 0, 0))
+    offset_x = (new_size - max_w) // 2
+    offset_y = (new_size - max_h) // 2
+    new_image.paste(image, (offset_x, offset_y))
+    new_image_mask.paste(image_mask, (offset_x, offset_y))
+
+    # Step 2: Adjust the coordinates of the bounding box
+    new_x = x + offset_x
+    new_y = y + offset_y
+
+    # Step 3: Ensure the bounding box covers at least 10% of the original image area
+    original_image_area = max_w * max_h
+    min_bbox_area = original_image_area * 0.1
+    min_bbox_side = int(min_bbox_area**0.5)
+
+    if w * h < min_bbox_area:
+        aspect_ratio = w / h
+        if w < min_bbox_side and h < min_bbox_side:
+            if aspect_ratio > 1:  # Width is larger compared to height
+                w = min_bbox_side
+                h = int(min_bbox_side / aspect_ratio)
+            else:  # Height is larger compared to width
+                h = min_bbox_side
+                w = int(min_bbox_side * aspect_ratio)
+        elif w < min_bbox_side:
+            w = min_bbox_side
+            h = int(min_bbox_side / aspect_ratio)
+        elif h < min_bbox_side:
+            h = min_bbox_side
+            w = int(min_bbox_side * aspect_ratio)
+
+    # The adjusted bounding box
+    adjusted_box = (new_x, new_y, w, h)
+
+    # Save temporarily image
     path = os.path.join(data_folder_path, 'temp.jpg')
     new_image.save(path)
 
