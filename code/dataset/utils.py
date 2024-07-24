@@ -797,7 +797,7 @@ def generate_new_image(data, n):
             image_clean = remove_object(image_picture, image_mask.convert('L'))
 
             # ADD BACKGROUND
-            image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
+            image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_grey_area(image_clean, image_mask, target_bbox)
             
             sets.append((image_clean_with_background, new_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
         except:
