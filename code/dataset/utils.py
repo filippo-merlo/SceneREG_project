@@ -670,7 +670,7 @@ def add_grey_area(image, image_mask, target_box, grey_color=(128, 128, 128)):
 
     # Step 3: Draw a grey area in the specified region
     draw = ImageDraw.Draw(new_image)
-    draw.rectangle([new_x, new_y, new_x + w, new_y + h], fill=grey_color)
+    draw.rectangle([new_x+3, new_y+3, new_x + w-3, new_y + h-3], fill=grey_color)
 
     # Save temporarily image:
     path = os.path.join(data_folder_path, 'temp.jpg')
@@ -771,7 +771,7 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
             num_inference_steps=50,
             guidance_scale=8,
             strength=0.8,
-            padding_mask_crop = 20,
+            padding_mask_crop = 256,
             num_images_per_prompt = 6
         ).images
 
