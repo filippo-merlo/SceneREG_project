@@ -828,6 +828,38 @@ def generate_silhouette_mask(pipe, image, target_box, new_object):
     generated_silohuette_mask = generated_image[0]
     return generated_silohuette_mask
 
+def generate_sd3_from_silhouette(pipe, image, silohuette_mask, new_object, scene_category, prompt_obj_descr):
+    size, _ = image.size
+    image = preprocess_image(image)
+    mask = preprocess_mask(silohuette_mask)
+
+    if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
+        art = 'An'
+    else:
+        art = 'A'
+
+    prompt = f"{art} {new_object}, realistic."
+    prompt_2 = f"{art} {new_object}, realistic."
+    prompt_3 = f"{art} {new_object}, realistic."
+    
+    with torch.no_grad():
+        generated_image = pipe(
+            prompt=prompt,
+            prompt_2=prompt_2,
+            prompt_3=prompt_3,
+            image=image,
+            mask_image=mask,
+            height=size,
+            width=size,
+            num_inference_steps=50,
+            guidance_scale=10,
+            strength=1,
+            padding_mask_crop = 256,
+            num_images_per_prompt = 6
+        ).images
+
+    return generated_image
+
 def generate_new_image(data, n):
     gen_images = n
     sets = []
@@ -863,8 +895,10 @@ def generate_new_image(data, n):
     for i, set in enumerate(sets):
         try:
             upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background = sets[i]
+            image_silohuette_mask = generate_silhouette_mask(pipe, image_mask_with_background, new_bbox, images_names[0])
+            generated_image = generate_sd3_from_silhouette(pipe, image, image_silohuette_mask, images_names[0], scene_category, prompt_obj_descr)
             # Inpainting the target
-            generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
+            #generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
             # save the image
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
@@ -873,8 +907,11 @@ def generate_new_image(data, n):
             save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
             upscaled_image.save(save_path_original_clean)
 
-            save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
-            square_mask_image.save(save_path_square_mask)
+            #save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
+            #square_mask_image.save(save_path_square_mask)
+
+            save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_image_silohuette_mask.jpg')
+            image_silohuette_mask.save(save_path_target_mask)
 
             for i, image in enumerate(generated_image):
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
