@@ -784,7 +784,7 @@ def generate_silhouette_mask(pipe, image, target_box, new_object):
 
     # Step 3: Create the mask with the size of the new square image
     mask = np.zeros((size, size), dtype=np.float32)
-    image = mask
+    image_black_png = mask.astype(np.uint8)
 
     # Adjusting the region to fit within the image size limits
     x_end = min(x + w, size)
@@ -797,7 +797,7 @@ def generate_silhouette_mask(pipe, image, target_box, new_object):
     # Convert to a PIL image
     mask_image = Image.fromarray(mask_png_format)
 
-    image = preprocess_image(image)
+    image = preprocess_image(image_black_png)
     mask = preprocess_mask(mask_image)
 
     if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
