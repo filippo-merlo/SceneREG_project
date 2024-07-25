@@ -828,9 +828,9 @@ def generate_silhouette_mask(pipe, image, target_box, new_object):
     else:
         art = 'a'
 
-    prompt = f"White silhouette of {art} {new_object} on a black background."
-    prompt_2 = f"White silhouette of {art} {new_object} on a black background."
-    prompt_3 = f"White silhouette of {art} {new_object} on a black background."
+    prompt = f"White silhouette of {art} {new_object} on a black background. No black spaces in the silhouette."
+    prompt_2 = f"White silhouette of {art} {new_object} on a black background. No black spaces in the silhouette."
+    prompt_3 = f"White silhouette of {art} {new_object} on a black background. No black spaces in the silhouette."
     
     with torch.no_grad():
         generated_image = pipe(
