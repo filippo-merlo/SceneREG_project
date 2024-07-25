@@ -882,8 +882,7 @@ def generate_new_image(data, n):
         except Exception as e:
             print(e)
 
-
-        
+      
 def try_things(data):
 
     # Get the masked image with target and scene category
