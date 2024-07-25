@@ -921,7 +921,7 @@ def generate_new_image(data, n):
         try:
             upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background = sets[i]
             image_silohuette_mask = generate_silhouette_mask(pipe, image_mask_with_background, new_bbox, images_names[0])
-            generated_image = generate_sd3_from_silhouette(pipe, image, image_silohuette_mask, images_names[0], scene_category, prompt_obj_descr)
+            generated_image = generate_sd3_from_silhouette(pipe, upscaled_image, image_silohuette_mask, images_names[0], scene_category, prompt_obj_descr)
             # Inpainting the target
             #generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
             # save the image
