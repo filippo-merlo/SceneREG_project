@@ -755,8 +755,8 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
     else:
         art = 'A'
 
-    prompt = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality, correct perspective."
-    prompt_2 = f"{art} {new_object}, realistic, in the center of the image, accurate, high quality, correct perspective."
+    prompt = f"{art} {new_object}, realistic, center of the image, accurate, high quality, correct perspective."
+    prompt_2 = f"{art} {new_object}, realistic, center of the image, accurate, high quality, correct perspective."
     prompt_3 = f"{art} {new_object}. {prompt_obj_descr}"
     
     with torch.no_grad():
@@ -776,6 +776,57 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
         ).images
 
     return generated_image, mask_image
+
+def generate_silhouette_mask(pipe, image, target_box, new_object):
+    size, _ = image.size
+    print('SIZE:', size)
+    x, y, w, h = target_box  # Coordinates and dimensions of the white box
+
+    # Step 3: Create the mask with the size of the new square image
+    mask = np.zeros((size, size), dtype=np.float32)
+    image = mask
+
+    # Adjusting the region to fit within the image size limits
+    x_end = min(x + w, size)
+    y_end = min(y + h, size)
+    mask[int(y):int(y_end), int(x):int(x_end)] = 1
+
+    # Convert the mask to a black and white .png format (in memory, not saving to disk)
+    mask_png_format = (mask * 255).astype(np.uint8)
+
+    # Convert to a PIL image
+    mask_image = Image.fromarray(mask_png_format)
+
+    image = preprocess_image(image)
+    mask = preprocess_mask(mask_image)
+
+    if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
+        art = 'an'
+    else:
+        art = 'a'
+
+    prompt = f"White silhouette of {art} {new_object} on a black background."
+    prompt_2 = f"White silhouette of {art} {new_object} on a black background."
+    prompt_3 = f"White silhouette of {art} {new_object} on a black background."
+    
+    with torch.no_grad():
+        generated_image = pipe(
+            prompt=prompt,
+            prompt_2=prompt_2,
+            prompt_3=prompt_3,
+            image=image,
+            mask_image=mask,
+            height=size,
+            width=size,
+            num_inference_steps=10,
+            guidance_scale=10,
+            strength=1,
+            padding_mask_crop = 0,
+            num_images_per_prompt = 1
+        ).images
+
+    generated_silohuette_mask = generated_image[0]
+    return generated_silohuette_mask
 
 def generate_new_image(data, n):
     gen_images = n
@@ -833,3 +884,31 @@ def generate_new_image(data, n):
 
 
         
+def try_things(data):
+
+    # Get the masked image with target and scene category
+    target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
+    # SELECT OBJECT TO REPLACE
+    objects_for_replacement_list = find_object_for_replacement(target, scene_category)
+    images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
+    print(images_names)
+    # remove the object before background
+    image_clean = remove_object(image_picture, image_mask.convert('L'))
+
+    # ADD BACKGROUND
+    image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
+
+    pipe = init_sd3_model()
+
+    # Inpainting the target
+    image_silohuette_mask = generate_silhouette_mask(pipe, image_mask_with_background, new_bbox, images_names[0])
+    # save the image
+    
+    save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_image_silohuette_mask.jpg')
+    image_silohuette_mask.save(save_path_target_mask)
+
+    save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
+    image_mask_with_background.save(save_path_square_mask)
+
+
+    
