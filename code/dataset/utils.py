@@ -777,6 +777,29 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 
     return generated_image, mask_image
 
+def threshold_image(image, threshold=1):
+    # Ensure the image is in RGB mode
+    image = image.convert("RGB")
+    
+    # Convert the image to grayscale
+    grayscale_image = image.convert("L")
+    
+    # Apply the threshold to create a binary mask
+    binary_mask = grayscale_image.point(lambda p: 255 if p > threshold else 0)
+    
+    # Create a new image for the result
+    result_image = Image.new("RGB", image.size)
+    
+    # Iterate through pixels and apply the thresholding logic
+    for x in range(image.width):
+        for y in range(image.height):
+            if binary_mask.getpixel((x, y)) == 255:
+                result_image.putpixel((x, y), (255, 255, 255))  # White
+            else:
+                result_image.putpixel((x, y), (0, 0, 0))  # Black
+    
+    return result_image
+
 def generate_silhouette_mask(pipe, image, target_box, new_object):
     size, _ = image.size
     print('SIZE:', size)
@@ -826,7 +849,9 @@ def generate_silhouette_mask(pipe, image, target_box, new_object):
         ).images
 
     generated_silohuette_mask = generated_image[0]
-    return generated_silohuette_mask
+    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=30)
+    
+    return silohuette_mask
 
 def generate_sd3_from_silhouette(pipe, image, silohuette_mask, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
