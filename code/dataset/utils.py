@@ -725,6 +725,26 @@ def preprocess_mask(mask):
     mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
     return mask
 
+def adjust_rectangle(bbox, min_ratio, max_ratio):
+    # Calculate current aspect ratio
+    x, y, w, h = bbox
+    current_ratio = w / h
+    
+    # Adjust dimensions to fit within the desired aspect ratio range
+    if current_ratio < min_ratio:
+        # Adjust width to meet min_ratio
+        new_w = min_ratio * h
+        new_h = h
+    elif current_ratio > max_ratio:
+        # Adjust height to meet max_ratio
+        new_w = w
+        new_h = w / max_ratio
+    else:
+        # No adjustment needed
+        return (x, y, w, h)
+    return (x, y, new_w, new_h)
+    
+    
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
     print('SIZE:', size)
@@ -803,6 +823,7 @@ def threshold_image(image, threshold=1):
 def generate_silhouette_mask(pipe, image, target_box, new_object):
     size, _ = image.size
     print('SIZE:', size)
+    target_box = adjust_rectangle(target_box, 0.5, 2)
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
 
     # Step 3: Create the mask with the size of the new square image
