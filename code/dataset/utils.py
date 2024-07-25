@@ -898,9 +898,9 @@ def generate_sd3_from_silhouette(pipe, image, silohuette_mask, new_object, scene
             height=size,
             width=size,
             num_inference_steps=50,
-            guidance_scale=10,
-            strength=1,
-            padding_mask_crop = 256,
+            guidance_scale=7,
+            strength=0.8,
+            padding_mask_crop = 20,
             num_images_per_prompt = 6
         ).images
 
