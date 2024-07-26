@@ -730,7 +730,7 @@ def get_image_square_patch(image, target_bbox, padding):
     new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
 
     # Ensure the bounding box dimensions are at least min_size
-    side_length = max(new_w+padding, new_h+padding)
+    side_length = max(new_w, new_h)
 
     # Adjust the top-left corner of the bounding box to fit within the image
     square_x = max(0, new_x + new_w // 2 - side_length // 2)
@@ -752,12 +752,6 @@ def get_image_square_patch(image, target_bbox, padding):
     
     # Ensure patch coordinates are valid
     patch = (max(0, patch[0]), max(0, patch[1]), min(width, patch[2]), min(height, patch[3]))
-    
-    # Debugging: print patch coordinates
-    print(f"Patch coordinates: {patch}")
-    
-    if patch[2] <= patch[0] or patch[3] <= patch[1]:
-        raise ValueError(f"Invalid patch coordinates: {patch}")
 
     # Crop the image
     cropped_image = image.crop(patch)
@@ -771,13 +765,6 @@ def get_image_square_patch(image, target_bbox, padding):
         min(side_length, new_x - square_x + new_w),
         min(side_length, new_y - square_y + new_h)
     )
-    
-    # Debugging: print bbox_in_mask coordinates
-    print(f"Bbox in mask coordinates: {bbox_in_mask}")
-    
-    if bbox_in_mask[2] <= bbox_in_mask[0] or bbox_in_mask[3] <= bbox_in_mask[1]:
-        raise ValueError(f"Invalid bbox_in_mask coordinates: {bbox_in_mask}")
-
     draw.rectangle(bbox_in_mask, outline=255, fill=255)
     return cropped_image, mask
     
