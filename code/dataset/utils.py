@@ -730,8 +730,7 @@ def get_image_square_patch(image, target_bbox, padding):
     new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
 
     # Ensure the bounding box dimensions are at least min_size
-    min_size = padding
-    side_length = max(min_size, new_w, new_h)
+    side_length = max(new_w+padding, new_h+padding)
 
     # Adjust the top-left corner of the bounding box to fit within the image
     square_x = max(0, new_x + new_w // 2 - side_length // 2)
