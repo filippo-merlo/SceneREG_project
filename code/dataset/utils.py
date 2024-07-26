@@ -957,9 +957,9 @@ def generate_new_images(data, n):
             image_patch, image_patch_mask, patch_coord = get_image_square_patch(image_clean, target_bbox, 20)
             print(image_patch.size)
             # save
-            save_path = os.path.join(data_folder_path+'/generated_images',f'{scene_category}_{target}_image_patch_{i}.jpg')
+            save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category}_{target}_image_patch_{i}.jpg')
             image_patch.save(save_path)
-            save_path_mask = os.path.join(data_folder_path+'/generated_images',f'{scene_category}_{target}_image_patch_mask_{i}.jpg')
+            save_path_mask = os.path.join(data_folder_path+'generated_images',f'{scene_category}_{target}_image_patch_mask_{i}.jpg')
             image_patch_mask.save(save_path_mask)
 
 
