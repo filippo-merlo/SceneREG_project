@@ -726,11 +726,13 @@ def adjust_ratio(image, bbox, min_ratio, max_ratio):
     return (int(new_x), int(new_y), int(new_w), int(new_h))
 
 def get_image_square_patch(image, target_bbox, padding):
+    # Assuming `image`, `target_bbox`, and `adjust_ratio` are defined elsewhere in your code
     width, height = image.size
     new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
+    padding = 0  # Define padding if it's not defined elsewhere
 
     # Ensure the bounding box dimensions are at least min_size
-    side_length = max(new_w+padding*2, new_h+padding*2)
+    side_length = max(new_w + padding * 2, new_h + padding * 2)
 
     # Adjust the top-left corner of the bounding box to fit within the image
     square_x = max(0, new_x + new_w // 2 - side_length // 2)
@@ -747,9 +749,20 @@ def get_image_square_patch(image, target_bbox, padding):
     # If the side length is larger than the image dimensions, adjust it
     side_length = min(side_length, width, height)
 
+    # Adjust side_length to be the nearest multiple of 64
+    side_length =  (side_length + 64 - 1) // 64 * 64
+    
+    # Ensure the square does not go out of the right edge after adjustment
+    if square_x + side_length > width:
+        square_x = width - side_length
+
+    # Ensure the square does not go out of the bottom edge after adjustment
+    if square_y + side_length > height:
+        square_y = height - side_length
+
     # Define the patch
     patch = (square_x, square_y, square_x + side_length, square_y + side_length)
-    
+
     # Ensure patch coordinates are valid
     patch = (max(0, patch[0]), max(0, patch[1]), min(width, patch[2]), min(height, patch[3]))
 
@@ -766,7 +779,7 @@ def get_image_square_patch(image, target_bbox, padding):
         min(side_length, new_y - square_y + new_h)
     )
     draw.rectangle(bbox_in_mask, outline=255, fill=255)
-    return cropped_image, mask
+    return cropped_image, mask, patch
     
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
@@ -941,7 +954,7 @@ def generate_new_images(data, n):
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask = get_image_square_patch(image_clean, target_bbox, 20)
+            image_patch, image_patch_mask, patch_coord = get_image_square_patch(image_clean, target_bbox, 20)
             print(image_patch.size)
             # save
             save_path = os.path.join(data_folder_path+'/generated_images',f'{scene_category}_{target}_image_patch_{i}.jpg')
