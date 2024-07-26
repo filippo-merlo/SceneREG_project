@@ -941,6 +941,8 @@ def generate_new_images(data, n):
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
             image_patch, image_patch_mask = get_image_square_patch(image_clean, target_bbox)
+            print(image_patch.size)
+            print(image_patch_mask.size)
             # save
             save_path = os.path.join(data_folder_path+'/generated_images','image_patch.jpg')
             image_patch.save(save_path)
