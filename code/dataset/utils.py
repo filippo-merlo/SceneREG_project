@@ -749,8 +749,10 @@ def get_image_square_patch(image, target_bbox, padding):
     # If the side length is larger than the image dimensions, adjust it
     side_length = min(side_length, width, height)
 
-    # Adjust side_length to be the nearest multiple of 128
-    side_length =  (side_length + 256 - 1) // 256 * 256
+    # Adjust side_length to be the nearest multiple of 64
+    numbers = [128, 256, 512]
+    side_length = min(numbers, key=lambda x: abs(x - side_length))
+    #side_length =  (side_length + 64 - 1) // 64 * 64
 
     # Ensure the square does not go out of the right edge after adjustment
     if square_x + side_length > width:
@@ -957,9 +959,9 @@ def generate_new_images(data, n):
             image_patch, image_patch_mask, patch_coord = get_image_square_patch(image_clean, target_bbox, 20)
             print(image_patch.size)
             # save
-            save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category}_{target}_image_patch_{i}.jpg')
+            save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_{i}.jpg')
             image_patch.save(save_path)
-            save_path_mask = os.path.join(data_folder_path+'generated_images',f'{scene_category}_{target}_image_patch_mask_{i}.jpg')
+            save_path_mask = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_mask_{i}.jpg')
             image_patch_mask.save(save_path_mask)
 
 
