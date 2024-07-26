@@ -730,7 +730,7 @@ def get_image_square_patch(image, target_bbox, padding):
     new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
 
     # Ensure the bounding box dimensions are at least min_size
-    side_length = max(new_w, new_h)
+    side_length = max(new_w+padding*2, new_h+padding*2)
 
     # Adjust the top-left corner of the bounding box to fit within the image
     square_x = max(0, new_x + new_w // 2 - side_length // 2)
@@ -757,7 +757,7 @@ def get_image_square_patch(image, target_bbox, padding):
     cropped_image = image.crop(patch)
 
     # Create the mask
-    mask = Image.new('L', (side_length, side_length), 0)
+    mask = Image.new('L', (int(side_length), int(side_length)), 0)
     draw = ImageDraw.Draw(mask)
     bbox_in_mask = (
         max(0, new_x - square_x),
