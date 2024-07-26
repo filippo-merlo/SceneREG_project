@@ -878,8 +878,8 @@ def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, promp
             height=size,
             width=size,
             num_inference_steps=50,
-            guidance_scale=4,
-            strength=0.6,
+            guidance_scale=7,
+            strength=0.75,
             padding_mask_crop = 0,
             num_images_per_prompt = 1
         ).images
