@@ -879,8 +879,8 @@ def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, promp
             width=size,
             num_inference_steps=30,
             guidance_scale=0.4,
-            strength=0.7,
-            #padding_mask_crop = 256,
+            strength=0.8,
+            padding_mask_crop = 10,
             num_images_per_prompt = 1
         ).images
 
@@ -1033,20 +1033,24 @@ def generate_new_images(data, n):
     torch.cuda.empty_cache()
 
     pipe = init_sd3_model()
-
+    
     for i, set in enumerate(sets):
-        image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr = set
-        
-        # Inpainting the target
-        generated_image = generate_sd3_from_patch(pipe, image_patch, image_patch_mask, images_names[0], scene_category, prompt_obj_descr)
-        # save the image
-        
-        save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
-        image_patch_mask.save(save_path_target_mask)
+        try:
+            image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr = set
+            
+            # Inpainting the target
+            generated_image = generate_sd3_from_patch(pipe, image_patch, image_patch_mask, images_names[0], scene_category, prompt_obj_descr)
+            # save the image
+            
+            save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
+            image_patch_mask.save(save_path_target_mask)
 
-        for i, image in enumerate(generated_image):
-            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
-            image.save(save_path)
+            for i, image in enumerate(generated_image):
+                save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
+                image.save(save_path)
+        except Exception as e:
+            print(e)
+
 
 
 
