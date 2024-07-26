@@ -750,7 +750,7 @@ def get_image_square_patch(image, target_bbox, padding):
     side_length = min(side_length, width, height)
 
     # Adjust side_length to be the nearest multiple of 64
-    numbers = [128, 256, 512]
+    numbers = [64, 128, 256, 512]
     side_length = min(numbers, key=lambda x: abs(x - side_length))
     #side_length =  (side_length + 64 - 1) // 64 * 64
 
