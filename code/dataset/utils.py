@@ -933,7 +933,7 @@ def generate_sd3_from_silhouette(pipe, image, silohuette_mask, new_object, scene
 def generate_new_images(data, n):
     gen_images = n
     sets = []
-    cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
+    #cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
     for i in range(gen_images):
         #try:
             # Get the masked image with target and scene category
