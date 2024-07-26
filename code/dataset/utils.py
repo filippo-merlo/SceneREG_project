@@ -750,7 +750,7 @@ def get_image_square_patch(image, target_bbox, padding):
     side_length = min(side_length, width, height)
 
     # Adjust side_length to be the nearest multiple of 128
-    side_length =  (side_length + 128 - 1) // 128 * 128
+    side_length =  (side_length + 256 - 1) // 256 * 256
 
     # Ensure the square does not go out of the right edge after adjustment
     if square_x + side_length > width:
