@@ -935,7 +935,7 @@ def generate_new_images(data, n):
     sets = []
     cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
     for i in range(gen_images):
-        try:
+        #try:
             # Get the masked image with target and scene category
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
@@ -955,8 +955,8 @@ def generate_new_images(data, n):
             #image_x8 = api_upscale_image_gradio(image_x4, scale_factor=2)
             #bbox_x8 = (target_bbox[0]*8, target_bbox[1]*8, target_bbox[2]*8, target_bbox[3]*8)
         
-        except Exception as e:
-            print(e)
+        #except Exception as e:
+        #    print(e)
 
 
 
