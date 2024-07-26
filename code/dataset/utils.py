@@ -730,7 +730,7 @@ def get_image_square_patch(image, target_bbox, padding):
     new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
 
     # Ensure the bounding box dimensions are at least min_size
-    min_size=padding
+    min_size = padding
     side_length = max(min_size, new_w, new_h)
 
     # Adjust the top-left corner of the bounding box to fit within the image
@@ -749,7 +749,16 @@ def get_image_square_patch(image, target_bbox, padding):
     side_length = min(side_length, width, height)
 
     # Define the patch
-    patch = (square_x, square_y, side_length, side_length)
+    patch = (square_x, square_y, square_x + side_length, square_y + side_length)
+    
+    # Ensure patch coordinates are valid
+    patch = (max(0, patch[0]), max(0, patch[1]), min(width, patch[2]), min(height, patch[3]))
+    
+    # Debugging: print patch coordinates
+    print(f"Patch coordinates: {patch}")
+    
+    if patch[2] <= patch[0] or patch[3] <= patch[1]:
+        raise ValueError(f"Invalid patch coordinates: {patch}")
 
     # Crop the image
     cropped_image = image.crop(patch)
@@ -758,13 +767,19 @@ def get_image_square_patch(image, target_bbox, padding):
     mask = Image.new('L', (side_length, side_length), 0)
     draw = ImageDraw.Draw(mask)
     bbox_in_mask = (
-        new_x - square_x,
-        new_y - square_y,
-        new_x - square_x + new_w,
-        new_y - square_y + new_h
+        max(0, new_x - square_x),
+        max(0, new_y - square_y),
+        min(side_length, new_x - square_x + new_w),
+        min(side_length, new_y - square_y + new_h)
     )
-    draw.rectangle(bbox_in_mask, outline=255, fill=255)
+    
+    # Debugging: print bbox_in_mask coordinates
+    print(f"Bbox in mask coordinates: {bbox_in_mask}")
+    
+    if bbox_in_mask[2] <= bbox_in_mask[0] or bbox_in_mask[3] <= bbox_in_mask[1]:
+        raise ValueError(f"Invalid bbox_in_mask coordinates: {bbox_in_mask}")
 
+    draw.rectangle(bbox_in_mask, outline=255, fill=255)
     return cropped_image, mask
     
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
