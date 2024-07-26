@@ -781,7 +781,6 @@ def get_image_square_patch_rescaled(image, target_bbox, padding):
     elif n_upscale == 2:
         image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
 
-
     # Create the mask
     mask = Image.new('L', 1024, 1024, 0)
     draw = ImageDraw.Draw(mask)
@@ -969,19 +968,6 @@ def generate_new_images(data, n):
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
             image_patch, image_patch_mask, patch_coord = get_image_square_patch_rescaled(image_clean, target_bbox, 40)
-            # upscale patch
-            patch_size, _ = image_patch.size
-            n_upscale = 1024/patch_size
-            if n_upscale == 8:
-                image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
-                image_patch = api_upscale_image_gradio(image_patch, scale_factor=4)
-            elif n_upscale == 4:
-                image_patch = api_upscale_image_gradio(image_patch, scale_factor=4)
-            elif n_upscale == 2:
-                image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
-            # upscale mask
-            new_size = (int(patch_size * n_upscale), int(patch_size * n_upscale))
-            image_patch_mask = image_patch_mask.resize(new_size, Image.Resampling.LANCZOS)
 
             # save
             save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_{i}.jpg')
