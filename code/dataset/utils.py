@@ -768,10 +768,10 @@ def get_image_square_patch_rescaled(image, target_bbox, padding):
     patch_coords = (max(0, patch_coords[0]), max(0, patch_coords[1]), min(width, patch_coords[2]), min(height, patch_coords[3]))
 
     # Crop the image
-    cropped_image = image.crop(patch_coords)
+    image_patch = image.crop(patch_coords)
 
     # upscale patch
-    patch_size, _ = cropped_image.size
+    patch_size, _ = image_patch.size
     n_upscale = 1024/patch_size
     if n_upscale == 8:
         image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
