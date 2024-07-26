@@ -846,6 +846,45 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 
     return generated_image, mask_image
 
+def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, prompt_obj_descr):
+    size, _ = image.size
+
+    image = image.convert("RGB")
+    #mask_png_format = (mask * 255).astype(np.uint8)
+
+    # Convert to a PIL image
+    #mask_image = Image.fromarray(mask_png_format)
+    #mask = mask_image.convert("L")
+
+    image = preprocess_image(image)
+    mask = preprocess_mask(mask)
+
+    if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
+        art = 'An'
+    else:
+        art = 'A'
+
+    prompt = f"{art} {new_object}, realistic, center of the image, accurate, high quality, correct perspective."
+    prompt_2 = f"{art} {new_object}, realistic, center of the image, accurate, high quality, correct perspective."
+    prompt_3 = f"{art} {new_object}. {prompt_obj_descr}"
+    
+    with torch.no_grad():
+        generated_image = pipe(
+            prompt=prompt,
+            prompt_2=prompt_2,
+            prompt_3=prompt_3,
+            image=image,
+            mask_image=mask,
+            height=size,
+            width=size,
+            num_inference_steps=50,
+            guidance_scale=10,
+            strength=1,
+            padding_mask_crop = 256,
+            num_images_per_prompt = 1
+        ).images
+
+    return generated_image
 def threshold_image(image, threshold=1):
     # Ensure the image is in RGB mode
     image = image.convert("RGB")
@@ -960,30 +999,57 @@ def generate_sd3_from_silhouette(pipe, image, silohuette_mask, new_object, scene
 def generate_new_images(data, n):
     gen_images = n
     sets = []
-    #cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
+    cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
     for i in range(gen_images):
-        #try:
+        try:
             # Get the masked image with target and scene category
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
             image_patch, image_patch_mask, patch_coord = get_image_square_patch_rescaled(image_clean, target_bbox, 60)
 
+            # SELECT OBJECT TO REPLACE
+            objects_for_replacement_list = find_object_for_replacement(target, scene_category)
+            images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
+            print(images_names)
+
+            # Generate promt
+            prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category)
+            print(prompt_obj_descr)
+
             # save
-            save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_{i}.jpg')
-            image_patch.save(save_path)
-            save_path_mask = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_mask_{i}.jpg')
-            image_patch_mask.save(save_path_mask)
+            #save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_{i}.jpg')
+            #image_patch.save(save_path)
+            #save_path_mask = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_mask_{i}.jpg')
+            #image_patch_mask.save(save_path_mask)
 
+            sets.append((image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr))
+        except Exception as e:
+            print(e)
 
-            # upscale the image
-            #image_x4 = api_upscale_image_gradio(image_clean, scale_factor=4)
-            #image_x8 = api_upscale_image_gradio(image_x4, scale_factor=2)
-            #bbox_x8 = (target_bbox[0]*8, target_bbox[1]*8, target_bbox[2]*8, target_bbox[3]*8)
-        
-        #except Exception as e:
-        #    print(e)
+    import gc
+    del cogvlm2_tokenizer, cogvlm2_model
+    gc.collect()
+    torch.cuda.empty_cache()
 
+    pipe = init_sd3_model()
+
+    for i, set in enumerate(sets):
+        try:
+            image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr = set[i]
+           
+            # Inpainting the target
+            generated_image, square_mask_image = generate_sd3_from_patch(pipe, image_patch_mask, images_names[0], scene_category, prompt_obj_descr)
+            # save the image
+            
+            save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
+            image_patch_mask.save(save_path_target_mask)
+
+            for i, image in enumerate(generated_image):
+                save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
+                image.save(save_path)
+        except Exception as e:
+            print(e)
 
 
 """
