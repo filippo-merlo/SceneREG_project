@@ -955,7 +955,7 @@ def generate_new_images(data, n):
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask, patch_coord = get_image_square_patch(image_clean, target_bbox, 20)
+            image_patch, image_patch_mask, patch_coord = get_image_square_patch(image_clean, target_bbox, 64)
             print(image_patch.size)
             # save
             save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_{i}.jpg')
