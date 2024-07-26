@@ -597,29 +597,22 @@ def get_scene_predictions(self):
 
 ### GEenerate image function
 from torchvision import transforms
-import io
-import base64
-
-def encode_image_for_api(image):
-    buffer = io.BytesIO()
-    image.save(buffer, format='PNG')
-    byte_data = buffer.getvalue()
-    # Encode the byte stream to a Base64 string
-    encoded_image = base64.b64encode(byte_data).decode('utf-8')
-    return encoded_image
-
 from gradio_client import Client
 
-def api_upscale_image_gradio(path_to_image, scale_up_factor=2):
+def api_upscale_image_gradio(image, scale_factor=4):
+    # save temporarely image:
+    path = os.path.join(data_folder_path, 'temp.jpg')
+    image.save(path)
+    # upscale image
     client = Client("https://bookbot-image-upscaling-playground.hf.space/")
+    
     result = client.predict(
-            path_to_image,	
-            f"modelx{scale_up_factor}",	# str in 'Choose Upscaler' Radio component
+            path,	
+            f"modelx{scale_factor}",	# str in 'Choose Upscaler' Radio component
             api_name="/predict"
     )
     new_image = Image.open(result)
     return new_image
-
 
 def add_black_background(image, image_mask, target_box):
     x, y, w, h = target_box  # Coordinates and dimensions of the white box
@@ -646,40 +639,9 @@ def add_black_background(image, image_mask, target_box):
     new_image.save(path)
 
     return new_image, new_image_mask, adjusted_box, path
-"""
-def add_grey_area(image, image_mask, target_box, grey_color=(128, 128, 128)):
-    x, y, w, h = target_box  # Coordinates and dimensions of the bounding box
-    max_w, max_h = image.size
 
-    # Step 1: Add a black background to make the image square
-    new_size = max(max_w, max_h)
-    new_image = Image.new("RGB", (new_size, new_size), (0, 0, 0))
-    new_image_mask = Image.new("RGB", (new_size, new_size), (0, 0, 0))
-    offset_x = (new_size - max_w) // 2
-    offset_y = (new_size - max_h) // 2
-    new_image.paste(image, (offset_x, offset_y))
-    new_image_mask.paste(image_mask, (offset_x, offset_y))
-
-    # Step 2: Adjust the coordinates of the bounding box
-    new_x = x + offset_x
-    new_y = y + offset_y
-
-    # The adjusted bounding box
-    adjusted_box = (new_x, new_y, w, h)
-
-    # Step 3: Draw a grey area in the specified region
-    draw = ImageDraw.Draw(new_image)
-    draw.rectangle([new_x+3, new_y+3, new_x + w-3, new_y + h-3], fill=grey_color)
-
-    # Save temporarily image:
-    path = os.path.join(data_folder_path, 'temp.jpg')
-    new_image.save(path)
-
-    return new_image, new_image_mask, adjusted_box, path
-"""
-
-def remove_object(image, masked_image):
-    return simple_lama(image, masked_image)
+def remove_object(image, object_mask):
+    return simple_lama(image, object_mask.convert('L'))
 
 def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
         # Text-only template
@@ -725,7 +687,10 @@ def preprocess_mask(mask):
     mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
     return mask
 
-def adjust_rectangle(bbox, min_ratio, max_ratio):
+def adjust_ratio(image, bbox, min_ratio, max_ratio):
+    # Image size
+    width, height = image.size
+    
     # Calculate current aspect ratio
     x, y, w, h = bbox
     current_ratio = w / h
@@ -742,8 +707,65 @@ def adjust_rectangle(bbox, min_ratio, max_ratio):
     else:
         # No adjustment needed
         return (x, y, w, h)
-    return (x, y, new_w, new_h)
     
+    # Center the new bounding box
+    new_x = x + (w - new_w) / 2
+    new_y = y + (h - new_h) / 2
+    
+    # Ensure the bounding box stays within the image boundaries
+    if new_x < 0:
+        new_x = 0
+    elif new_x + new_w > width:
+        new_x = width - new_w
+    
+    if new_y < 0:
+        new_y = 0
+    elif new_y + new_h > height:
+        new_y = height - new_h
+    
+    return (new_x, new_y, new_w, new_h)
+
+def get_image_square_patch(image, target_bbox, padding):
+    width, height = image.size
+    new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
+
+    # Ensure the bounding box dimensions are at least min_size
+    min_size=padding
+    side_length = max(min_size, new_w, new_h)
+
+    # Adjust the top-left corner of the bounding box to fit within the image
+    square_x = max(0, new_x + new_w // 2 - side_length // 2)
+    square_y = max(0, new_y + new_h // 2 - side_length // 2)
+
+    # Ensure the square does not go out of the right edge
+    if square_x + side_length > width:
+        square_x = width - side_length
+
+    # Ensure the square does not go out of the bottom edge
+    if square_y + side_length > height:
+        square_y = height - side_length
+
+    # If the side length is larger than the image dimensions, adjust it
+    side_length = min(side_length, width, height)
+
+    # Define the patch
+    patch = (square_x, square_y, side_length, side_length)
+
+    # Crop the image
+    cropped_image = image.crop(patch)
+
+    # Create the mask
+    mask = Image.new('L', (side_length, side_length), 0)
+    draw = ImageDraw.Draw(mask)
+    bbox_in_mask = (
+        new_x - square_x,
+        new_y - square_y,
+        new_x - square_x + new_w,
+        new_y - square_y + new_h
+    )
+    draw.rectangle(bbox_in_mask, outline=255, fill=255)
+
+    return cropped_image, mask
     
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
@@ -906,14 +928,37 @@ def generate_sd3_from_silhouette(pipe, image, silohuette_mask, new_object, scene
 
     return generated_image
 
-def generate_new_image(data, n):
+
+
+def generate_new_images(data, n):
     gen_images = n
     sets = []
     cogvlm2_tokenizer, cogvlm2_model = init_covlm2()
     for i in range(gen_images):
         try:
             # Get the masked image with target and scene category
-            target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, image_mask = get_coco_image_data(data)
+            target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
+            # remove the object before background
+            image_clean = remove_object(image_picture, object_mask)
+            image_patch, image_patch_mask = get_image_square_patch(image_clean, target_bbox)
+            # save
+            save_path = os.path.join(data_folder_path+'/generated_images','image_patch.jpg')
+            image_patch.save(save_path)
+            save_path_mask = os.path.join(data_folder_path+'/generated_images','image_patch_mask.jpg')
+            image_patch_mask.save(save_path_mask)
+
+
+            # upscale the image
+            #image_x4 = api_upscale_image_gradio(image_clean, scale_factor=4)
+            #image_x8 = api_upscale_image_gradio(image_x4, scale_factor=2)
+            #bbox_x8 = (target_bbox[0]*8, target_bbox[1]*8, target_bbox[2]*8, target_bbox[3]*8)
+        
+        except Exception as e:
+            print(e)
+
+
+
+"""
             # SELECT OBJECT TO REPLACE
             objects_for_replacement_list = find_object_for_replacement(target, scene_category)
             images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
@@ -921,11 +966,10 @@ def generate_new_image(data, n):
 
             prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category)
             print(prompt_obj_descr)
-            # remove the object before background
-            image_clean = remove_object(image_picture, image_mask.convert('L'))
+            
 
             # ADD BACKGROUND
-            image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, image_mask, target_bbox)
+            #image_clean_with_background, image_mask_with_background, new_bbox, path_to_img = add_black_background(image_clean, object_mask, target_bbox)
             
             sets.append((image_clean_with_background, new_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background))
         except Exception as e:
@@ -941,10 +985,9 @@ def generate_new_image(data, n):
     for i, set in enumerate(sets):
         try:
             upscaled_image, upscaled_bbox, target, scene_category, images_names, prompt_obj_descr, image_mask_with_background = sets[i]
-            image_silohuette_mask = generate_silhouette_mask(pipe, image_mask_with_background, new_bbox, images_names[0])
-            generated_image = generate_sd3_from_silhouette(pipe, upscaled_image, image_silohuette_mask, images_names[0], scene_category, prompt_obj_descr)
+           
             # Inpainting the target
-            #generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
+            generated_image, square_mask_image = generate_sd3(pipe, upscaled_image, upscaled_bbox, images_names[0], scene_category, prompt_obj_descr)
             # save the image
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
@@ -953,11 +996,8 @@ def generate_new_image(data, n):
             save_path_original_clean = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_clean.jpg')
             upscaled_image.save(save_path_original_clean)
 
-            #save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
-            #square_mask_image.save(save_path_square_mask)
-
-            save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_image_silohuette_mask.jpg')
-            image_silohuette_mask.save(save_path_target_mask)
+            save_path_square_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_square_mask.jpg')
+            square_mask_image.save(save_path_square_mask)
 
             for i, image in enumerate(generated_image):
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
@@ -993,4 +1033,4 @@ def try_things(data):
     image_mask_with_background.save(save_path_square_mask)
 
 
-    
+"""
