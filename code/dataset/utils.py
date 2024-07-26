@@ -723,7 +723,7 @@ def adjust_ratio(image, bbox, min_ratio, max_ratio):
     elif new_y + new_h > height:
         new_y = height - new_h
     
-    return (new_x, new_y, new_w, new_h)
+    return (int(new_x), int(new_y), int(new_w), int(new_h))
 
 def get_image_square_patch(image, target_bbox, padding):
     width, height = image.size
