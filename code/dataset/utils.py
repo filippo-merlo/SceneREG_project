@@ -725,7 +725,7 @@ def adjust_ratio(image, bbox, min_ratio, max_ratio):
     
     return (int(new_x), int(new_y), int(new_w), int(new_h))
 
-def get_image_square_patch(image, target_bbox, padding):
+def get_image_square_patch_rescaled(image, target_bbox, padding):
     # Assuming `image`, `target_bbox`, and `adjust_ratio` are defined elsewhere in your code
     width, height = image.size
     new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
@@ -762,25 +762,38 @@ def get_image_square_patch(image, target_bbox, padding):
         square_y = height - side_length
 
     # Define the patch
-    patch = (square_x, square_y, square_x + side_length, square_y + side_length)
+    patch_coords = (square_x, square_y, square_x + side_length, square_y + side_length)
 
     # Ensure patch coordinates are valid
-    patch = (max(0, patch[0]), max(0, patch[1]), min(width, patch[2]), min(height, patch[3]))
+    patch_coords = (max(0, patch_coords[0]), max(0, patch_coords[1]), min(width, patch_coords[2]), min(height, patch_coords[3]))
 
     # Crop the image
-    cropped_image = image.crop(patch)
+    cropped_image = image.crop(patch_coords)
+
+    # upscale patch
+    patch_size, _ = cropped_image.size
+    n_upscale = 1024/patch_size
+    if n_upscale == 8:
+        image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
+        image_patch = api_upscale_image_gradio(image_patch, scale_factor=4)
+    elif n_upscale == 4:
+        image_patch = api_upscale_image_gradio(image_patch, scale_factor=4)
+    elif n_upscale == 2:
+        image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
+
 
     # Create the mask
-    mask = Image.new('L', (int(side_length), int(side_length)), 0)
+    mask = Image.new('L', 1024, 1024, 0)
     draw = ImageDraw.Draw(mask)
     bbox_in_mask = (
-        max(0, new_x - square_x),
-        max(0, new_y - square_y),
-        min(side_length, new_x - square_x + new_w),
-        min(side_length, new_y - square_y + new_h)
+        max(0, new_x - square_x)*n_upscale,
+        max(0, new_y - square_y)*n_upscale,
+        min(side_length, new_x - square_x + new_w)*n_upscale,
+        min(side_length, new_y - square_y + new_h)*n_upscale
     )
     draw.rectangle(bbox_in_mask, outline=255, fill=255)
-    return cropped_image, mask, patch
+
+    return image_patch, mask, patch_coords
     
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
@@ -955,7 +968,7 @@ def generate_new_images(data, n):
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask, patch_coord = get_image_square_patch(image_clean, target_bbox, 40)
+            image_patch, image_patch_mask, patch_coord = get_image_square_patch_rescaled(image_clean, target_bbox, 40)
             # upscale patch
             patch_size, _ = image_patch.size
             n_upscale = 1024/patch_size
