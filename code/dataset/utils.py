@@ -1035,7 +1035,7 @@ def generate_new_images(data, n):
     pipe = init_sd3_model()
 
     for i, set in enumerate(sets):
-        image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr = set[i]
+        image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr = set
         
         # Inpainting the target
         generated_image, square_mask_image = generate_sd3_from_patch(pipe, image_patch_mask, images_names[0], scene_category, prompt_obj_descr)
