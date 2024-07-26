@@ -782,7 +782,7 @@ def get_image_square_patch_rescaled(image, target_bbox, padding):
         image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
 
     # Create the mask
-    mask = Image.new('L', 1024, 1024, 0)
+    mask = Image.new('L', (1024, 1024), 0)
     draw = ImageDraw.Draw(mask)
     bbox_in_mask = (
         max(0, new_x - square_x)*n_upscale,
@@ -967,7 +967,7 @@ def generate_new_images(data, n):
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask, patch_coord = get_image_square_patch_rescaled(image_clean, target_bbox, 40)
+            image_patch, image_patch_mask, patch_coord = get_image_square_patch_rescaled(image_clean, target_bbox, 60)
 
             # save
             save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_{i}.jpg')
