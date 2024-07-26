@@ -729,8 +729,7 @@ def get_image_square_patch(image, target_bbox, padding):
     # Assuming `image`, `target_bbox`, and `adjust_ratio` are defined elsewhere in your code
     width, height = image.size
     new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
-    padding = 0  # Define padding if it's not defined elsewhere
-
+    
     # Ensure the bounding box dimensions are at least min_size
     side_length = max(new_w + padding * 2, new_h + padding * 2)
 
@@ -749,7 +748,7 @@ def get_image_square_patch(image, target_bbox, padding):
     # If the side length is larger than the image dimensions, adjust it
     side_length = min(side_length, width, height)
 
-    # Adjust side_length to be the nearest multiple of 64
+    # Adjust side_length to be the nearest number divisible by 64
     numbers = [64, 128, 256, 512]
     side_length = min(numbers, key=lambda x: abs(x - side_length))
     #side_length =  (side_length + 64 - 1) // 64 * 64
