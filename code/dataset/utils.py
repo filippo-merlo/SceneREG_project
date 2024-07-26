@@ -957,7 +957,7 @@ def generate_new_images(data, n):
             image_clean = remove_object(image_picture, object_mask)
             image_patch, image_patch_mask, patch_coord = get_image_square_patch(image_clean, target_bbox, 40)
             # upscale patch
-            patch_size = image_patch.size
+            patch_size, _ = image_patch.size
             n_upscale = 1024/patch_size
             if n_upscale == 8:
                 image_patch = api_upscale_image_gradio(image_patch, scale_factor=2)
