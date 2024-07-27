@@ -945,9 +945,9 @@ def generate_silhouette_mask(pipe, mask, new_object):
     else:
         art = 'a'
 
-    prompt = f"{art} {new_object},  black background."
-    prompt_2 = f"{art} {new_object},  black background."
-    prompt_3 = f"{art} {new_object},  black background."
+    prompt = f"{art} {new_object}, realistic, high definition,  ((black background))."
+    prompt_2 = f"{art} {new_object}, realistic, high definition,  ((black background))."
+    prompt_3 = f"{art} {new_object}, realistic, high definition,  ((black background))."
     
     with torch.no_grad():
         generated_image = pipe(
