@@ -946,9 +946,9 @@ def generate_silhouette_mask(pipe, mask, new_object):
     else:
         art = 'a'
 
-    prompt = f"{art} {new_object}, realistic, high definition,  ((black background))."
-    prompt_2 = f"{art} {new_object}, realistic, high definition,  ((black background))."
-    prompt_3 = f"{art} {new_object}, realistic, high definition,  ((black background))."
+    prompt = f"{art} {new_object}, black background."
+    prompt_2 = f"{art} {new_object}, black background."
+    prompt_3 = f"{art} {new_object}, black background."
     
     with torch.no_grad():
         generated_image = pipe(
@@ -968,7 +968,7 @@ def generate_silhouette_mask(pipe, mask, new_object):
         ).images
 
     generated_silohuette_mask = generated_image[0]
-    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=1, expansion_factor=0.2)
+    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=5, expansion_factor=0.2)
     
     return silohuette_mask
 
