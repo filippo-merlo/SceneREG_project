@@ -880,7 +880,7 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
             width=size,
             num_inference_steps=50,
             guidance_scale=7.0,
-            strength=0.7,
+            strength=0.75,
             padding_mask_crop = 80,
             num_images_per_prompt = 1,
             max_sequence_length = 512
@@ -888,15 +888,33 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
 
     return generated_image
 
-def threshold_image(image, threshold=1):
-    # Ensure the image is in RGB mode
-    image = image.convert("RGB")
-    
+from PIL import Image, ImageOps
+import numpy as np
+from scipy.ndimage import binary_dilation, generate_binary_structure
+
+def threshold_image(image, threshold=1, expansion_factor=0.2):
     # Convert the image to grayscale
     grayscale_image = image.convert("L")
     
     # Apply the threshold to create a binary mask
-    binary_mask = grayscale_image.point(lambda p: 255 if p > threshold else 0)
+    binary_mask = grayscale_image.point(lambda p: 255 if p > threshold else 0).convert("1")
+    
+    # Remove small black regions inside white areas
+    # Invert the mask to work with white regions as foreground
+    inverted_mask = ImageOps.invert(binary_mask)
+    
+    # Convert to numpy array for processing
+    binary_array = np.array(inverted_mask, dtype=bool)
+    
+    # Remove small black areas inside white regions
+    structure = generate_binary_structure(2, 2)
+    cleaned_array = binary_dilation(binary_array, structure)
+    
+    # Expand the white region by the expansion factor
+    expanded_array = binary_dilation(cleaned_array, structure, iterations=int(expansion_factor * 10))  # Adjust the factor as needed
+    
+    # Convert back to binary image
+    final_mask = Image.fromarray(expanded_array.astype(np.uint8) * 255).convert("1")
     
     # Create a new image for the result
     result_image = Image.new("RGB", image.size)
@@ -904,45 +922,30 @@ def threshold_image(image, threshold=1):
     # Iterate through pixels and apply the thresholding logic
     for x in range(image.width):
         for y in range(image.height):
-            if binary_mask.getpixel((x, y)) == 255:
+            if final_mask.getpixel((x, y)) == 255:
                 result_image.putpixel((x, y), (255, 255, 255))  # White
             else:
                 result_image.putpixel((x, y), (0, 0, 0))  # Black
     
     return result_image
 
-def generate_silhouette_mask(pipe, image, target_box, new_object):
-    size, _ = image.size
-    print('SIZE:', size)
-    target_box = adjust_rectangle(target_box, 0.5, 2)
-    x, y, w, h = target_box  # Coordinates and dimensions of the white box
-
+def generate_silhouette_mask(pipe, mask, new_object):
+    size, _ = mask.size
     # Step 3: Create the mask with the size of the new square image
-    mask = np.zeros((size, size), dtype=np.float32)
+    image = np.zeros((size, size), dtype=np.float32)
     image_black_png = Image.fromarray(mask)
 
-    # Adjusting the region to fit within the image size limits
-    x_end = min(x + w, size)
-    y_end = min(y + h, size)
-    mask[int(y):int(y_end), int(x):int(x_end)] = 1
-
-    # Convert the mask to a black and white .png format (in memory, not saving to disk)
-    mask_png_format = (mask * 255).astype(np.uint8)
-
-    # Convert to a PIL image
-    mask_image = Image.fromarray(mask_png_format)
-
     image = preprocess_image(image_black_png)
-    mask = preprocess_mask(mask_image)
+    mask = preprocess_mask(mask)
 
     if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
         art = 'an'
     else:
         art = 'a'
 
-    prompt = f"White silhouette of {art} {new_object} on a black background. No black spaces in the silhouette."
-    prompt_2 = f"White silhouette of {art} {new_object} on a black background. No black spaces in the silhouette."
-    prompt_3 = f"White silhouette of {art} {new_object} on a black background. No black spaces in the silhouette."
+    prompt = f"White silhouette of {art} {new_object} on a black background."
+    prompt_2 = f"White silhouette of {art} {new_object} on a black background."
+    prompt_3 = f"White silhouette of {art} {new_object} on a black background."
     
     with torch.no_grad():
         generated_image = pipe(
@@ -953,7 +956,7 @@ def generate_silhouette_mask(pipe, image, target_box, new_object):
             mask_image=mask,
             height=size,
             width=size,
-            num_inference_steps=10,
+            num_inference_steps=25,
             guidance_scale=10,
             strength=1,
             padding_mask_crop = 0,
@@ -961,7 +964,7 @@ def generate_silhouette_mask(pipe, image, target_box, new_object):
         ).images
 
     generated_silohuette_mask = generated_image[0]
-    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=5)
+    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=1, expansion_factor=0.2)
     
     return silohuette_mask
 
@@ -1031,21 +1034,23 @@ def generate_new_images(data, n):
     pipe = init_sd3_model()
     
     for i, set in enumerate(sets):
-        try:
+        #try:
             image_patch, image_patch_mask, bbox_in_mask, target, scene_category, images_names, prompt_obj_descr = set
             
+            silohuette_mask = generate_silhouette_mask(pipe, image_patch_mask, images_names[0])
             # Inpainting the target
-            generated_image = generate_sd3_from_patch(pipe, image_patch, image_patch_mask, bbox_in_mask, images_names[0], scene_category, prompt_obj_descr)
+            generated_image = generate_sd3_from_patch(pipe, image_patch, silohuette_mask, bbox_in_mask, images_names[0], scene_category, prompt_obj_descr)
             # save the image
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
-            image_patch_mask.save(save_path_target_mask)
+            silohuette_mask.save(save_path_target_mask)
 
             for i, image in enumerate(generated_image):
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
                 image.save(save_path)
-        except Exception as e:
-            print(e)
+
+        #except Exception as e:
+        #    print(e)
 
 
 
