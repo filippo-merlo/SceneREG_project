@@ -933,7 +933,7 @@ def generate_silhouette_mask(pipe, mask, new_object):
     size, _ = mask.size
     # Step 3: Create the mask with the size of the new square image
     image = np.zeros((size, size), dtype=np.float32)
-    image_black_png = Image.fromarray(mask)
+    image_black_png = Image.fromarray(image)
 
     image = preprocess_image(image_black_png)
     mask = preprocess_mask(mask)
