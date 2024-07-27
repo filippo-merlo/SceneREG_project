@@ -648,7 +648,7 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
     text_only_template = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {} ASSISTANT:"
     image = image
     # Input user query
-    query = f"Human: Describe the {obj}. Focus only on its appearence."
+    query = f"Human: Provide a detailed description of the {obj}. Focus only on its appearence. Do not mention any other object."
 
     # Format query
     if image is None:
@@ -668,7 +668,7 @@ def generate_prompt_cogvlm2(tokenizer, model, image, obj, scene_category):
     }
 
     # Generate response
-    gen_kwargs = {"max_new_tokens": 255, "pad_token_id": 128002}
+    gen_kwargs = {"max_new_tokens": 500, "pad_token_id": 128002}
     with torch.no_grad():
         outputs = model.generate(**inputs, **gen_kwargs)
         outputs = outputs[:, inputs['input_ids'].shape[1]:]
