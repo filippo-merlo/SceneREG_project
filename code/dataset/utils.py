@@ -964,7 +964,7 @@ def generate_silhouette_mask(pipe, mask, new_object):
         ).images
 
     generated_silohuette_mask = generated_image[0]
-    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=1, expansion_factor=0.2)
+    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=5, expansion_factor=0.2)
     
     return silohuette_mask
 
