@@ -881,7 +881,7 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
             num_inference_steps=50,
             guidance_scale=7.0,
             strength=0.9,
-            padding_mask_crop = 80,
+            padding_mask_crop = 0,
             num_images_per_prompt = 1,
             max_sequence_length = 512
         ).images
@@ -969,39 +969,6 @@ def generate_silhouette_mask(pipe, mask, new_object):
     silohuette_mask = threshold_image(generated_silohuette_mask, threshold=1, expansion_factor=0.2)
     
     return silohuette_mask
-
-def generate_sd3_from_silhouette(pipe, image, silohuette_mask, new_object, scene_category, prompt_obj_descr):
-    size, _ = image.size
-    image = preprocess_image(image)
-    mask = preprocess_mask(silohuette_mask)
-
-    if new_object[0] in ['a', 'e', 'i', 'o', 'u']:
-        art = 'An'
-    else:
-        art = 'A'
-
-    prompt = f"{art} {new_object}, realistic."
-    prompt_2 = f"{art} {new_object}, realistic."
-    prompt_3 = f"{art} {new_object}, realistic."
-    
-    with torch.no_grad():
-        generated_image = pipe(
-            prompt=prompt,
-            prompt_2=prompt_2,
-            prompt_3=prompt_3,
-            image=image,
-            mask_image=mask,
-            height=size,
-            width=size,
-            num_inference_steps=50,
-            guidance_scale=7,
-            strength=0.8,
-            padding_mask_crop = 20,
-            num_images_per_prompt = 6
-        ).images
-
-    return generated_image
-
 
 def generate_new_images(data, n):
     gen_images = n
