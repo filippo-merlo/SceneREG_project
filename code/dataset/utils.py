@@ -876,8 +876,8 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
             prompt_3=prompt_3,
             image=image,
             mask_image=mask,
-            height=832,
-            width=1216,
+            height=1024,
+            width=1024,
             num_inference_steps=50,
             guidance_scale=4.0,
             strength=0.7,
@@ -1007,7 +1007,7 @@ def generate_new_images(data, n):
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 60)
+            image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 10)
 
             # SELECT OBJECT TO REPLACE
             objects_for_replacement_list = find_object_for_replacement(target, scene_category)
