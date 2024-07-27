@@ -893,44 +893,26 @@ from PIL import Image, ImageOps
 import numpy as np
 from scipy.ndimage import binary_dilation, generate_binary_structure
 
-def threshold_image(image, threshold=1, expansion_factor=0.2):
+
+def threshold_image(image, threshold=1):
     # Convert the image to grayscale
     grayscale_image = image.convert("L")
     
     # Apply the threshold to create a binary mask
     binary_mask = grayscale_image.point(lambda p: 255 if p > threshold else 0).convert("1")
     
-    # Invert the mask to work with white regions as foreground
-    inverted_mask = ImageOps.invert(binary_mask)
+    # Invert the binary mask to ensure the object is black on a white background
+    inverted_mask = ImageOps.invert(binary_mask.convert("L")).convert("1")
     
-    # Convert to numpy array for processing
-    binary_array = np.array(inverted_mask, dtype=bool)
+    # Create a flood fill mask and flood fill from a point outside the object (top-left corner)
+    filled_mask = Image.new("1", inverted_mask.size, 0)
+    Image.floodfill(filled_mask, (0, 0), 1, border=1)
     
-    # Remove small black areas inside white regions
-    structure = generate_binary_structure(2, 2)
-    cleaned_array = binary_dilation(binary_array, structure)
+    # Invert the filled mask to get the object as a white shape
+    final_mask = ImageOps.invert(filled_mask.convert("L")).convert("1")
     
-    # Expand the white region by the expansion factor
-    expanded_array = binary_dilation(cleaned_array, structure, iterations=int(expansion_factor * 10))  # Adjust the factor as needed
-    
-    # Convert back to binary image
-    final_mask = Image.fromarray(expanded_array.astype(np.uint8) * 255).convert("1")
-    
-    # Invert the final mask to get black image with white silhouette
-    final_inverted_mask = ImageOps.invert(final_mask)
-    
-    # Create a new image for the result
-    result_image = Image.new("RGB", image.size)
-    
-    # Iterate through pixels and apply the thresholding logic
-    for x in range(image.width):
-        for y in range(image.height):
-            if final_inverted_mask.getpixel((x, y)) == 255:
-                result_image.putpixel((x, y), (255, 255, 255))  # White
-            else:
-                result_image.putpixel((x, y), (0, 0, 0))  # Black
-    
-    return result_image
+    return final_mask
+
 
 def generate_silhouette_mask(pipe, mask, new_object):
     size, _ = mask.size
