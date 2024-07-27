@@ -880,8 +880,8 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
             width=size,
             num_inference_steps=50,
             guidance_scale=7.0,
-            strength=1,
-            padding_mask_crop = 0,
+            strength=0.9,
+            padding_mask_crop = 80,
             num_images_per_prompt = 1,
             max_sequence_length = 512
         ).images
@@ -1039,13 +1039,13 @@ def generate_new_images(data, n):
         try:
             image_patch, image_patch_mask, bbox_in_mask, target, scene_category, images_names, prompt_obj_descr = set
             
-            silohuette_mask = generate_silhouette_mask(pipe, image_patch_mask, images_names[0])
+            #silohuette_mask = generate_silhouette_mask(pipe, image_patch_mask, images_names[0])
             # Inpainting the target
-            generated_image = generate_sd3_from_patch(pipe, image_patch, silohuette_mask, bbox_in_mask, images_names[0], scene_category, prompt_obj_descr)
+            generated_image = generate_sd3_from_patch(pipe, image_patch, image_patch_mask, bbox_in_mask, images_names[0], scene_category, prompt_obj_descr)
             # save the image
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
-            silohuette_mask.save(save_path_target_mask)
+            image_patch_mask.save(save_path_target_mask)
 
             for i, image in enumerate(generated_image):
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
