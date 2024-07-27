@@ -867,7 +867,7 @@ def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, promp
     prompt = f"{art} {new_object}, (single object), (complete object), realistic, center of the image, accurate, high quality, correct perspective."
     prompt_2 = f"{art} {new_object}, (single object), (complete object), realistic, center of the image, accurate, high quality, correct perspective."
     #prompt_3 = f"{art} {new_object}. {prompt_obj_descr}"
-    prompt_3 = f"{art} {new_object}."
+    prompt_3 = f"One {new_object}."
     with torch.no_grad():
         generated_image = pipe(
             prompt=prompt,
@@ -875,11 +875,11 @@ def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, promp
             prompt_3=prompt_3,
             image=image,
             mask_image=mask,
-            height=size,
-            width=size,
+            height=1024,
+            width=1024,
             num_inference_steps=50,
-            guidance_scale=7,
-            strength=0.80,
+            guidance_scale=4.0,
+            strength=0.65,
             padding_mask_crop = 0,
             num_images_per_prompt = 1
         ).images
