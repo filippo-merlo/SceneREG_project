@@ -883,7 +883,8 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
             strength=0.9,
             padding_mask_crop = 0,
             num_images_per_prompt = 1,
-            max_sequence_length = 512
+            max_sequence_length = 512,
+            generator = generator
         ).images
 
     return generated_image
@@ -962,7 +963,8 @@ def generate_silhouette_mask(pipe, mask, new_object):
             guidance_scale=10,
             strength=1,
             padding_mask_crop = 0,
-            num_images_per_prompt = 1
+            num_images_per_prompt = 1,
+            generator = generator
         ).images
 
     generated_silohuette_mask = generated_image[0]
