@@ -899,7 +899,6 @@ def threshold_image(image, threshold=1, expansion_factor=0.2):
     # Apply the threshold to create a binary mask
     binary_mask = grayscale_image.point(lambda p: 255 if p > threshold else 0).convert("1")
     
-    # Remove small black regions inside white areas
     # Invert the mask to work with white regions as foreground
     inverted_mask = ImageOps.invert(binary_mask)
     
@@ -916,13 +915,16 @@ def threshold_image(image, threshold=1, expansion_factor=0.2):
     # Convert back to binary image
     final_mask = Image.fromarray(expanded_array.astype(np.uint8) * 255).convert("1")
     
+    # Invert the final mask to get black image with white silhouette
+    final_inverted_mask = ImageOps.invert(final_mask)
+    
     # Create a new image for the result
     result_image = Image.new("RGB", image.size)
     
     # Iterate through pixels and apply the thresholding logic
     for x in range(image.width):
         for y in range(image.height):
-            if final_mask.getpixel((x, y)) == 255:
+            if final_inverted_mask.getpixel((x, y)) == 255:
                 result_image.putpixel((x, y), (255, 255, 255))  # White
             else:
                 result_image.putpixel((x, y), (0, 0, 0))  # Black
@@ -964,7 +966,7 @@ def generate_silhouette_mask(pipe, mask, new_object):
         ).images
 
     generated_silohuette_mask = generated_image[0]
-    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=5, expansion_factor=0.2)
+    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=1, expansion_factor=0.2)
     
     return silohuette_mask
 
