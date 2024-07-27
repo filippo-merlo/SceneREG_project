@@ -880,8 +880,8 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
             width=size,
             num_inference_steps=50,
             guidance_scale=7.0,
-            strength=0.75,
-            padding_mask_crop = 80,
+            strength=1,
+            padding_mask_crop = 0,
             num_images_per_prompt = 1,
             max_sequence_length = 512
         ).images
