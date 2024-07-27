@@ -879,10 +879,11 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
             height=1024,
             width=1024,
             num_inference_steps=50,
-            guidance_scale=4.0,
-            strength=0.7,
-            padding_mask_crop = 0,
-            num_images_per_prompt = 1
+            guidance_scale=7.0,
+            strength=0.8,
+            padding_mask_crop = 80,
+            num_images_per_prompt = 1,
+            max_sequence_length = 1000
         ).images
 
     return generated_image
