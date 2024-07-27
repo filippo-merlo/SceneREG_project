@@ -792,7 +792,7 @@ def get_image_square_patch_rescaled(image, target_bbox, padding):
     )
     draw.rectangle(bbox_in_mask, outline=255, fill=255)
 
-    return image_patch, mask, patch_coords
+    return image_patch, mask, patch_coords, bbox_in_mask
     
 def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
@@ -846,9 +846,9 @@ def generate_sd3(pipe, image, target_box, new_object, scene_category, prompt_obj
 
     return generated_image, mask_image
 
-def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, prompt_obj_descr):
+def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_category, prompt_obj_descr):
     size, _ = image.size
-
+    _, _, w, h =  bbox_in_mask
     image = image.convert("RGB")
     #mask_png_format = (mask * 255).astype(np.uint8)
 
@@ -867,7 +867,7 @@ def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, promp
     prompt = f"{art} {new_object}, (single object), (complete object), realistic, center of the image, accurate, high quality, correct perspective."
     prompt_2 = f"{art} {new_object}, (single object), (complete object), realistic, center of the image, accurate, high quality, correct perspective."
     prompt_3 = f"{art} {new_object}. {prompt_obj_descr}"
-    
+
     with torch.no_grad():
         generated_image = pipe(
             prompt=prompt,
@@ -875,11 +875,11 @@ def generate_sd3_from_patch(pipe, image, mask, new_object, scene_category, promp
             prompt_3=prompt_3,
             image=image,
             mask_image=mask,
-            height=1024,
-            width=1024,
+            height=h,
+            width=w,
             num_inference_steps=50,
             guidance_scale=4.0,
-            strength=0.65,
+            strength=0.7,
             padding_mask_crop = 0,
             num_images_per_prompt = 1
         ).images
@@ -1006,7 +1006,7 @@ def generate_new_images(data, n):
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask, patch_coord = get_image_square_patch_rescaled(image_clean, target_bbox, 60)
+            image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 60)
 
             # SELECT OBJECT TO REPLACE
             objects_for_replacement_list = find_object_for_replacement(target, scene_category)
@@ -1017,13 +1017,7 @@ def generate_new_images(data, n):
             prompt_obj_descr = generate_prompt_cogvlm2(cogvlm2_tokenizer, cogvlm2_model, Image.open(images_paths[0]), images_names[0], scene_category)
             print(prompt_obj_descr)
 
-            # save
-            #save_path = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_{i}.jpg')
-            #image_patch.save(save_path)
-            #save_path_mask = os.path.join(data_folder_path+'generated_images',f'{scene_category.replace('/','_')}_{target.replace('/','_')}_image_patch_mask_{i}.jpg')
-            #image_patch_mask.save(save_path_mask)
-
-            sets.append((image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr))
+            sets.append((image_patch, image_patch_mask, bbox_in_mask, target, scene_category, images_names, prompt_obj_descr))
         except Exception as e:
             print(e)
 
@@ -1036,10 +1030,10 @@ def generate_new_images(data, n):
     
     for i, set in enumerate(sets):
         try:
-            image_patch, image_patch_mask, target, scene_category, images_names, prompt_obj_descr = set
+            image_patch, image_patch_mask, bbox_in_mask, target, scene_category, images_names, prompt_obj_descr = set
             
             # Inpainting the target
-            generated_image = generate_sd3_from_patch(pipe, image_patch, image_patch_mask, images_names[0], scene_category, prompt_obj_descr)
+            generated_image = generate_sd3_from_patch(pipe, image_patch, image_patch_mask, bbox_in_mask, images_names[0], scene_category, prompt_obj_descr)
             # save the image
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
