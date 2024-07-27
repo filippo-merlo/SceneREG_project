@@ -1029,7 +1029,7 @@ def generate_new_images(data, n):
     pipe = init_sd3_model()
     
     for i, set in enumerate(sets):
-        try:
+        #try:
             image_patch, image_patch_mask, bbox_in_mask, target, scene_category, images_names, prompt_obj_descr = set
             
             # Inpainting the target
@@ -1042,8 +1042,8 @@ def generate_new_images(data, n):
             for i, image in enumerate(generated_image):
                 save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
                 image.save(save_path)
-        except Exception as e:
-            print(e)
+        #except Exception as e:
+        #    print(e)
 
 
 
