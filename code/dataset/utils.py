@@ -864,8 +864,8 @@ def generate_sd3_from_patch(pipe, image, mask, bbox_in_mask, new_object, scene_c
     else:
         art = 'A'
 
-    prompt = f"(single object), (complete object), realistic, center of the image, accurate, high quality, correct perspective."
-    prompt_2 = f"(single object), (complete object), realistic, center of the image, accurate, high quality, correct perspective."
+    prompt = f"(single object), (complete object), realistic, center of the image, accurate, high quality, high definition, correct perspective."
+    prompt_2 = f"(single object), (complete object), realistic, center of the image, accurate, high quality, high definition, correct perspective."
     prompt_3 = f"{art} {new_object}. {prompt_obj_descr}"
 
     print(int(w), int(h))
