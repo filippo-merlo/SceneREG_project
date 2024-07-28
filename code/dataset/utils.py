@@ -943,7 +943,7 @@ def generate_silhouette_mask(pipe, mask, new_object, prompt_obj_descr):
             width=size,
             num_inference_steps=25,
             guidance_scale=10,
-            strength=0.8,
+            strength=1,
             padding_mask_crop = 0,
             num_images_per_prompt = 1,
             generator = generator
