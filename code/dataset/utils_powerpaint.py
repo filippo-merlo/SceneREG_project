@@ -534,67 +534,70 @@ def get_image_square_patch_rescaled(image, target_bbox, padding):
     
 def generate_new_images(data, n):
     for i in range(n):
-        # Get the masked image with target and scene category
-        target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
-        # remove the object before background
-        image_clean = remove_object(image_picture, object_mask)
-        image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 100)
-        image_patch_mask = image_patch_mask.convert('RGB')
+        try: 
+            # Get the masked image with target and scene category
+            target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
+            # remove the object before background
+            image_clean = remove_object(image_picture, object_mask)
+            image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 100)
+            image_patch_mask = image_patch_mask.convert('RGB')
 
-        input_image = {
-            "image": image_patch,
-            "mask": image_patch_mask
-        }
-        # SELECT OBJECT TO REPLACE
-        objects_for_replacement_list = find_object_for_replacement(target, scene_category)
-        images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
-        print(images_names)
-        if images_names[0][0] in ['a','e','i','o','u']:
-            art = 'an'
-        else:
-            art = 'a'
-        prompt = f"{art} {images_names[0]}"
-        text_guided_prompt = prompt
-        text_guided_negative_prompt = ''
-        shape_guided_prompt = prompt
-        shape_guided_negative_prompt = ''
-        fitting_degree = 0.65 # 0-1
-        ddim_steps = 45 # 1-50
-        scale = 7.5 # 1-30
-        seed = random.randint(0, 2147483647) # 0-2147483647
-        task = "shape-guided"
-        vertical_expansion_ratio = 2 #1-4
-        horizontal_expansion_ratio = 2 #1-4
-        outpaint_prompt = ''
-        outpaint_negative_prompt = ''
-        removal_prompt = ''
-        removal_negative_prompt = ''
+            input_image = {
+                "image": image_patch,
+                "mask": image_patch_mask
+            }
+            # SELECT OBJECT TO REPLACE
+            objects_for_replacement_list = find_object_for_replacement(target, scene_category)
+            images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
+            print(images_names)
+            if images_names[0][0] in ['a','e','i','o','u']:
+                art = 'an'
+            else:
+                art = 'a'
+            prompt = f"{art} {images_names[0]}"
+            text_guided_prompt = prompt
+            text_guided_negative_prompt = ''
+            shape_guided_prompt = prompt
+            shape_guided_negative_prompt = ''
+            fitting_degree = 0.65 # 0-1
+            ddim_steps = 45 # 1-50
+            scale = 7.5 # 1-30
+            seed = random.randint(0, 2147483647) # 0-2147483647
+            task = "shape-guided"
+            vertical_expansion_ratio = 2 #1-4
+            horizontal_expansion_ratio = 2 #1-4
+            outpaint_prompt = ''
+            outpaint_negative_prompt = ''
+            removal_prompt = ''
+            removal_negative_prompt = ''
 
-        # Inpainting the target
-        dict_out, dict_res = controller.infer(
-            input_image,
-            text_guided_prompt,
-            text_guided_negative_prompt,
-            shape_guided_prompt,
-            shape_guided_negative_prompt,
-            fitting_degree,
-            ddim_steps,
-            scale,
-            seed,
-            task,
-            vertical_expansion_ratio,
-            horizontal_expansion_ratio,
-            outpaint_prompt,
-            outpaint_negative_prompt,
-            removal_prompt,
-            removal_negative_prompt,
-        )
+            # Inpainting the target
+            dict_out, dict_res = controller.infer(
+                input_image,
+                text_guided_prompt,
+                text_guided_negative_prompt,
+                shape_guided_prompt,
+                shape_guided_negative_prompt,
+                fitting_degree,
+                ddim_steps,
+                scale,
+                seed,
+                task,
+                vertical_expansion_ratio,
+                horizontal_expansion_ratio,
+                outpaint_prompt,
+                outpaint_negative_prompt,
+                removal_prompt,
+                removal_negative_prompt,
+            )
 
-        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_').replace(' ','_')}_{images_names[0].replace('/','_')}_original.jpg')
-        image_picture.save(save_path)
+            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_').replace(' ','_')}_{images_names[0].replace('/','_')}_original.jpg')
+            image_picture.save(save_path)
 
-        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_').replace(' ','_')}_{images_names[0].replace('/','_')}_generated.jpg')
-        dict_out[0].save(save_path)
+            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_').replace(' ','_')}_{images_names[0].replace('/','_')}_generated.jpg')
+            dict_out[0].save(save_path)
+        ecxept:
+            pass
 
             
 
