@@ -560,7 +560,7 @@ def generate_new_images(data, n):
             text_guided_negative_prompt = ''
             shape_guided_prompt = prompt
             shape_guided_negative_prompt = ''
-            fitting_degree = 0.5 # 0-1
+            fitting_degree = 0.65 # 0-1
             ddim_steps = 45 # 1-50
             scale = 7.5 # 1-30
             seed = 666 # 0-2147483647
