@@ -5,7 +5,7 @@ from dataset import *
 if __name__ == '__main__':
     dataset = Dataset(dataset_path = dataset_path)
     data = dataset.data
-    n = 1
+    n = 2
     generate_new_images(data, n)
 
 
