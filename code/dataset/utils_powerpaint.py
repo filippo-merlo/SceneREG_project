@@ -540,6 +540,8 @@ def generate_new_images(data, n):
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
             image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 10)
+            image_patch_mask = image_patch_mask.convert('RGB')
+            
             input_image = {
                 "image": image_patch,
                 "mask": image_patch_mask
