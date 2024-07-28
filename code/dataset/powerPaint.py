@@ -21,8 +21,9 @@ from powerpaint.pipelines.pipeline_PowerPaint_ControlNet import (
 from powerpaint.utils.utils import TokenizerWrapper, add_tokens
 
 
-torch.set_grad_enabled(False)
+CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared/hf_llms_checkpoints'
 
+torch.set_grad_enabled(False)
 
 def set_seed(seed):
     torch.manual_seed(seed)
@@ -141,14 +142,16 @@ class PowerPaintController:
                 subfolder="unet",
                 revision=None,
                 torch_dtype=weight_dtype,
-                local_files_only=local_files_only,
+                cache_dir=CACHE_DIR_SHARED
+                #local_files_only=local_files_only,
             )
             text_encoder_brushnet = CLIPTextModel.from_pretrained(
                 "runwayml/stable-diffusion-v1-5",
                 subfolder="text_encoder",
                 revision=None,
                 torch_dtype=weight_dtype,
-                local_files_only=local_files_only,
+                cache_dir=CACHE_DIR_SHARED
+                #local_files_only=local_files_only,
             )
             brushnet = BrushNetModel.from_unet(unet)
             base_model_path = os.path.join(checkpoint_dir, "realisticVisionV60B1_v51VAE")
@@ -542,9 +545,11 @@ class PowerPaintController:
 
 
 weight_dtype = "float16"
-checkpoint_dir = "/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v2"
+checkpoint_dir = "/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v2-1"
 version = "ppt-v2"
 local_files_only = True
 # initialize the pipeline controller
 weight_dtype = torch.float16
 controller = PowerPaintController(weight_dtype, checkpoint_dir, local_files_only, version)
+
+# boia
