@@ -1,6 +1,6 @@
 #%%
 from config_powerpaint import *
-from utils import *
+from utils_powerpaint import *
 import json
 from tqdm import tqdm
 
