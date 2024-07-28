@@ -1,5 +1,5 @@
 #%%
-from config import *
+from config_powerpaint import *
 from utils import *
 import json
 from tqdm import tqdm
