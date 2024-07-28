@@ -87,8 +87,6 @@ from simple_lama_inpainting import SimpleLama
 # set devices
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-generator = torch.Generator(DEVICE).manual_seed(92)
-
 # Create the label to ID mapping
 label2id = {label: idx for idx, label in enumerate(sun_scene_cat)}
 # Reverse the mapping to create ID to label mapping

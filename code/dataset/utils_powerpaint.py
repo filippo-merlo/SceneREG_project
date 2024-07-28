@@ -561,7 +561,7 @@ def generate_new_images(data, n):
         fitting_degree = 0.65 # 0-1
         ddim_steps = 45 # 1-50
         scale = 7.5 # 1-30
-        seed = 666 # 0-2147483647
+        seed = random.randint(0, 2147483646) # 0-2147483647
         task = "shape-guided"
         vertical_expansion_ratio = 2 #1-4
         horizontal_expansion_ratio = 2 #1-4
@@ -590,10 +590,10 @@ def generate_new_images(data, n):
             removal_negative_prompt,
         )
 
-        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_original.jpg')
+        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')replace(' ','_')}_{images_names[0].replace('/','_')}_original.jpg')
         image_picture.save(save_path)
-        
-        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_generated.jpg')
+
+        save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_').replace(' ','_')}_{images_names[0].replace('/','_')}_generated.jpg')
         dict_out[0].save(save_path)
 
             
