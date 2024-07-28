@@ -928,8 +928,8 @@ def generate_silhouette_mask(pipe, mask, new_object, prompt_obj_descr):
     else:
         art = 'a'
 
-    prompt = f"{art} {new_object}, black background."
-    prompt_2 = f"{art} {new_object}, black background."
+    prompt = f"BLACK BACKGROUND, ((BLACK BACKGROUND)), black background, png format, total black background."
+    prompt_2 = f"BLACK BACKGROUND, ((BLACK BACKGROUND)), black background, png format, total black background."
     prompt_3 = f"{art} {new_object}, black background. {prompt_obj_descr}"
     
     with torch.no_grad():
