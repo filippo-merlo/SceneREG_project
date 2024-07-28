@@ -127,7 +127,6 @@ vit_processor, vit_model, vitc_image_processor, vitc_model,  simple_lama = init_
 
 # POWERPAINT CONFIG
 from powerPaint import *
-from powerPaint import PowerPaintController
 
 weight_dtype = "float16"
 checkpoint_dir = CACHE_DIR_SHARED_POWERPAINT
