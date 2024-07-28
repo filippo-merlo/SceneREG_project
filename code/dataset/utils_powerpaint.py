@@ -2,7 +2,7 @@
 
 ### IMPORTS
 import os 
-from config import *
+from config_powerpaint import *
 import torch
 import math
 import numpy as np
@@ -548,7 +548,22 @@ def generate_new_images(data, n):
         
             # Inpainting the target
             output = controller.infer(
-                
+                input_image,
+                text_guided_prompt,
+                text_guided_negative_prompt,
+                shape_guided_prompt,
+                shape_guided_negative_prompt,
+                fitting_degree,
+                ddim_steps,
+                scale,
+                seed,
+                task,
+                vertical_expansion_ratio,
+                horizontal_expansion_ratio,
+                outpaint_prompt,
+                outpaint_negative_prompt,
+                removal_prompt,
+                removal_negative_prompt,
             )
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
