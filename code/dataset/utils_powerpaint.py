@@ -535,6 +535,7 @@ def get_image_square_patch_rescaled(image, target_bbox, padding):
 def generate_new_images(data, n):
     gen_images = n
     for i in range(gen_images):
+        try:
             # Get the masked image with target and scene category
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
@@ -593,5 +594,8 @@ def generate_new_images(data, n):
             
             save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
             dict_out[0].save(save_path)
+        except Exception as e:
+            print(e)
+            continue
 
 
