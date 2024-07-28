@@ -541,3 +541,10 @@ class PowerPaintController:
             )
 
 
+weight_dtype = "float16"
+checkpoint_dir = "/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v1"
+version = "ppt-v2"
+local_files_only = True
+# initialize the pipeline controller
+weight_dtype = torch.float16
+controller = PowerPaintController(weight_dtype, checkpoint_dir, local_files_only, version)
