@@ -174,8 +174,3 @@ def init_sd3_model():
     return pipe
 
 vit_processor, vit_model, vitc_image_processor, vitc_model,  simple_lama = init_image_prep_models()
-
-
-from diffusers import DiffusionPipeline
-
-pipeline = DiffusionPipeline.from_pretrained("JunhaoZhuang/PowerPaint-v2-1")
