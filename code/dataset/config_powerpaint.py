@@ -129,7 +129,7 @@ vit_processor, vit_model, vitc_image_processor, vitc_model,  simple_lama = init_
 from powerPaint import *
 
 weight_dtype = "float16"
-checkpoint_dir = CACHE_DIR_SHARED_POWERPAINT
+checkpoint_dir = "/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v2"
 version = "ppt-v2"
 local_files_only = True
 # initialize the pipeline controller
