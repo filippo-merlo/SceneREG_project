@@ -596,7 +596,7 @@ def generate_new_images(data, n):
 
             save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_').replace(' ','_')}_{images_names[0].replace('/','_')}_generated.jpg')
             dict_out[0].save(save_path)
-        ecxept:
+        except:
             pass
 
             
