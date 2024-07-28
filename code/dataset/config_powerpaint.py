@@ -7,7 +7,7 @@ import json
 
 # DECLARE PATHS
 CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared/hf_llms_checkpoints'
-CACHE_DIR_SHARED_POWERPAINT = '/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v1'
+CACHE_DIR_SHARED_POWERPAINT = '/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v2'
 CACHE_DIR_PRIVATE = '/mnt/cimec-storage6/users/filippo.merlo'
 
 # Path for the data folder
@@ -131,7 +131,7 @@ from powerPaint import PowerPaintController
 
 weight_dtype = "float16"
 checkpoint_dir = CACHE_DIR_SHARED_POWERPAINT
-version = "ppt-v1"
+version = "ppt-v2"
 local_files_only = True
 # initialize the pipeline controller
 weight_dtype = torch.float16
