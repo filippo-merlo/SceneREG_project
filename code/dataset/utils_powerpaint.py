@@ -561,7 +561,7 @@ def generate_new_images(data, n):
         fitting_degree = 0.65 # 0-1
         ddim_steps = 45 # 1-50
         scale = 7.5 # 1-30
-        seed = random.randint(0, 2147483646) # 0-2147483647
+        seed = random.randint(0, 2147483647) # 0-2147483647
         task = "shape-guided"
         vertical_expansion_ratio = 2 #1-4
         horizontal_expansion_ratio = 2 #1-4
