@@ -540,7 +540,7 @@ def generate_new_images(data, n):
             target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 100)
+            image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 50)
             image_patch_mask = image_patch_mask.convert('RGB')
 
             input_image = {
