@@ -569,9 +569,9 @@ def generate_new_images(data, n):
             outpaint_negative_prompt = ''
             removal_prompt = ''
             removal_negative_prompt = ''
-            
+
             # Inpainting the target
-            output = controller.infer(
+            dict_out, _ = controller.infer(
                 input_image,
                 text_guided_prompt,
                 text_guided_negative_prompt,
@@ -590,10 +590,9 @@ def generate_new_images(data, n):
                 removal_negative_prompt,
             )
             
-            save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
-            silohuette_mask.save(save_path_target_mask)
+            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}.jpg')
+            dict_out[0].save(save_path)
 
-           
         except Exception as e:
             print(e)
 
