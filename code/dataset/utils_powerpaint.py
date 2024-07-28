@@ -279,7 +279,7 @@ def classify_scene_vit(image_picture):
     """
     Classify an image with the classes of SUN397 using a Vision Transformer model.
     """
-    inputs = vit_processor(image_picture, return_tensors="pt").to(device)
+    inputs = vit_processor(image_picture, return_tensors="pt").to(DEVICE)
     with torch.no_grad():
         logits = vit_model(**inputs).logits
 
@@ -384,12 +384,12 @@ def compare_imgs(target_patch, substitutes_list):
     with torch.no_grad():
         for i_path in images_path_list:
             image = Image.open(i_path)
-            image_input = vitc_image_processor(image, return_tensors="pt").to(device)
+            image_input = vitc_image_processor(image, return_tensors="pt").to(DEVICE)
             image_outputs = vitc_model(**image_input)
             image_embeds = image_outputs.last_hidden_state[0][0].to('cpu')#.squeeze().mean(dim=1).to('cpu')
             images_embeddings.append(image_embeds)
         # embed target 
-        target_input = vitc_image_processor(target_patch, return_tensors="pt").to(device)
+        target_input = vitc_image_processor(target_patch, return_tensors="pt").to(DEVICE)
         target_outputs = vitc_model(**target_input)
         target_embeds = target_outputs.last_hidden_state[0][0].to('cpu')#.squeeze().mean(dim=1).to('cpu')
 
