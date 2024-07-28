@@ -542,7 +542,7 @@ class PowerPaintController:
 
 
 weight_dtype = "float16"
-checkpoint_dir = "/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v1"
+checkpoint_dir = "/mnt/cimec-storage6/shared/PowerPaint/checkpoints/ppt-v2"
 version = "ppt-v2"
 local_files_only = True
 # initialize the pipeline controller
