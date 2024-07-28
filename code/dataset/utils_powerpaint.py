@@ -547,7 +547,9 @@ def generate_new_images(data, n):
             print(images_names)
         
             # Inpainting the target
-            controller
+            output = controller.infer(
+                
+            )
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
             silohuette_mask.save(save_path_target_mask)
