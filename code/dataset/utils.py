@@ -914,7 +914,7 @@ def threshold_image(image, threshold=1):
     return final_mask
 
 
-def generate_silhouette_mask(pipe, mask, new_object):
+def generate_silhouette_mask(pipe, mask, new_object, prompt_obj_descr):
     size, _ = mask.size
     # Step 3: Create the mask with the size of the new square image
     image = np.zeros((size, size), dtype=np.float32)
@@ -930,7 +930,7 @@ def generate_silhouette_mask(pipe, mask, new_object):
 
     prompt = f"{art} {new_object}, black background."
     prompt_2 = f"{art} {new_object}, black background."
-    prompt_3 = f"{art} {new_object}, black background."
+    prompt_3 = f"{art} {new_object}, black background. {prompt_obj_descr}"
     
     with torch.no_grad():
         generated_image = pipe(
@@ -950,9 +950,9 @@ def generate_silhouette_mask(pipe, mask, new_object):
         ).images
 
     generated_silohuette_mask = generated_image[0]
-    silohuette_mask = threshold_image(generated_silohuette_mask, threshold=5)
+    #silohuette_mask = threshold_image(generated_silohuette_mask, threshold=5)
     
-    return silohuette_mask
+    return generated_silohuette_mask
 
 def generate_new_images(data, n):
     gen_images = n
@@ -990,17 +990,17 @@ def generate_new_images(data, n):
         try:
             image_patch, image_patch_mask, bbox_in_mask, target, scene_category, images_names, prompt_obj_descr = set
             
-            silohuette_mask = generate_silhouette_mask(pipe, image_patch_mask, images_names[0])
+            silohuette_mask = generate_silhouette_mask(pipe, image_patch_mask, images_names[0], prompt_obj_descr)
             # Inpainting the target
-            generated_image = generate_sd3_from_patch(pipe, image_patch, silohuette_mask, bbox_in_mask, images_names[0], scene_category, prompt_obj_descr)
+            #generated_image = generate_sd3_from_patch(pipe, image_patch, silohuette_mask, bbox_in_mask, images_names[0], scene_category, prompt_obj_descr)
             # save the image
             
             save_path_target_mask = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_target_mask.jpg')
             silohuette_mask.save(save_path_target_mask)
 
-            for i, image in enumerate(generated_image):
-                save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
-                image.save(save_path)
+            #for i, image in enumerate(generated_image):
+            #    save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_')}_{images_names[0].replace('/','_')}_replaced_{i}.jpg')
+            #    image.save(save_path)
 
         except Exception as e:
             print(e)
