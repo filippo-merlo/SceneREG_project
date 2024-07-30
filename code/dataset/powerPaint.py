@@ -88,13 +88,14 @@ class PowerPaintController:
         # initialize powerpaint pipeline
         if version == "ppt-v1":
             self.pipe = Pipeline.from_pretrained(
-                "runwayml/stable-diffusion-inpainting", torch_dtype=weight_dtype, local_files_only=local_files_only
+                "runwayml/stable-diffusion-inpainting", torch_dtype=weight_dtype, cache_dir=CACHE_DIR_SHARED #local_files_only=local_files_only
             )
             self.pipe.tokenizer = TokenizerWrapper(
                 from_pretrained="runwayml/stable-diffusion-v1-5",
                 subfolder="tokenizer",
                 revision=None,
-                local_files_only=local_files_only,
+                cache_dir=CACHE_DIR_SHARED,
+                #local_files_only=local_files_only,
             )
 
             # add learned task tokens into the tokenizer
@@ -112,13 +113,13 @@ class PowerPaintController:
             self.pipe = self.pipe.to("cuda")
 
             # initialize controlnet-related models
-            self.depth_estimator = DPTForDepthEstimation.from_pretrained("Intel/dpt-hybrid-midas").to("cuda")
-            self.feature_extractor = DPTFeatureExtractor.from_pretrained("Intel/dpt-hybrid-midas")
+            self.depth_estimator = DPTForDepthEstimation.from_pretrained("Intel/dpt-hybrid-midas", cache_dir=CACHE_DIR_SHARED).to("cuda")
+            self.feature_extractor = DPTFeatureExtractor.from_pretrained("Intel/dpt-hybrid-midas", cache_dir=CACHE_DIR_SHARED)
             self.openpose = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
             self.hed = HEDdetector.from_pretrained("lllyasviel/ControlNet")
 
             base_control = ControlNetModel.from_pretrained(
-                "lllyasviel/sd-controlnet-canny", torch_dtype=weight_dtype, local_files_only=local_files_only
+                "lllyasviel/sd-controlnet-canny", torch_dtype=weight_dtype, cache_dir=CACHE_DIR_SHARED #local_files_only=local_files_only
             )
             self.control_pipe = controlnetPipeline(
                 self.pipe.vae,
