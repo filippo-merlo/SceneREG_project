@@ -540,4 +540,6 @@ class PowerPaintController:
                 controlnet_conditioning_scale,
             )
         else:
-  
+            return self.predict(
+                input_image, prompt, fitting_degree, ddim_steps, scale, seed, negative_prompt, task, None, None
+            )
