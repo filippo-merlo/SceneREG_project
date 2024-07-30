@@ -555,11 +555,11 @@ def generate_new_images(data, n):
             else:
                 art = 'a'
             prompt = f"{art} {images_names[0]}"
-            text_guided_prompt = prompt
+            text_guided_prompt = ''
             text_guided_negative_prompt = ''
             shape_guided_prompt = prompt
             shape_guided_negative_prompt = ''
-            fitting_degree = 0.65 # 0-1
+            fitting_degree = 0.6 # 0-1
             ddim_steps = 45 # 1-50
             scale = 7.5 # 1-30
             seed = random.randint(0, 2147483647) # 0-2147483647
@@ -600,5 +600,8 @@ def generate_new_images(data, n):
             pass
 
             
+
+
+  
 
 
