@@ -594,7 +594,7 @@ def generate_new_images(data, n):
             save_path = os.path.join(f"{data_folder_path, 'generated_images', scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{images_names[0].replace('/', '_')}_original.jpg")
             image_picture.save(save_path)
 
-            save_path = os.path.join(data_folder_path+'/generated_images', f'{scene_category.replace('/','_')}_{target.replace('/','_').replace(' ','_')}_{images_names[0].replace('/','_')}_generated.jpg')
+            save_path = os.path.join(f"{data_folder_path, 'generated_images', scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{images_names[0].replace('/', '_')}_gen.jpg")
             dict_out[0].save(save_path)
         except:
             pass
