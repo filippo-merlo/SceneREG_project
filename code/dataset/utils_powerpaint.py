@@ -282,9 +282,9 @@ def classify_scene_vit(image_picture):
     inputs = vit_processor(image_picture, return_tensors="pt").to(DEVICE)
     with torch.no_grad():
         logits = vit_model(**inputs).logits
-
+    logits_to_keep = logits * scene_to_keep
     # Get the top 5 predictions
-    top5_prob, top5_indices = torch.topk(logits, 5)
+    top5_prob, top5_indices = torch.topk(logits_to_keep, 5)
 
     # Convert logits to probabilities
     probabilities = torch.nn.functional.softmax(top5_prob, dim=-1)
