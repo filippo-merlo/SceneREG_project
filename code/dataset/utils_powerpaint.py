@@ -596,7 +596,7 @@ def generate_new_images(data, n):
                     removal_negative_prompt,
                 )
 
-                save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{object_for_replacement.replace('/', '_').replace(' ', '_')}.jpg")
+                save_path = os.path.join(data_folder_path+'generated_images', f"{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{object_for_replacement.replace('/', '_').replace(' ', '_')}.jpg")
                 dict_out[0].save(save_path)
 
 
