@@ -1,50 +1,10 @@
-import torch
-from torchvision import transforms
+import os
+path = '/mnt/cimec-storage6/users/filippo.merlo/sceneREG_data/generated_images/'
+sen_scene_to_keep = ['kitchen','living_room','home_office','bathroom','restaurant','bedroom','delicatessen','bakery/shop','pantry','coffee_shop','cubicle/office','banquet_hall','market/outdoor','dorm_room','dining_room','music_studio','art_studio','parking_lot','street','tower','fastfood_restaurant','train_railway','physics_laboratory','arrival_gate/outdoor','gas_station']
 
-from pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
-from diffusers.utils import load_image
+for sen_scene in sen_scene_to_keep:
+    name_folder = sen_scene.replace('/','_')
+    folder_path = os.path.join(path, name_folder)
+    os.makedirs(folder_path, exist_ok=True)
 
-def preprocess_image(image):
-    image = image.convert("RGB")
-    image = transforms.CenterCrop((image.size[1] // 64 * 64, image.size[0] // 64 * 64))(image)
-    image = transforms.ToTensor()(image)
-    image = image.unsqueeze(0).to("cuda")
-    return image
-
-def preprocess_mask(mask):
-    mask = mask.convert("L")
-    mask = transforms.CenterCrop((mask.size[1] // 64 * 64, mask.size[0] // 64 * 64))(mask)
-    mask = transforms.ToTensor()(mask)
-    mask = mask.to("cuda")
-    return mask
-
-CACHE_DIR_SHARED = '/mnt/cimec-storage6/shared'
-pipe = StableDiffusion3InpaintPipeline.from_pretrained(
-    "stabilityai/stable-diffusion-3-medium-diffusers",
-    cache_dir=CACHE_DIR_SHARED,
-    torch_dtype=torch.float16,
-).to("cuda")
-
-prompt = "Face of a red cat, high resolution"
-source_image = load_image(
-    "./overture-creations-5sI6fQgYIuo.png"
-)
-source = preprocess_image(source_image)
-mask = preprocess_mask(
-    load_image(
-        "./overture-creations-5sI6fQgYIuo_mask.png"
-    )
-)
-
-image = pipe(
-    prompt=prompt,
-    image=source,
-    mask_image=mask,
-    height=1024,
-    width=1024,
-    num_inference_steps=50,
-    guidance_scale=7.0,
-    strength=0.6,
-).images[0]
-
-image.save('/mnt/cimec-storage6/users/filippo.merlo/sceneREG_data/generated_images/'+"overture-creations-5sI6fQgYIuo_output.jpg")
+    
