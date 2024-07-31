@@ -284,6 +284,7 @@ def classify_scene_vit(image_picture):
         logits = vit_model(**inputs).logits
 
     logits_to_keep = logits * torch.tensor(scene_to_keep).unsqueeze(0)
+    print(logits_to_keep)
     # Get the top 5 predictions
     top5_prob, top5_indices = torch.topk(logits_to_keep, 5)
 
@@ -292,7 +293,7 @@ def classify_scene_vit(image_picture):
 
     # Get the labels for the top 5 indices
     top5_labels = [vit_model.config.id2label[idx.item()] for idx in top5_indices[0]]
-    print(top5_labels)
+    
     # Print the top 5 labels and their corresponding probabilities
     #for label, prob in zip(top5_labels, probabilities[0]):
     #    print(f"{label}: {prob:.4f}")
