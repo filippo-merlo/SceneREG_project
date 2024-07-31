@@ -21,7 +21,7 @@ def get_scene_predictions(self):
                 else:
                     target = None
                 
-            images_paths = get_files(images_path)
+            images_paths = get_files(coco_images_path)
             image_picture = None
 
             for image_path in images_paths:
