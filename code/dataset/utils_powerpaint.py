@@ -532,7 +532,18 @@ def get_image_square_patch_rescaled(image, target_bbox, padding):
     draw.rectangle(bbox_in_mask, outline=255, fill=255)
 
     return image_patch, mask, patch_coords, bbox_in_mask
+
+def get_square_image(image, target_bbox):
+    width, height = image.size
+    new_x, new_y, new_w, new_h = adjust_ratio(image, target_bbox, 0.5, 2)
+    # Create a black background image
+    mask = Image.new("L", (width, height), 0)
     
+    # Draw a white box on the black background
+    draw = ImageDraw.Draw(mask)
+    draw.rectangle([new_x, new_y, new_x + new_w, new_y + new_h], fill=255)
+    
+    return image, mask
 def generate_new_images(data, n):
     for i in range(n):
 
@@ -543,13 +554,15 @@ def generate_new_images(data, n):
 
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
-            image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 100)
-            image_patch_mask = image_patch_mask.convert('RGB')
+            #image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 100)
+            image, mask = get_square_image(image_clean, target_bbox)
+            mask = mask.convert('RGB')
 
             input_image = {
-                "image": image_patch,
-                "mask": image_patch_mask
+                "image": image,
+                "mask": mask
             }
+
             # SELECT OBJECT TO REPLACE
             objects_for_replacement_list = find_object_for_replacement(target, scene_category)
             #images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
@@ -560,8 +573,6 @@ def generate_new_images(data, n):
                 else:
                     art = 'a'
                 prompt = f"{art} {object_for_replacement.replace('/',' ').replace('_',' ')}"
-                text_guided_prompt = ''
-                text_guided_negative_prompt = ''
                 shape_guided_prompt = prompt
                 shape_guided_negative_prompt = ''
                 fitting_degree = 0.6 # 0-1
@@ -571,6 +582,8 @@ def generate_new_images(data, n):
                 task = "shape-guided"
                 vertical_expansion_ratio = 2 #1-4
                 horizontal_expansion_ratio = 2 #1-4
+                text_guided_prompt = ''
+                text_guided_negative_prompt = ''
                 outpaint_prompt = ''
                 outpaint_negative_prompt = ''
                 removal_prompt = ''
