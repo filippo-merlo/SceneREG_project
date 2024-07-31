@@ -284,7 +284,7 @@ def classify_scene_vit(image_picture):
         logits = vit_model(**inputs).logits
 
     logits_to_keep = logits * torch.tensor(scene_to_keep).unsqueeze(0).to(DEVICE)
-    print(logits_to_keep)
+
     # Get the top 5 predictions
     top5_prob, top5_indices = torch.topk(logits_to_keep, 5)
 
