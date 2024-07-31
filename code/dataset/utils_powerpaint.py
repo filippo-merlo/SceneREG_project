@@ -538,7 +538,7 @@ def generate_new_images(data, n):
 
             # Get the masked image with target and scene category
             img_name, target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
-            save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_original.jpg")
+            save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_original.jpg")
             image_picture.save(save_path)
 
             # remove the object before background
@@ -596,7 +596,7 @@ def generate_new_images(data, n):
                     removal_negative_prompt,
                 )
 
-                save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{object_for_replacement.replace('/', '_').replace(' ', '_')}.jpg")
+                save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{object_for_replacement.replace('/', '_').replace(' ', '_')}.jpg")
                 dict_out[0].save(save_path)
 
 
