@@ -5,7 +5,7 @@ from dataset import *
 if __name__ == '__main__':
     dataset = Dataset(dataset_path = dataset_path)
     data = dataset.data
-    n = 10
-    generate_new_images(data, n)
+    image_names = data.img_names
+    generate_new_images(data)
 
 
