@@ -538,8 +538,8 @@ def generate_new_images(data, n):
 
             # Get the masked image with target and scene category
             img_name, target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
-            save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_original.jpg")
-            image_picture.save(save_path)
+            save_path_original = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_original.jpg")
+            image_picture.save(save_path_original)
 
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
