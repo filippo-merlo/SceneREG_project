@@ -272,7 +272,7 @@ def get_coco_image_data(data, img_name = None):
 
         # Classify scene
         scene_category = classify_scene_vit(image_picture)
-        return target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image_pil, image_mask_pil
+        return img_name, target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image_pil, image_mask_pil
 
 ### SCENE CLASSIFICATION
 def classify_scene_vit(image_picture):
@@ -338,11 +338,10 @@ def find_object_for_replacement(target_object_name, scene_name):
 
         final_scores.append(total_score)
 
-    kidxs, vals = select_k(final_scores, 10, lower = True)
+    kidxs, vals = select_k(final_scores, 15, lower = True)
     things_names = [things_words_context[i] for i in kidxs]
-    print(things_names)
-    print(vals)
-    return things_names
+    random_3_names = rn.sample(things_names, 3)
+    return random_3_names
 
 def get_images_names(substitutes_list):
     # get things images paths [(name, path)...]
@@ -538,7 +537,10 @@ def generate_new_images(data, n):
     for i in range(n):
 
             # Get the masked image with target and scene category
-            target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
+            img_name, target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data)
+            save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_original.jpg")
+            image_picture.save(save_path)
+
             # remove the object before background
             image_clean = remove_object(image_picture, object_mask)
             image_patch, image_patch_mask, patch_coord, bbox_in_mask = get_image_square_patch_rescaled(image_clean, target_bbox, 100)
@@ -550,54 +552,52 @@ def generate_new_images(data, n):
             }
             # SELECT OBJECT TO REPLACE
             objects_for_replacement_list = find_object_for_replacement(target, scene_category)
-            images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
-            print(images_names)
-            if images_names[0][0] in ['a','e','i','o','u']:
-                art = 'an'
-            else:
-                art = 'a'
-            prompt = f"{art} {images_names[0]}"
-            text_guided_prompt = ''
-            text_guided_negative_prompt = ''
-            shape_guided_prompt = prompt
-            shape_guided_negative_prompt = ''
-            fitting_degree = 0.6 # 0-1
-            ddim_steps = 45 # 1-50
-            scale = 7.5 # 1-30
-            seed = random.randint(0, 2147483647) # 0-2147483647
-            task = "shape-guided"
-            vertical_expansion_ratio = 2 #1-4
-            horizontal_expansion_ratio = 2 #1-4
-            outpaint_prompt = ''
-            outpaint_negative_prompt = ''
-            removal_prompt = ''
-            removal_negative_prompt = ''
+            #images_names, images_paths = compare_imgs(cropped_target_only_image, objects_for_replacement_list)
+            #print(images_names)
+            for object_for_replacement in objects_for_replacement_list:
+                if object_for_replacement[0][0] in ['a','e','i','o','u']:
+                    art = 'an'
+                else:
+                    art = 'a'
+                prompt = f"{art} {object_for_replacement.replace('/',' ').replace('_',' ')}"
+                text_guided_prompt = ''
+                text_guided_negative_prompt = ''
+                shape_guided_prompt = prompt
+                shape_guided_negative_prompt = ''
+                fitting_degree = 0.6 # 0-1
+                ddim_steps = 45 # 1-50
+                scale = 7.5 # 1-30
+                seed = random.randint(0, 2147483647) # 0-2147483647
+                task = "shape-guided"
+                vertical_expansion_ratio = 2 #1-4
+                horizontal_expansion_ratio = 2 #1-4
+                outpaint_prompt = ''
+                outpaint_negative_prompt = ''
+                removal_prompt = ''
+                removal_negative_prompt = ''
 
-            # Inpainting the target
-            dict_out, dict_res = controller.infer(
-                input_image,
-                text_guided_prompt,
-                text_guided_negative_prompt,
-                shape_guided_prompt,
-                shape_guided_negative_prompt,
-                fitting_degree,
-                ddim_steps,
-                scale,
-                seed,
-                task,
-                vertical_expansion_ratio,
-                horizontal_expansion_ratio,
-                outpaint_prompt,
-                outpaint_negative_prompt,
-                removal_prompt,
-                removal_negative_prompt,
-            )
+                # Inpainting the target
+                dict_out, dict_res = controller.infer(
+                    input_image,
+                    text_guided_prompt,
+                    text_guided_negative_prompt,
+                    shape_guided_prompt,
+                    shape_guided_negative_prompt,
+                    fitting_degree,
+                    ddim_steps,
+                    scale,
+                    seed,
+                    task,
+                    vertical_expansion_ratio,
+                    horizontal_expansion_ratio,
+                    outpaint_prompt,
+                    outpaint_negative_prompt,
+                    removal_prompt,
+                    removal_negative_prompt,
+                )
 
-            save_path = os.path.join(f"{data_folder_path, 'generated_images', scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{images_names[0].replace('/', '_')}_original.jpg")
-            image_picture.save(save_path)
-
-            save_path = os.path.join(f"{data_folder_path, 'generated_images', scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{images_names[0].replace('/', '_')}_gen.jpg")
-            dict_out[0].save(save_path)
+                save_path = os.path.join(data_folder_path+'generated_images', f"/{scene_category.replace('/', '_')}/{img_name}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{object_for_replacement.replace('/', '_').replace(' ', '_')}.jpg")
+                dict_out[0].save(save_path)
 
 
             
