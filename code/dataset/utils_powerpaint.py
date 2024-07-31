@@ -546,7 +546,7 @@ def get_square_image(image, target_bbox):
     return image, mask
 def generate_new_images(data, image_names):
     for img_name in image_names:
-        try:
+
             # Get the masked image with target and scene category
             img_name, target, scene_category, image_picture, image_picture_w_bbox, target_bbox, cropped_target_only_image, object_mask = get_coco_image_data(data,img_name)
             save_path_original = os.path.join(data_folder_path+'generated_images', f"{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_original.jpg")
@@ -611,9 +611,6 @@ def generate_new_images(data, image_names):
 
                 save_path = os.path.join(data_folder_path+'generated_images', f"{scene_category.replace('/', '_')}/{img_name.replace('.jpg', '')}_{scene_category.replace('/', '_')}_{target.replace('/', '_').replace(' ', '_')}_{object_for_replacement.replace('/', '_').replace(' ', '_')}.jpg")
                 dict_out[0].save(save_path)
-        except Exception as e:
-            print(e)
-            pass
 
 
             
